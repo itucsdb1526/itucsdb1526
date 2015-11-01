@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %} Nations {% endblock %}
+
+{% block content %}
+  <h3> Nations List </h3>
+  <table>
+  	<tr>
+  		<th>delete</th>
+  		<th>ID</th>
+  		<th>Title</th>
+  	</tr>
+  	{% for key, nation in NationList %}
+  	<tr>
+  		<td><input type="checkbox" name="nations_to_delete" value="{{ key }}" /></td>
+  		<td>{{ nation.id }}</td>
+  		<td>{{ nation.title }}</td>
+  	</tr>
+  	{% endfor %}
+  </table>
+  <input type="submit" value="Delete" name="delete" /> </form>
+{% endblock %}
