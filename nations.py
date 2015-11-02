@@ -1,5 +1,4 @@
 import psycopg2 as dbapi2
-from nation import Nation
 
 class Nations:
     def __init__(self, cp):
