@@ -12,6 +12,7 @@ from flask import request
 
 from nation import Nation
 from nations import Nations
+from init import INIT
 app = Flask(__name__)
 
 
@@ -51,25 +52,9 @@ def nation_page():
 
 @app.route('/initdb')
 def init_db():
-    with dbapi2.connect(app.config['dsn']) as connection:
-        cursor = connection.cursor()
-
-        query = """DROP TABLE IF EXISTS nations"""
-        cursor.execute(query)
-        
-        query = """CREATE TABLE nations (
-                    id SERIAL PRIMARY KEY,
-                    title VARCHAR(40) UNIQUE NOT NULL
-                )"""
-        cursor.execute(query)
-
-        cursor.execute("INSERT INTO nations (title) VALUES ('Turkiye')")
-        cursor.execute("INSERT INTO nations (title) VALUES ('Germany')")
-        cursor.execute("INSERT INTO nations (title) VALUES ('United Kingdom')")
-        connection.commit()
+    initialize = INIT(app.config['dsn'])
+    initialize.All()
     return redirect(url_for('nation_page'))
-
-
 
 if __name__ == '__main__':
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
