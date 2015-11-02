@@ -67,8 +67,35 @@ class INIT:
            cursor.execute("INSERT INTO teams (title) VALUES ('Tofas')")
            connection.commit()
 
+
+
+
+
+    def drivers(self):
+        with dbapi2.connect(self.cp) as connection:
+            cursor = connection.cursor()
+            query = "DROP TABLE IF EXISTS Drivers"
+            cursor.execute(query)
+
+            query = """CREATE TABLE Drivers (
+                    id SERIAL PRIMARY KEY,
+                    name VARCHAR(40) UNIQUE NOT NULL
+                )"""
+            cursor.execute(query)
+
+            query = """INSERT INTO Drivers (name) VALUES ('Erik Aaby');
+                       INSERT INTO Drivers (name) VALUES ('Robert Woodside');
+                       INSERT INTO Drivers (name) VALUES ('Miguel Vazquez');
+                       INSERT INTO Drivers (name) VALUES ('Wilhelm Stengg');
+                    """
+            cursor.execute(query)
+            connection.commit()
+
+
+
     def All(self):
         self.nations()
         self.tracks()
         self.teams()
+        self.drivers()
 

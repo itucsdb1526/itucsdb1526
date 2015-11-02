@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block title %} Drivers {% endblock %}
+
+{% block content %}
+  <h3> Drivers List </h3>
+  <form action="{{ url_for('driver_page') }}" method="post">
+    <table>
+    	<tr>
+    		<th>Delete</th>
+    		<th>Driver ID</th>
+    		<th>Driver Name</th>
+    	</tr>
+
+    	{% for id, name in DriverList %}
+    	<tr>
+    		<td><input type="checkbox" name="drivers_to_delete" value="{{ id }}" /></td>
+    		<td>{{ id }}</td>
+    		<td>{{ name }}</td>
+    	</tr>
+    	{% endfor %}
+
+    </table>
+    <input type="submit" value="Delete Checked Values" name="delete" /> 
+  </form>
+  </br>
+  <form action="{{ url_for('driver_page') }}" method="post">
+    <table>
+      <tr> 
+        <th>Name:</th>
+        <td><input type="text" name="name" required autofocus /> </td>
+      </tr> 
+    </table>
+    <input type="submit" value="Add Driver" name="drivers_to_add"/>
+  </form>
+  </br>
+  <form action="{{ url_for('driver_page') }}" method="post">
+    <table>
+      <tr> 
+        <th>Id:</th> 
+        <td><input type="text" name="id" required autofocus /> </td>
+      </tr> 
+      <tr> 
+        <th>New Name:</th>
+        <td><input type="text" name="name" required autofocus /> </td>
+      </tr> 
+    </table>
+    <input type="submit" value="Update Driver" name="drivers_to_update"/>
+  </form>  
+{% endblock %}

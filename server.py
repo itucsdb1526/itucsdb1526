@@ -10,6 +10,7 @@ from flask import render_template
 from flask.helpers import url_for
 from flask import request
 
+from drivers import Drivers
 from tracks import Tracks
 from nations import Nations
 from teams import Teams
@@ -88,6 +89,26 @@ def team_page():
     elif 'teams_to_update' in request.form:
         tems.update_team(request.form['id'], request.form['title'])
         return redirect(url_for('team_page'))
+
+
+@app.route('/Drivers', methods=['GET', 'POST'])
+def driver_page():
+    drivers = Drivers(app.config['dsn'])
+    if request.method == 'GET':
+        now = datetime.datetime.now()
+        driver_list = drivers.get_driverlist()
+        return render_template('drivers.html', DriverList = driver_list, current_time = now.ctime())
+    elif 'drivers_to_delete' in request.form:
+        ids = request.form.getlist('drivers_to_delete')
+        for id in ids:
+            drivers.delete_driver(id)
+        return redirect(url_for('driver_page'))
+    elif 'drivers_to_add' in request.form:
+        drivers.add_driver(request.form['name'])
+        return redirect(url_for('driver_page'))
+    elif 'drivers_to_update' in request.form:
+        drivers.update_driver(request.form['id'], request.form['name'])
+        return redirect(url_for('driver_page'))
 
 
 
