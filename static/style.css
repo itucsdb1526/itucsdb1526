@@ -10,6 +10,18 @@ footer{
   text-align: center;
 }
 
+#home{
+  float:left;
+  padding-right: 100px;
+}
+
+#home li{
+  padding-top: 11px;
+  float:left;
+  font-size: 14px;
+  font-weight: bold;
+}
+
 #datetime{
   font-size: 14px;
   padding: 8px;
@@ -18,28 +30,33 @@ footer{
   border-radius: 10px;
 }
 
+html{
+  margin-right: 15%;
+  margin-left:15%;
+  width: 70%
+}
+
 h1, h2, h3, h4 { 
   color: #E9601A;
 }
 
-
-
 nav {
+  height: 55px;
   text-align: center;
   background-color: #EAF0A5;
   border: 1px solid #BECC29;
   padding: 14px;
+  padding-bottom:55px;
 }
 
 nav li{
-  display: inline;
+  display: block;
+  margin-bottom: 10px;
 }
-
 nav li a{
   color: #557004;
   margin-right: 1em;
   font-size: 14px;
-  background-color: #D5DE76;
   border-radius: 5px;
   padding: 4px 6px 4px 6px;
   font-weight: bold;
@@ -49,7 +66,6 @@ nav li a{
 nav li a:hover {
   background-color: #5D6313;
   color: #FFF;
-  font-size: 16px;
 }
 
 #htext {
@@ -86,4 +102,33 @@ input {
   padding: 5px;
   background-color: #EAF0A5;
   font-weight: bold; 
+}
+
+#window {
+  float:left;
+  display:inline;
+  max-height: 15px;
+  overflow: hidden;
+  width: 150px;
+  padding: 11px;
+  margin:0px;
+  color: #FFFFFF;
+  -webkit-transition: max-height 0.2s ease;
+  -moz-transition: max-height 0.2s ease;
+  -o-transition: max-height 0.2s ease;
+  transition: max-height 0.2s ease;
+  font:12px Tahoma;
+}
+
+nav #window:hover {
+  max-height: 200px;
+  background-color: #D5DE76
+}
+
+nav #window span{
+  font-size: 14px;
+  font-weight:bold;
+  color: #557004; 
+  display:block; 
+  margin-bottom:14px;
 }

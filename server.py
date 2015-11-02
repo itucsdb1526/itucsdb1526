@@ -10,6 +10,7 @@ from flask import render_template
 from flask.helpers import url_for
 from flask import request
 
+from tires import Tires
 from tracks import Tracks
 from nations import Nations
 from init import INIT
@@ -69,11 +70,30 @@ def track_page():
         tras.update_track(request.form['id'], request.form['title'])
         return redirect(url_for('track_page'))
 
+@app.route('/Tires', methods=['GET', 'POST'])
+def tire_page():
+    tirs = Tires(app.config['dsn'])
+    if request.method == 'GET':
+        now = datetime.datetime.now()
+        tilist = tirs.get_tirelist()
+        return render_template('tires.html', TireList = tilist, current_time = now.ctime())
+    elif 'tires_to_delete' in request.form:
+        ids = request.form.getlist('tires_to_delete') 
+        for id in ids:
+            tirs.delete_tire(id)
+        return redirect(url_for('tire_page'))
+    elif 'tires_to_add' in request.form:
+        tirs.add_tire(request.form['title'])
+        return redirect(url_for('tire_page'))
+    elif 'tires_to_update' in request.form:
+        tirs.update_tire(request.form['id'], request.form['title'])
+        return redirect(url_for('tire_page'))
+
 @app.route('/initdb')
 def init_db():
     initialize = INIT(app.config['dsn'])
     initialize.All()
-    return redirect(url_for('nation_page'))
+    return redirect(url_for('home_page'))
 
 if __name__ == '__main__':
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')

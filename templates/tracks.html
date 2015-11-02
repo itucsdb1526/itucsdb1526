@@ -3,6 +3,7 @@
 {% block title %} Tracks {% endblock %}
 
 {% block content %}
+  <div id="personalPages">
   <h3> Tracks List </h3>
   <form action="{{ url_for('track_page') }}" method="post">
     <table>
@@ -46,5 +47,6 @@
       </tr> 
     </table>
     <input type="submit" value="Update Track" name="tracks_to_update"/>
-  </form>  
+  </form>
+  </div>
 {% endblock %}
