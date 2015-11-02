@@ -10,7 +10,7 @@ from flask import render_template
 from flask.helpers import url_for
 from flask import request
 
-from nation import Nation
+from tracks import Tracks
 from nations import Nations
 from init import INIT
 app = Flask(__name__)
@@ -50,6 +50,25 @@ def nation_page():
         nats.update_nation(request.form['id'], request.form['title'])
         return redirect(url_for('nation_page'))
 
+@app.route('/Tracks', methods=['GET', 'POST'])
+def track_page():
+    tras = Tracks(app.config['dsn'])
+    if request.method == 'GET':
+        now = datetime.datetime.now()
+        tlist = tras.get_tracklist()
+        return render_template('tracks.html', TrackList = tlist, current_time = now.ctime())
+    elif 'tracks_to_delete' in request.form:
+        ids = request.form.getlist('tracks_to_delete') 
+        for id in ids:
+            tras.delete_track(id)
+        return redirect(url_for('track_page'))
+    elif 'tracks_to_add' in request.form:
+        tras.add_track(request.form['title'])
+        return redirect(url_for('track_page'))
+    elif 'tracks_to_update' in request.form:
+        tras.update_track(request.form['id'], request.form['title'])
+        return redirect(url_for('track_page'))
+
 @app.route('/initdb')
 def init_db():
     initialize = INIT(app.config['dsn'])
@@ -69,4 +88,3 @@ if __name__ == '__main__':
     else:
         app.config['dsn'] = """user='postgres' host='localhost' port=5432 dbname='mydb'"""
     app.run(host='0.0.0.0', port=port, debug=debug)
-    

@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block title %} Tracks {% endblock %}
+
+{% block content %}
+  <h3> Tracks List </h3>
+  <form action="{{ url_for('track_page') }}" method="post">
+    <table>
+    	<tr>
+    		<th>Delete</th>
+    		<th>Track ID</th>
+    		<th>Track Name</th>
+    	</tr>
+
+    	{% for id, title in TrackList %}
+    	<tr>
+    		<td><input type="checkbox" name="tracks_to_delete" value="{{ id }}" /></td>
+    		<td>{{ id }}</td>
+    		<td>{{ title }}</td>
+    	</tr>
+    	{% endfor %}
+
+    </table>
+    <input type="submit" value="Delete Checked Values" name="delete" /> 
+  </form>
+  </br>
+  <form action="{{ url_for('track_page') }}" method="post"> 
+    <table>
+      <tr> 
+        <th>Title:</th> 
+        <td><input type="text" name="title" required autofocus /> </td>
+      </tr> 
+    </table>
+    <input type="submit" value="Add Track" name="tracks_to_add"/>
+  </form>
+  </br>
+  <form action="{{ url_for('track_page') }}" method="post"> 
+    <table>
+      <tr> 
+        <th>Id:</th> 
+        <td><input type="text" name="id" required autofocus /> </td>
+      </tr> 
+      <tr> 
+        <th>New Title:</th> 
+        <td><input type="text" name="title" required autofocus /> </td>
+      </tr> 
+    </table>
+    <input type="submit" value="Update Track" name="tracks_to_update"/>
+  </form>  
+{% endblock %}
