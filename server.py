@@ -11,7 +11,7 @@ from flask.helpers import url_for
 from flask import request
 
 from nation import Nation
-
+from nations import Nations
 app = Flask(__name__)
 
 
@@ -32,17 +32,21 @@ def home_page():
 
 @app.route('/Nations', methods=['GET', 'POST'])
 def nation_page():
+    nats = Nations(app.config['dsn'])
     if request.method == 'GET':
         now = datetime.datetime.now()
-        tr = Nation(id = 2, title = 'Turkiye')
-        ct = Nation(3, 'Country')
-        ct2 = Nation(7, 'Country2')
-        nlist = [(1, tr), (2, ct), (3, ct2)]
-        return render_template('nation.html', NationList = nlist, current_time = now.ctime())
+        nlist = nats.get_nationlist()
+        return render_template('nations.html', NationList = nlist, current_time = now.ctime())
     elif 'nations_to_delete' in request.form:
-        keys = request.form.getlist('nations_to_delete') 
-        #for key in keys:
-            #app.store.delete_nation(int(key)) 
+        ids = request.form.getlist('nations_to_delete') 
+        for id in ids:
+            nats.delete_nation(id)
+        return redirect(url_for('nation_page'))
+    elif 'nations_to_add' in request.form:
+        nats.add_nation(request.form['title'])
+        return redirect(url_for('nation_page'))
+    elif 'nations_to_update' in request.form:
+        nats.update_nation(request.form['id'], request.form['title'])
         return redirect(url_for('nation_page'))
 
 @app.route('/initdb')
@@ -50,21 +54,20 @@ def init_db():
     with dbapi2.connect(app.config['dsn']) as connection:
         cursor = connection.cursor()
 
-        query = """SELECT * FROM information_schema.tables WHERE table_name = 'tablo1'"""
+        query = """DROP TABLE IF EXISTS nations"""
+        cursor.execute(query)
+        
+        query = """CREATE TABLE nations (
+                    id SERIAL PRIMARY KEY,
+                    title VARCHAR(40) UNIQUE NOT NULL
+                )"""
         cursor.execute(query)
 
-        if(cursor.rowcount == 1):
-            query = """DROP TABLE IF EXISTS tablo1"""
-            cursor.execute(query)
-        else:
-            query = """CREATE TABLE tablo1 (
-                      ID SERIAL PRIMARY KEY,
-                      NAME VARCHAR(40) UNIQUE NOT NULL
-              )"""
-            cursor.execute(query)
-
+        cursor.execute("INSERT INTO nations (title) VALUES ('Turkiye')")
+        cursor.execute("INSERT INTO nations (title) VALUES ('Germany')")
+        cursor.execute("INSERT INTO nations (title) VALUES ('United Kingdom')")
         connection.commit()
-    return redirect(url_for('home_page'))
+    return redirect(url_for('nation_page'))
 
 
 
@@ -81,4 +84,4 @@ if __name__ == '__main__':
     else:
         app.config['dsn'] = """user='postgres' host='localhost' port=5432 dbname='mydb'"""
     app.run(host='0.0.0.0', port=port, debug=debug)
-
+    

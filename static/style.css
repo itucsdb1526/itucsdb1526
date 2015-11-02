@@ -81,3 +81,9 @@ th{
   color: #FFF;
 }
 
+input {
+  margin-bottom: 10px;
+  padding: 5px;
+  background-color: #EAF0A5;
+  font-weight: bold; 
+}
