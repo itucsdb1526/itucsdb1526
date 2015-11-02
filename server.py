@@ -12,6 +12,7 @@ from flask import request
 
 from tracks import Tracks
 from nations import Nations
+from teams import Teams
 from init import INIT
 app = Flask(__name__)
 
@@ -68,6 +69,27 @@ def track_page():
     elif 'tracks_to_update' in request.form:
         tras.update_track(request.form['id'], request.form['title'])
         return redirect(url_for('track_page'))
+
+@app.route('/Teams', methods=['GET', 'POST'])
+def team_page():
+    tems = Teams(app.config['dsn'])
+    if request.method == 'GET':
+        now = datetime.datetime.now()
+        temlist = tems.get_teamlist()
+        return render_template('teams.html', TeamList = temlist, current_time = now.ctime())
+    elif 'teams_to_delete' in request.form:
+        ids = request.form.getlist('teams_to_delete') 
+        for id in ids:
+            tems.delete_team(id)
+        return redirect(url_for('team_page'))
+    elif 'teams_to_add' in request.form:
+        tems.add_team(request.form['title'])
+        return redirect(url_for('team_page'))
+    elif 'teams_to_update' in request.form:
+        tems.update_team(request.form['id'], request.form['title'])
+        return redirect(url_for('team_page'))
+
+
 
 @app.route('/initdb')
 def init_db():
