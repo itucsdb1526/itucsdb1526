@@ -47,27 +47,6 @@ class INIT:
             cursor.execute(query)
             connection.commit()
 
-    def tires(self):
-        with dbapi2.connect(self.cp) as connection:
-            cursor = connection.cursor()
-            query = "DROP TABLE IF EXISTS tires"
-            cursor.execute(query)
-        
-            query = """CREATE TABLE tires (
-                    id SERIAL PRIMARY KEY,
-                    title VARCHAR(40) UNIQUE NOT NULL
-                )"""
-            cursor.execute(query)
-
-            query = """INSERT INTO tires (title) VALUES ('Goodyear');
-                       INSERT INTO tires (title) VALUES ('Pirelli');
-                       INSERT INTO tires (title) VALUES ('BFGoodrich');
-                       INSERT INTO tires (title) VALUES ('Michelin');
-                       INSERT INTO tires (title) VALUES ('Yokohama');
-                       INSERT INTO tires (title) VALUES ('Toyo');
-                    """
-            cursor.execute(query)
-            connection.commit()
     def teams(self):
        with dbapi2.connect(self.cp) as connection:
            cursor = connection.cursor()
@@ -119,5 +98,4 @@ class INIT:
         self.tracks()
         self.teams()
         self.drivers()
-        self.tires()
 
