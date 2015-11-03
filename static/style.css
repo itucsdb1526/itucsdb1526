@@ -12,11 +12,14 @@ footer{
 
 #home{
   float:left;
-  padding-right: 100px;
 }
 
-#home li{
-  padding-top: 11px;
+#initdb{
+  float: right;
+}
+
+#home li, #initdb li{
+  padding-top: 8px;
   float:left;
   font-size: 14px;
   font-weight: bold;
@@ -109,8 +112,8 @@ input {
   display:inline;
   max-height: 15px;
   overflow: hidden;
-  width: 150px;
-  padding: 11px;
+  width: 140px;
+  padding: 8px;
   margin:0px;
   color: #FFFFFF;
   -webkit-transition: max-height 0.2s ease;

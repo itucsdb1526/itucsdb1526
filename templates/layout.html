@@ -13,8 +13,7 @@
 
       <nav>
         <div id="home">
-        <li><a href="{{ url_for('home_page') }}">Home</a></li>
-        <li><a href="{{ url_for('init_db') }}">Init Database</a></li>
+          <li><a href="{{ url_for('home_page') }}">Home</a></li>
         </div>
         <div id = "window">
           <span>Alper Akyıldız</span>
@@ -22,20 +21,25 @@
             <li><a href="{{ url_for('track_page') }}">Tracks</a></li>
             <li><a href="{{ url_for('tire_page') }}">Tires</a></li>
           </ul>
-          </div>
-          <div id = "window">
+        </div>
+        <div id = "window">
           <span>Bilal Enes Fedar</span>
+          <ul>
             <li><a href="{{ url_for('nation_page') }}">Nations</a></li>
-          </div>
-          <div id = "window">
+            <li><a href="{{ url_for('year_page') }}">Years</a></li>
+          </ul>
+        </div>
+        <div id = "window">
           <span>Mustafa Gökçeoğlu</span>
             <li><a href="{{ url_for('team_page') }}">Teams</a></li>
-          </div>
-          <div id = "window">
+        </div>
+        <div id = "window">
           <span>Hanifi Demirel</span>
             <li><a href="{{ url_for('driver_page') }}">Drivers</a></li>
-          </div>
-
+        </div>
+        <div id="initdb">
+          <li><a href="{{ url_for('init_db') }}">Init Database</a></li>
+        </div>
       </nav>
     </header>
 
