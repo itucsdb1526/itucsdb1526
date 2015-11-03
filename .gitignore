@@ -65,3 +65,7 @@ target/
 
 # Eclipse
 .settings/
+
+.idea/
+itucsdb1526-master/
+octocat.txt
