@@ -22,12 +22,19 @@ class Years:
             return
 
     def add_year(self, title):
-        with dbapi2.connect(self.cp) as connection:
-            cursor = connection.cursor()
-            query = "INSERT INTO Years (title) VALUES ('%s')" % (title)
-            cursor.execute(query)
-            connection.commit()
-            return
+        isTitleInt = False
+        try:
+            int(title)
+            isTitleInt = True
+        except:
+            pass
+        if(isTitleInt and int(title) >= 1952 and int(title) <= 2999):
+            with dbapi2.connect(self.cp) as connection:
+                cursor = connection.cursor()
+                query = "INSERT INTO Years (title) VALUES ('%s')" % (title)
+                cursor.execute(query)
+                connection.commit()
+                return
             
     def update_year(self, id, title):
         with dbapi2.connect(self.cp) as connection:

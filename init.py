@@ -44,9 +44,9 @@ class INIT:
             cursor.execute(query)
 
             query = "INSERT INTO years (title) VALUES "
-            for year in range(1952,2016):
+            for year in range(1952,2017):
                 if(year != 2016):
-                    query += "('%s')," % str(year)
+                    query += "('%s'), " % str(year)
                 else:
                     query += "('%s');" % str(year)
 
