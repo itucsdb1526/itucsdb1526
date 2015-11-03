@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block title %} Years {% endblock %}
+
+{% block content %}
+  <h3> Years List </h3>
+  <form action="{{ url_for('year_page') }}" method="post">
+    <table>
+    	<tr>
+    		<th>Del</th>
+    		<th>Year ID</th>
+    		<th>Year</th>
+    	</tr>
+
+    	{% for id, title in YearList %}
+    	<tr>
+    		<td><input type="checkbox" name="years_to_delete" value="{{ id }}" /></td>
+    		<td>{{ id }}</td>
+    		<td>{{ title }}</td>
+    	</tr>
+    	{% endfor %}
+
+    </table>
+    <input type="submit" value="Delete Checked Values" name="delete" /> 
+  </form>
+  </br>
+  <form action="{{ url_for('year_page') }}" method="post"> 
+    <table>
+      <tr> 
+        <th>Title:</th> 
+        <td><input type="text" name="title" required autofocus /> </td>
+      </tr> 
+    </table>
+    <input type="submit" value="Add Year" name="years_to_add"/>
+  </form>
+  </br>
+  <form action="{{ url_for('year_page') }}" method="post"> 
+    <table>
+      <tr> 
+        <th>Id:</th> 
+        <td><input type="text" name="id" required autofocus /> </td>
+      </tr> 
+      <tr> 
+        <th>New Title:</th> 
+        <td><input type="text" name="title" required autofocus /> </td>
+      </tr> 
+    </table>
+    <input type="submit" value="Update Year" name="years_to_update"/>
+  </form>  
+{% endblock %}

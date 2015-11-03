@@ -16,9 +16,41 @@ class INIT:
                 )"""
             cursor.execute(query)
 
-            cursor.execute("INSERT INTO nations (title) VALUES ('Turkiye')")
-            cursor.execute("INSERT INTO nations (title) VALUES ('Germany')")
-            cursor.execute("INSERT INTO nations (title) VALUES ('United Kingdom')")
+            cursor.execute("""INSERT INTO nations (title) VALUES ('Turkiye'), 
+              ('Germany'),
+              ('United Kingdom'),
+              ('Czech Republic'),
+              ('Argentina'),
+              ('Belgium'),
+              ('Jamaica'),
+              ('Australia'),
+              ('Canada'),
+              ('Austria'),
+              ('Barbados'),
+              ('Bulgaria');
+            """)
+            connection.commit()
+
+    def years(self):
+        with dbapi2.connect(self.cp) as connection:
+            cursor = connection.cursor()
+            query = "DROP TABLE IF EXISTS years"
+            cursor.execute(query)
+        
+            query = """CREATE TABLE years (
+                    id SERIAL PRIMARY KEY,
+                    title VARCHAR(40) UNIQUE NOT NULL
+                )"""
+            cursor.execute(query)
+
+            query = "INSERT INTO years (title) VALUES "
+            for year in range(1952,2016):
+                if(year != 2016):
+                    query += "('%s')," % str(year)
+                else:
+                    query += "('%s');" % str(year)
+
+            cursor.execute(query)
             connection.commit()
 
     def tracks(self):
@@ -116,6 +148,7 @@ class INIT:
 
     def All(self):
         self.nations()
+        self.years()
         self.tracks()
         self.teams()
         self.drivers()

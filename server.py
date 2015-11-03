@@ -14,6 +14,7 @@ from tires import Tires
 from drivers import Drivers
 from tracks import Tracks
 from nations import Nations
+from years import Years
 from teams import Teams
 from init import INIT
 app = Flask(__name__)
@@ -52,6 +53,23 @@ def nation_page():
     elif 'nations_to_update' in request.form:
         nats.update_nation(request.form['id'], request.form['title'])
         return redirect(url_for('nation_page'))
+
+@app.route('/Years', methods=['GET', 'POST'])
+def year_page():
+    yrs = Years(app.config['dsn'])
+    if request.method == 'GET':
+        now = datetime.datetime.now()
+        yrlist = yrs.get_yearlist()
+        return render_template('years.html', YearList = yrlist, current_time = now.ctime())
+    elif 'years_to_delete' in request.form:
+        ids = request.form.getlist('years_to_delete') 
+        for id in ids:
+            yrs.delete_year(id)
+    elif 'years_to_add' in request.form:
+        yrs.add_year(request.form['title'])
+    elif 'years_to_update' in request.form:
+        yrs.update_year(request.form['id'], request.form['title'])
+    return redirect(url_for('year_page'))
 
 @app.route('/Tracks', methods=['GET', 'POST'])
 def track_page():
