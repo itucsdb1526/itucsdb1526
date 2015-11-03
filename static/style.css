@@ -10,12 +10,8 @@ footer{
   text-align: center;
 }
 
-#home{
-  float:left;
-}
-
 #initdb{
-  float: right;
+  float:right;
 }
 
 #home li, #initdb li{
@@ -50,6 +46,12 @@ nav {
   border: 1px solid #BECC29;
   padding: 14px;
   padding-bottom:55px;
+}
+
+nav div{
+  display: inline-block;
+  width: 14%;
+  float:left;
 }
 
 nav li{
@@ -108,11 +110,9 @@ input {
 }
 
 #window {
-  float:left;
-  display:inline;
+  width: 16%;
   max-height: 15px;
   overflow: hidden;
-  width: 140px;
   padding: 8px;
   margin:0px;
   color: #FFFFFF;
