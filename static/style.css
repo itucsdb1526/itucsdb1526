@@ -12,10 +12,12 @@ footer{
 
 #home{
   float:left;
+  margin-right: 150px;
 }
 
 #initdb{
   float: right;
+  margin-left:150px;
 }
 
 #home li, #initdb li{
