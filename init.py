@@ -65,16 +65,16 @@ class INIT:
                 )"""
             cursor.execute(query)
 
-            query = """INSERT INTO tracks (title) VALUES ('Rally Jamaica');
-                       INSERT INTO tracks (title) VALUES ('Intercity Istanbul Park');
-                       INSERT INTO tracks (title) VALUES ('Cochrane Winter Rally');
-                       INSERT INTO tracks (title) VALUES ('Rally Tasmania');
-                       INSERT INTO tracks (title) VALUES ('Rally Argentina');
-                       INSERT INTO tracks (title) VALUES ('Schneebergland Rallye');
-                       INSERT INTO tracks (title) VALUES ('Bushy Park Circuit');
-                       INSERT INTO tracks (title) VALUES ('Rally Van Haspengouw');
-                       INSERT INTO tracks (title) VALUES ('Rally Hebros');
-                       INSERT INTO tracks (title) VALUES ('Pražský Rallysprint');
+            query = """INSERT INTO tracks (title) VALUES ('Rally Jamaica'),
+                       ('Intercity Istanbul Park'),
+                       ('Cochrane Winter Rally'),
+                       ('Rally Tasmania'),
+                       ('Rally Argentina'),
+                       ('Schneebergland Rallye'),
+                       ('Bushy Park Circuit'),
+                       ('Rally Van Haspengouw'),
+                       ('Rally Hebros'),
+                       ('Pražský Rallysprint');
                     """
             cursor.execute(query)
             connection.commit()
@@ -91,12 +91,12 @@ class INIT:
                 )"""
             cursor.execute(query)
 
-            query = """INSERT INTO tires (title) VALUES ('Goodyear');
-                       INSERT INTO tires (title) VALUES ('Pirelli');
-                       INSERT INTO tires (title) VALUES ('BFGoodrich');
-                       INSERT INTO tires (title) VALUES ('Michelin');
-                       INSERT INTO tires (title) VALUES ('Yokohama');
-                       INSERT INTO tires (title) VALUES ('Toyo');
+            query = """INSERT INTO tires (title) VALUES ('Goodyear'),
+                       ('Pirelli'),
+                       ('BFGoodrich'),
+                       ('Michelin'),
+                       ('Yokohama'),
+                       ('Toyo');
                     """
             cursor.execute(query)
             connection.commit()
@@ -136,10 +136,10 @@ class INIT:
                 )"""
             cursor.execute(query)
 
-            query = """INSERT INTO Drivers (name) VALUES ('Erik Aaby');
-                       INSERT INTO Drivers (name) VALUES ('Robert Woodside');
-                       INSERT INTO Drivers (name) VALUES ('Miguel Vazquez');
-                       INSERT INTO Drivers (name) VALUES ('Wilhelm Stengg');
+            query = """INSERT INTO Drivers (name) VALUES ('Erik Aaby'),
+                       ('Robert Woodside'),
+                       ('Miguel Vazquez'),
+                       ('Wilhelm Stengg');
                     """
             cursor.execute(query)
             connection.commit()
