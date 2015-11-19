@@ -97,21 +97,23 @@ table, th, td {
     text-align: center;
 }
 
-th, td{
-  padding: 6px;
+td{
+  padding: 2px 12px 2px 12px;
 }
 
 th{
+  padding: 5px;
   background-color: #5D6313;
   font-weight: bold;
   color: #FFF;
 }
 
 input {
-  margin-bottom: 10px;
+  margin: 1px 3px 1px 3px;
   padding: 5px;
   background-color: #EAF0A5;
-  font-weight: bold; 
+  font-weight: bold;
+  max-width: 120px;
 }
 
 #window {
@@ -139,4 +141,28 @@ nav #window span{
   color: #557004; 
   display:block; 
   margin-bottom:14px;
+}
+
+
+
+
+
+.dbops{
+  vertical-align: top;
+  width: auto;
+  display: inline-block;
+  margin-left: 10px;
+}
+
+/*For Add, Update, Delete Forms*/
+#fDelete > input{
+  background-color: #EF6565;
+}
+
+#fUpdate > input, #fUpdate > table > tbody > tr > td > input {
+  background-color: #F9F340;
+}
+
+#fAdd > input, #fAdd > table > tbody > tr > td > input {
+  background-color: #A3A6FF;
 }
