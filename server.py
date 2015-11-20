@@ -16,6 +16,7 @@ from tracks import Tracks
 from nations import Nations
 from years import Years
 from teams import Teams
+from Engines import Engines
 from init import INIT
 app = Flask(__name__)
 
@@ -127,6 +128,25 @@ def team_page():
     elif 'teams_to_update' in request.form:
         tems.update_team(request.form['id'], request.form['title'])
         return redirect(url_for('team_page'))
+
+@app.route('/Engines', methods=['GET', 'POST'])
+def engine_page():
+    engs = Engines(app.config['dsn'])
+    if request.method == 'GET':
+        now = datetime.datetime.now()
+        englist = engs.get_enginelist()
+        return render_template('Engines.html', EngineList = englist, current_time = now.ctime())
+    elif 'engines_to_delete' in request.form:
+        ids = request.form.getlist('engines_to_delete') 
+        for id in ids:
+            engs.delete_engine(id)
+        return redirect(url_for('engine_page'))
+    elif 'engines_to_add' in request.form:
+        engs.add_engine(request.form['title'])
+        return redirect(url_for('engine_page'))
+    elif 'engines_to_update' in request.form:
+        engs.update_engine(request.form['id'], request.form['title'])
+        return redirect(url_for('engine_page'))
 
 
 @app.route('/Drivers', methods=['GET', 'POST'])

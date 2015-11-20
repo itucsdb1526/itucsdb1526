@@ -100,6 +100,7 @@ class INIT:
                     """
             cursor.execute(query)
             connection.commit()
+            
     def teams(self):
        with dbapi2.connect(self.cp) as connection:
            cursor = connection.cursor()
@@ -118,6 +119,35 @@ class INIT:
            cursor.execute("INSERT INTO teams (title) VALUES ('F.W.R.T.')")
            cursor.execute("INSERT INTO teams (title) VALUES ('Subaru')")
            cursor.execute("INSERT INTO teams (title) VALUES ('Tofas')")
+           cursor.execute("INSERT INTO teams (title) VALUES ('Mercedes')")
+           cursor.execute("INSERT INTO teams (title) VALUES ('Ferrari')")
+           cursor.execute("INSERT INTO teams (title) VALUES ('Mclaren')")
+           cursor.execute("INSERT INTO teams (title) VALUES ('Anadol')")
+           connection.commit()
+           
+           
+    def engines(self):
+       with dbapi2.connect(self.cp) as connection:
+           cursor = connection.cursor()
+           query = "DROP TABLE IF EXISTS engines"
+           cursor.execute(query)
+       
+           query = """CREATE TABLE engines (
+                   id SERIAL PRIMARY KEY,
+                   title VARCHAR(40) UNIQUE NOT NULL
+               )"""
+           cursor.execute(query)
+
+           cursor.execute("INSERT INTO engines (title) VALUES ('Motor1')")
+           cursor.execute("INSERT INTO engines (title) VALUES ('Motor2')")
+           cursor.execute("INSERT INTO engines (title) VALUES ('Motor3')")
+           cursor.execute("INSERT INTO engines (title) VALUES ('Motor4')")
+           cursor.execute("INSERT INTO engines (title) VALUES ('Motor5')")
+           cursor.execute("INSERT INTO engines (title) VALUES ('Motor6')")
+           cursor.execute("INSERT INTO engines (title) VALUES ('Motor7')")
+           cursor.execute("INSERT INTO engines (title) VALUES ('Motor8')")
+           cursor.execute("INSERT INTO engines (title) VALUES ('Motor9')")
+           cursor.execute("INSERT INTO engines (title) VALUES ('Motor10')")
            connection.commit()
 
 
@@ -151,6 +181,7 @@ class INIT:
         self.years()
         self.tracks()
         self.teams()
+        self.engines()
         self.drivers()
         self.tires()
 
