@@ -15,6 +15,7 @@ from drivers import Drivers
 from tracks import Tracks
 from nations import Nations
 from years import Years
+from raceinfos import Raceinfos
 from teams import Teams
 from init import INIT
 app = Flask(__name__)
@@ -70,6 +71,15 @@ def year_page():
     elif 'years_to_update' in request.form:
         yrs.update_year(request.form['id'], request.form['title'])
     return redirect(url_for('year_page'))
+
+@app.route('/Raceinfos', methods=['GET', 'POST'])
+def raceinfo_page():
+    racs = Raceinfos(app.config['dsn'])
+    if request.method == 'GET':
+        now = datetime.datetime.now()
+        racinflist = racs.get_raceinfolist()
+        return render_template('raceinfos.html', RaceList = racinflist, current_time = now.ctime())
+
 
 @app.route('/Tracks', methods=['GET', 'POST'])
 def track_page():

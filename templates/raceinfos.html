@@ -1,0 +1,94 @@
+{% extends "layout.html" %}
+
+{% block title %} Nations {% endblock %}
+
+{% block content %}
+  <div class="dbops">
+    <form id="fAdd" action="{{ url_for('raceinfo_page') }}" method="post"> 
+      <table>
+        <tr> 
+          <th>Track</th>
+          <th>Year</th>
+          <th>First</th>
+          <th>Second</th>
+          <th>Third</th>
+          <th>Nation</th>
+          <th>Fastest Driver</th>
+          <th>Fastest Lap Time</th>
+        </tr> 
+        <tr>
+          <td><input type="text" name="Track" required autofocus /> </td>
+          <td><input type="text" name="Year" required autofocus /> </td>
+          <td><input type="text" name="First" required autofocus /> </td>
+          <td><input type="text" name="Second" required autofocus /> </td>
+          <td><input type="text" name="Third" required autofocus /> </td>
+          <td><input type="text" name="Nation" required autofocus /> </td>
+          <td><input type="text" name="FastestDr" required autofocus /> </td>
+          <td><input type="text" name="FastestLap" required autofocus /> </td>
+        </tr>
+      </table>
+      <input type="submit" value="Add" name="raceinfos_to_add"/>
+    </form>
+  </div>
+
+  <div class="dbops">
+    <form id="fUpdate" action="{{ url_for('raceinfo_page') }}" method="post"> 
+      <table>
+        <tr> 
+          <th>Track</th>
+          <th>Year</th>
+          <th>First</th>
+          <th>Second</th>
+          <th>Third</th>
+          <th>Nation</th>
+          <th>Fastest Driver</th>
+          <th>Fastest Lap Time</th>
+        </tr> 
+        <tr> 
+          <td><input type="text" name="Track" required autofocus /> </td>
+          <td><input type="text" name="Year" required autofocus /> </td>
+          <td><input type="text" name="First" required autofocus /> </td>
+          <td><input type="text" name="Second" required autofocus /> </td>
+          <td><input type="text" name="Third" required autofocus /> </td>
+          <td><input type="text" name="Nation" required autofocus /> </td>
+          <td><input type="text" name="FastestDr" required autofocus /> </td>
+          <td><input type="text" name="FastestLap" required autofocus /> </td>
+        </tr> 
+      </table>
+      <input type="submit" value="Update" name="raceinfos_to_update"/>
+    </form>  
+  </div>
+
+  <h3> Race Informations </h3>
+  <form action="{{ url_for('raceinfo_page') }}" method="post">
+    <table>
+    	<tr>
+    		<th>Del</th>
+        <th>Track</th>
+        <th>Year</th>
+        <th>First</th>
+        <th>Second</th>
+        <th>Third</th>
+        <th>Nation</th>
+        <th>Fastest Driver</th>
+        <th>Fastest Lap Time</th>
+    	</tr>
+
+    	{% for Track, Year, First, Second, Third, Nation, FastestDr, FastestLap in RaceList %}
+    	<tr>
+    		<td><input type="checkbox" name="raceinfos_to_delete" value="{{ Track }},{{ Year}}" /></td>
+        <td>{{Track}}</td>
+        <td>{{Year}}</td>
+        <td>{{First}}</td>
+        <td>{{Second}}</td>
+        <td>{{Third}}</td>
+        <td>{{Nation}}</td>
+        <td>{{FastestDr}}</td>
+        <td>{{FastestLap}}</td>
+    	</tr>
+    	{% endfor %}
+
+    </table>
+    <input id="fDelete" type="submit" value="Delete Checked Values" name="delete" /> 
+  </form>
+{% endblock %}
