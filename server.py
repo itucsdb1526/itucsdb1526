@@ -85,6 +85,12 @@ def raceinfo_page():
         for raceinfo in raceinfos:
             racs.delete_raceinfo(raceinfo)
         return redirect(url_for('raceinfo_page'))
+    elif 'raceinfos_to_add' in request.form:
+        racs.add_raceinfo(request.form)
+        return redirect(url_for('raceinfo_page'))
+    elif 'raceinfos_to_update' in request.form:
+        racs.update_raceinfo(request.form)
+        return redirect(url_for('raceinfo_page'))
 
 @app.route('/Tracks', methods=['GET', 'POST'])
 def track_page():

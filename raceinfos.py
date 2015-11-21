@@ -27,7 +27,6 @@ class Raceinfos:
 
     def delete_raceinfo(self, n_raceinfo):
         raceinfo = n_raceinfo.split(":")
-        print(raceinfo[0], raceinfo[1])
         with dbapi2.connect(self.cp) as connection:
             cursor = connection.cursor()
             query = "SELECT * FROM tracks WHERE title = '%s'" % (raceinfo[0])
@@ -37,24 +36,40 @@ class Raceinfos:
             query = "SELECT * FROM years WHERE title = '%s'" % (raceinfo[1])
             cursor.execute(query)
             year_id = cursor.fetchone()[0]
-            
+
             query = "DELETE FROM raceinfos WHERE (track_id = '%s' AND year_id = '%s')" % (str(track_id), str(year_id))
             cursor.execute(query)
             connection.commit()
             return
 
-    def add_raceinfo(self, title):
+    def add_raceinfo(self, form):
+        track_id = form['TrackID']
+        year_id = form['YearID']
+        dr1_id = form['FirstID']
+        dr2_id = form['SecondID']
+        dr3_id = form['ThirdID']
+        nation_id = form['NationID']
+        fastestdr_id = form['FastestDrID']
+        fastest_time = form['FastestLap']
         with dbapi2.connect(self.cp) as connection:
             cursor = connection.cursor()
-            query = "INSERT INTO raceinfos (title) VALUES ('%s')" % (title)
+            query = "INSERT INTO raceinfos  VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s' ,'%s')" % (track_id, year_id, dr1_id, dr2_id, dr3_id, nation_id, fastestdr_id, fastest_time)
             cursor.execute(query)
             connection.commit()
             return
             
-    def update_raceinfo(self, id, title):
+    def update_raceinfo(self, form):
+        track_id = form['TrackID']
+        year_id = form['YearID']
+        dr1_id = form['FirstID']
+        dr2_id = form['SecondID']
+        dr3_id = form['ThirdID']
+        nation_id = form['NationID']
+        fastestdr_id = form['FastestDrID']
+        fastest_time = form['FastestLap']
         with dbapi2.connect(self.cp) as connection:
             cursor = connection.cursor()
-            query = "UPDATE raceinfo SET title = '%s' WHERE id = '%s'" % (title, id)
+            query = "UPDATE raceinfos SET dr1_id = '{0}', dr2_id = '{1}', dr3_id = '{2}', nation_id = '{3}', fastestdr_id = '{4}', fastest_time = '{5}' WHERE track_id = '{6}' AND year_id = '{7}'".format(dr1_id, dr2_id, dr3_id, nation_id, fastestdr_id, fastest_time, track_id, year_id)
             cursor.execute(query)
             connection.commit()
             return

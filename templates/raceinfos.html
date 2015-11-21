@@ -3,27 +3,33 @@
 {% block title %} Nations {% endblock %}
 
 {% block content %}
+<select>
+  <option value="volvo">Volvo</option>
+  <option value="saab">Saab</option>
+  <option value="mercedes">Mercedes</option>
+  <option value="audi">Audi</option>
+</select>
   <div class="dbops">
     <form id="fAdd" action="{{ url_for('raceinfo_page') }}" method="post"> 
       <table>
         <tr> 
-          <th>Track</th>
-          <th>Year</th>
-          <th>First</th>
-          <th>Second</th>
-          <th>Third</th>
-          <th>Nation</th>
-          <th>Fastest Driver</th>
+          <th><u>Track#</u></th>
+          <th><u>Year#</u></th>
+          <th>First#</th>
+          <th>Second#</th>
+          <th>Third#</th>
+          <th>Nation#</th>
+          <th>Fastest Driver#</th>
           <th>Fastest Lap Time</th>
         </tr> 
         <tr>
-          <td><input type="text" name="Track" required autofocus /> </td>
-          <td><input type="text" name="Year" required autofocus /> </td>
-          <td><input type="text" name="First" required autofocus /> </td>
-          <td><input type="text" name="Second" required autofocus /> </td>
-          <td><input type="text" name="Third" required autofocus /> </td>
-          <td><input type="text" name="Nation" required autofocus /> </td>
-          <td><input type="text" name="FastestDr" required autofocus /> </td>
+          <td><input type="text" name="TrackID" required autofocus /> </td>
+          <td><input type="text" name="YearID" required autofocus /> </td>
+          <td><input type="text" name="FirstID" required autofocus /> </td>
+          <td><input type="text" name="SecondID" required autofocus /> </td>
+          <td><input type="text" name="ThirdID" required autofocus /> </td>
+          <td><input type="text" name="NationID" required autofocus /> </td>
+          <td><input type="text" name="FastestDrID" required autofocus /> </td>
           <td><input type="text" name="FastestLap" required autofocus /> </td>
         </tr>
       </table>
@@ -35,23 +41,23 @@
     <form id="fUpdate" action="{{ url_for('raceinfo_page') }}" method="post"> 
       <table>
         <tr> 
-          <th>Track</th>
-          <th>Year</th>
-          <th>First</th>
-          <th>Second</th>
-          <th>Third</th>
-          <th>Nation</th>
-          <th>Fastest Driver</th>
+          <th><u>Track#</u></th>
+          <th><u>Year#</u></th>
+          <th>First#</th>
+          <th>Second#</th>
+          <th>Third#</th>
+          <th>Nation#</th>
+          <th>Fastest Driver#</th>
           <th>Fastest Lap Time</th>
         </tr> 
         <tr> 
-          <td><input type="text" name="Track" required autofocus /> </td>
-          <td><input type="text" name="Year" required autofocus /> </td>
-          <td><input type="text" name="First" required autofocus /> </td>
-          <td><input type="text" name="Second" required autofocus /> </td>
-          <td><input type="text" name="Third" required autofocus /> </td>
-          <td><input type="text" name="Nation" required autofocus /> </td>
-          <td><input type="text" name="FastestDr" required autofocus /> </td>
+          <td><input type="text" name="TrackID" required autofocus /> </td>
+          <td><input type="text" name="YearID" required autofocus /> </td>
+          <td><input type="text" name="FirstID" required autofocus /> </td>
+          <td><input type="text" name="SecondID" required autofocus /> </td>
+          <td><input type="text" name="ThirdID" required autofocus /> </td>
+          <td><input type="text" name="NationID" required autofocus /> </td>
+          <td><input type="text" name="FastestDrID" required autofocus /> </td>
           <td><input type="text" name="FastestLap" required autofocus /> </td>
         </tr> 
       </table>
@@ -59,7 +65,7 @@
     </form>  
   </div>
 
-  <h3> Race Informations </h3>
+  <h3> Local Races </h3>
   <form action="{{ url_for('raceinfo_page') }}" method="post">
     <table>
     	<tr>
