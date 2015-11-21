@@ -11,8 +11,7 @@ class Raceinfos:
             query = """ SELECT tr.title AS Track, yr.title AS Year,
                     dr1.name AS First, dr2.name AS Second, dr3.name AS Third,
                     nat.title AS Nation, fdr.name AS FastestDr, rc.fastest_time AS FastestLap FROM 
-                    Raceinfo rc
-
+                    raceinfos rc
                     JOIN tracks tr ON tr.id = rc.track_id
                     JOIN years yr ON yr.id = rc.year_id
                     JOIN drivers dr1 ON dr1.id = rc.dr1_id

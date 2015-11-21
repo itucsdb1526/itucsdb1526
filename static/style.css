@@ -61,6 +61,9 @@ nav div{
   float:left;
   overflow:auto;
 }
+#window > ul{
+  padding:0px !important;
+}
 
 nav li{
   display: block;
@@ -101,11 +104,11 @@ table, th, td {
 }
 
 td{
-  padding: 2px 12px 2px 12px;
+  padding: 2px 0px 2px 0px;
 }
 
 th{
-  padding: 5px;
+  padding: 2px;
   background-color: #5D6313;
   font-weight: bold;
   color: #FFF;
@@ -150,7 +153,11 @@ nav #window span{
   vertical-align: top;
   width: auto;
   display: inline-block;
-  margin-left: 10px;
+  max-width: 100%;
+  overflow: auto;
+}
+.dbops > table{
+  max-width: 100%;
 }
 
 /*For Add, Update, Delete Forms*/
@@ -161,10 +168,10 @@ nav #window span{
 
 #fUpdate > input, #fUpdate > table > tbody > tr > td > input {
   background-color: #F9F340;
-  max-width: 120px;
+  max-width: 100px;
 }
 
 #fAdd > input, #fAdd > table > tbody > tr > td > input {
   background-color: #A3A6FF;
-  max-width: 120px;
+  max-width: 100px;
 }
