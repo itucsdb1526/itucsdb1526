@@ -161,7 +161,7 @@ nav #window span{
 }
 
 /*For Add, Update, Delete Forms*/
-#fDelete > input{
+#fDelete{
   background-color: #EF6565;
   min-width: 175px;
 }

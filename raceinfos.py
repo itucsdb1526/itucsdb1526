@@ -20,16 +20,25 @@ class Raceinfos:
                     JOIN nations nat ON nat.id = rc.nation_id
                     JOIN drivers fdr ON fdr.id = rc.fastestdr_id
                     ORDER BY rc.track_id ASC, rc.year_id ASC;
-                    """
-                    
+                    """         
             cursor.execute(query)
             rows = cursor.fetchall()
             return rows
 
-    def delete_raceinfo(self, id):
+    def delete_raceinfo(self, n_raceinfo):
+        raceinfo = n_raceinfo.split(":")
+        print(raceinfo[0], raceinfo[1])
         with dbapi2.connect(self.cp) as connection:
             cursor = connection.cursor()
-            query = "DELETE FROM raceinfos WHERE id = '%s'" % (id) 
+            query = "SELECT * FROM tracks WHERE title = '%s'" % (raceinfo[0])
+            cursor.execute(query)
+            track_id = cursor.fetchone()[0]
+
+            query = "SELECT * FROM years WHERE title = '%s'" % (raceinfo[1])
+            cursor.execute(query)
+            year_id = cursor.fetchone()[0]
+            
+            query = "DELETE FROM raceinfos WHERE (track_id = '%s' AND year_id = '%s')" % (str(track_id), str(year_id))
             cursor.execute(query)
             connection.commit()
             return

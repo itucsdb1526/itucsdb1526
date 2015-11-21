@@ -76,7 +76,7 @@
 
     	{% for Track, Year, First, Second, Third, Nation, FastestDr, FastestLap in RaceList %}
     	<tr>
-    		<td><input type="checkbox" name="raceinfos_to_delete" value="{{ Track }},{{ Year}}" /></td>
+    		<td><input type="checkbox" name="raceinfos_to_delete" value="{{ Track }}:{{ Year }}" /></td>
         <td>{{Track}}</td>
         <td>{{Year}}</td>
         <td>{{First}}</td>

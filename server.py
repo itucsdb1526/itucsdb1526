@@ -80,7 +80,11 @@ def raceinfo_page():
         now = datetime.datetime.now()
         racinflist = racs.get_raceinfolist()
         return render_template('raceinfos.html', RaceList = racinflist, current_time = now.ctime())
-
+    elif 'raceinfos_to_delete' in request.form:
+        raceinfos = request.form.getlist('raceinfos_to_delete')
+        for raceinfo in raceinfos:
+            racs.delete_raceinfo(raceinfo)
+        return redirect(url_for('raceinfo_page'))
 
 @app.route('/Tracks', methods=['GET', 'POST'])
 def track_page():

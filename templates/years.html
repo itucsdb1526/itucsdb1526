@@ -36,7 +36,7 @@
 
 
   <h3> Years List </h3>
-  <form id="fDelete" action="{{ url_for('year_page') }}" method="post">
+  <form action="{{ url_for('year_page') }}" method="post">
     <table>
     	<tr>
     		<th>Del</th>
@@ -53,7 +53,7 @@
     	{% endfor %}
 
     </table>
-    <input type="submit" value="Delete Checked Values" name="delete" /> 
+    <input id="fDelete" type="submit" value="Delete Checked Values" name="delete" /> 
   </form>
   </br>
 
