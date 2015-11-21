@@ -8,7 +8,9 @@ class Tracks:
     def get_tracklist(self):
         with dbapi2.connect(self.cp) as connection:
             cursor = connection.cursor()
-            query = "SELECT * FROM Tracks"
+            query = """SELECT tracks.id, tracks.title, nations.title, lenght 
+                    FROM track_info RIGHT JOIN tracks ON (track_id = tracks.id) 
+                    LEFT JOIN nations ON (nation_id=nations.id) ORDER BY tracks.id"""
             cursor.execute(query)
             rows = cursor.fetchall()
             return rows

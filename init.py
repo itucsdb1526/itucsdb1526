@@ -7,7 +7,7 @@ class INIT:
     def nations(self):
         with dbapi2.connect(self.cp) as connection:
             cursor = connection.cursor()
-            query = "DROP TABLE IF EXISTS nations"
+            query = "DROP TABLE IF EXISTS nations CASCADE"
             cursor.execute(query)
         
             query = """CREATE TABLE nations (
@@ -56,7 +56,7 @@ class INIT:
     def tracks(self):
         with dbapi2.connect(self.cp) as connection:
             cursor = connection.cursor()
-            query = "DROP TABLE IF EXISTS tracks"
+            query = "DROP TABLE IF EXISTS tracks CASCADE"
             cursor.execute(query)
         
             query = """CREATE TABLE tracks (
@@ -65,7 +65,8 @@ class INIT:
                 )"""
             cursor.execute(query)
 
-            query = """INSERT INTO tracks (title) VALUES ('Rally Jamaica'),
+            query = """INSERT INTO tracks (title) VALUES 
+            		   ('Rally Jamaica'),
                        ('Intercity Istanbul Park'),
                        ('Cochrane Winter Rally'),
                        ('Rally Tasmania'),
@@ -75,6 +76,34 @@ class INIT:
                        ('Rally Van Haspengouw'),
                        ('Rally Hebros'),
                        ('Pražský Rallysprint');
+                    """
+            cursor.execute(query)
+            connection.commit()
+
+    def tracks_info(self):
+        with dbapi2.connect(self.cp) as connection:
+            cursor = connection.cursor()
+            query = "DROP TABLE IF EXISTS track_info"
+            cursor.execute(query)
+        
+            query = """CREATE TABLE track_info (
+                    track_id INTEGER REFERENCES tracks(id) ON DELETE CASCADE ON UPDATE CASCADE,
+                    nation_id INTEGER REFERENCES nations(id) ON DELETE CASCADE ON UPDATE CASCADE,
+                    lenght NUMERIC
+                )"""
+            cursor.execute(query)
+
+            query = """INSERT INTO track_info VALUES 
+            			(1,1,4532.51),
+            			(2,5,4211.98),
+            			(3,4,4981.1),
+            			(4,2,4104.98),
+            			(5,3,4696.51),
+            			(6,4,3457.98),
+            			(7,4,4771.51),
+            			(8,1,3987.98),
+            			(9,2,4532.51),
+            			(10,5,4211.98)
                     """
             cursor.execute(query)
             connection.commit()
@@ -177,8 +206,9 @@ class INIT:
 
 
     def All(self):
-        self.nations()
         self.years()
+        self.tracks_info()
+        self.nations()
         self.tracks()
         self.teams()
         self.engines()
