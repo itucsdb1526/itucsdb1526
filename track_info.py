@@ -9,7 +9,7 @@ class Track_info:
         with dbapi2.connect(self.cp) as connection:
             cursor = connection.cursor()
             query = """SELECT track_id, tracks.title, nations.title, lenght
-                    FROM track_info LEFT JOIN tracks ON (track_id = tracks.id) 
+                    FROM track_info RIGHT JOIN tracks ON (track_id = tracks.id) 
                     LEFT JOIN nations ON (nation_id=nations.id) ORDER BY tracks.id"""
             cursor.execute(query)
             rows = cursor.fetchall()
@@ -22,7 +22,27 @@ class Track_info:
             cursor.execute(query)
             connection.commit()
             return 
+    def add_trackinfo(self, nname,coun,len):
+        with dbapi2.connect(self.cp) as connection:
+            cursor = connection.cursor()
             
+            query="""INSERT INTO tracks (title) VALUES ('%s')""" %(nname)
+            cursor.execute(query)
+
+            query = "SELECT id FROM tracks WHERE title = '%s'" % (nname)
+            cursor.execute(query)
+            nid = cursor.fetchall()[0][0]
+
+            query = "SELECT id FROM nations WHERE title = '%s'" % (coun)
+            cursor.execute(query)
+            cid = cursor.fetchall()[0][0]
+
+            query = """INSERT INTO track_info VALUES ('%s','%s','%s')""" %(nid,cid,len)
+            cursor.execute(query)
+
+            connection.commit()
+            return         
+
     def update_trackinfo(self, oname,nname,coun,len):
         with dbapi2.connect(self.cp) as connection:
             cursor = connection.cursor()

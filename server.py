@@ -129,8 +129,12 @@ def track_info_page():
         nname=request.form['nname']
         coun=request.form['coun']
         len=request.form['len']
-        print(oname,nname,coun,len)
         trainfos.update_trackinfo(oname,nname,coun,len)
+    elif 'trackinfo_to_add' in request.form:
+        nname=request.form['nname']
+        coun=request.form['coun']
+        len=request.form['len']
+        trainfos.add_trackinfo(nname,coun,len)
     return redirect(url_for('track_info_page'))
 
 @app.route('/Tires', methods=['GET', 'POST'])
