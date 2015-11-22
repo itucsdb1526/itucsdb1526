@@ -117,7 +117,7 @@ def track_info_page():
     trainfos = Track_info(app.config['dsn'])
     if request.method == 'GET':
         now = datetime.datetime.now()
-        tlist = trainfos.get_trackinfolist()
+        tlist = trainfos.get_trackinfolist('')
         return render_template('track_info.html', TrackInfoList = tlist, current_time = now.ctime())
     elif 'trackinfo_to_delete' in request.form:
         ids = request.form.getlist('trackinfo_to_delete') 
@@ -135,6 +135,10 @@ def track_info_page():
         coun=request.form['coun']
         len=request.form['len']
         trainfos.add_trackinfo(nname,coun,len)
+    elif 'trackinfo_to_search' in request.form:
+        now = datetime.datetime.now()
+        tlist = trainfos.get_trackinfolist(request.form['name'])
+        return render_template('track_info.html', TrackInfoList = tlist, current_time = now.ctime())   
     return redirect(url_for('track_info_page'))
 
 @app.route('/Tires', methods=['GET', 'POST'])

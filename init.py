@@ -286,7 +286,6 @@ class INIT:
 
     def All(self):
         self.years()
-        self.tracks_info()
         self.nations()
         self.tracks()
         self.teams()
@@ -294,4 +293,5 @@ class INIT:
         self.drivers()
         self.tires()
         self.raceinfos()
+        self.tracks_info()
 

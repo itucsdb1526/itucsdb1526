@@ -4,6 +4,16 @@
 
 {% block content %}
   <h3> Track Informations </h3>
+  </br>
+  <form action="{{ url_for('track_info_page') }}" method="post"> 
+    <table>
+      <tr>  
+        <td><input type="text" name="name" required autofocus /> </td>
+      </tr> 
+    </table>
+    <input type="submit" value="Search" name="trackinfo_to_search"/>
+  </form>
+  </br>
   <form action="{{ url_for('track_info_page') }}" method="post">
     <table>
       <tr>
