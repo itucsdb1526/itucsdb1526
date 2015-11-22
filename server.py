@@ -13,6 +13,7 @@ from flask import request
 from tires import Tires
 from drivers import Drivers
 from tracks import Tracks
+from track_info import Track_info
 from nations import Nations
 from years import Years
 from raceinfos import Raceinfos
@@ -111,12 +112,33 @@ def track_page():
         tras.update_track(request.form['id'], request.form['title'])
         return redirect(url_for('track_page'))
 
+@app.route('/Track_info', methods=['GET', 'POST'])
+def track_info_page():
+    trainfos = Track_info(app.config['dsn'])
+    if request.method == 'GET':
+        now = datetime.datetime.now()
+        tlist = trainfos.get_trackinfolist()
+        return render_template('track_info.html', TrackInfoList = tlist, current_time = now.ctime())
+    elif 'trackinfo_to_delete' in request.form:
+        ids = request.form.getlist('trackinfo_to_delete') 
+        for id in ids:
+            print(id)
+            trainfos.delete_trackinfo(id)
+    elif 'trackinfo_to_update' in request.form:
+        oname=request.form['oname']
+        nname=request.form['nname']
+        coun=request.form['coun']
+        len=request.form['len']
+        print(oname,nname,coun,len)
+        trainfos.update_trackinfo(oname,nname,coun,len)
+    return redirect(url_for('track_info_page'))
+
 @app.route('/Tires', methods=['GET', 'POST'])
 def tire_page():
     tirs = Tires(app.config['dsn'])
     if request.method == 'GET':
         now = datetime.datetime.now()
-        tilist = tirs.get_tirelist()
+        tilist = tirs.get_tirelist()    
         return render_template('tires.html', TireList = tilist, current_time = now.ctime())
     elif 'tires_to_delete' in request.form:
         ids = request.form.getlist('tires_to_delete') 

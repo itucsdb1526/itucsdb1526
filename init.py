@@ -132,7 +132,7 @@ class INIT:
             cursor.execute(query)
 
             query = """INSERT INTO tracks (title) VALUES 
-            		   ('Rally Jamaica'),
+            		       ('Rally Jamaica'),
                        ('Intercity Istanbul Park'),
                        ('Cochrane Winter Rally'),
                        ('Rally Tasmania'),
