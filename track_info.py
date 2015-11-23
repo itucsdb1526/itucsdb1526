@@ -8,9 +8,9 @@ class Track_info:
     def get_trackinfolist(self,name):
         with dbapi2.connect(self.cp) as connection:
             cursor = connection.cursor()
-            query = """SELECT track_id, tracks.title, nations.title, lenght
-                    FROM track_info RIGHT JOIN tracks ON (track_id = tracks.id) 
-                    LEFT JOIN nations ON (nation_id=nations.id) WHERE (tracks.title LIKE '%%%s%%' OR nations.title LIKE '%%%s%%')  
+            query = """SELECT tracks.id, tracks.title, nations.title, lenght
+                    FROM track_info FULL OUTER JOIN tracks ON (track_id = tracks.id) 
+                    LEFT JOIN nations ON (nation_id=nations.id) WHERE (tracks.title ILIKE '%%%s%%' OR nations.title ILIKE '%%%s%%')  
                     ORDER BY tracks.id"""%(name,name)
             cursor.execute(query)
             rows = cursor.fetchall()
