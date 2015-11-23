@@ -19,6 +19,7 @@ from years import Years
 from raceinfos import Raceinfos
 from teams import Teams
 from Engines import Engines
+from champinfo import Champinfo
 from init import INIT
 app = Flask(__name__)
 
@@ -197,6 +198,31 @@ def engine_page():
     elif 'engines_to_update' in request.form:
         engs.update_engine(request.form['id'], request.form['title'])
         return redirect(url_for('engine_page'))
+
+@app.route('/Champinfo', methods=['GET', 'POST'])
+def champinfo_page():
+    cinfos = Champinfo(app.config['dsn'])
+    if request.method == 'GET':
+        now = datetime.datetime.now()
+        clist = cinfos.get_champinfolist()
+        return render_template('champinfo.html', ChampinfoList = clist, current_time = now.ctime())
+    elif 'champinfos_to_delete' in request.form:
+        ids = request.form.getlist('champinfos_to_delete') 
+        for id in ids:
+            cinfos.delete_champinfo(id)
+        return redirect(url_for('champinfo_page'))
+    elif 'champinfos_to_add' in request.form:
+        nyear=request.form['nyear']
+        ndriv=request.form['ndriv']
+        nteam=request.form['nteam']
+        cinfos.add_champinfo(nyear,ndriv,nteam)
+    elif 'champinfos_to_update' in request.form:
+        oyear=request.form['oyear']
+        nyear=request.form['nyear']
+        ndriv=request.form['ndriv']
+        nteam=request.form['nteam']
+        cinfos.update_champinfo(oyear,nyear,ndriv,nteam)  
+    return redirect(url_for('champinfo_page'))
 
 
 @app.route('/Drivers', methods=['GET', 'POST'])
