@@ -42,4 +42,15 @@ class Finishdistr:
             cursor.execute(query)
             connection.commit()
             return
+    def search_byname(self, name):
+        with dbapi2.connect(self.cp) as connection:
+            cursor = connection.cursor()
+
+            query = """SELECT DISTINCT DRIVER_ID , NAME, number_first, number_second, number_third
+                    FROM FINISHDISTR, RACEINFOS,DRIVERS
+                    WHERE (DRIVER_ID=DRIVERS.ID  AND NAME ILIKE '%%%s%%') ORDER BY DRIVER_ID
+                    """ % (name)
+            cursor.execute(query)
+            rows = cursor.fetchall()
+            return rows
 

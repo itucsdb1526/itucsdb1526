@@ -40,6 +40,17 @@
     <input type="submit" value="Add Driver" name="drivers_to_add"/>
   </form>
   </br>
+<form action="{{ url_for('fd_page') }}" method="post">
+    <table>
+      <tr>
+        <th>Name to Search:</th>
+        <td><input type="text" name="name" required autofocus /> </td>
+      </tr>
+    </table>
+    <input type="submit" value="Search Driver" name="drivers_to_search"/>
+  </form>
+  </br>
+
 
 
 {% endblock %}
