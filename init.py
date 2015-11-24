@@ -312,7 +312,7 @@ class INIT:
             cursor.execute(query)
             connection.commit()
 
-def finishdistr(self):
+    def finishdistr(self):
         with dbapi2.connect(self.cp) as connection:
             cursor = connection.cursor()
             query = "DROP TABLE IF EXISTS Finishdistr CASCADE"
