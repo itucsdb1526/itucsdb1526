@@ -349,4 +349,5 @@ def finishdistr(self):
         self.raceinfos()
         self.tracks_info()
         self.champinfos()
+        self.finishdistr()
 
