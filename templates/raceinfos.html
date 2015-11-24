@@ -59,6 +59,27 @@
     </form>  
   </div>
 
+</br>
+</br>
+  <form action="{{ url_for('raceinfo_page') }}" method="post">
+    <table>
+      <tr>
+        <th> Search Track </th>
+        <td><input type="text" name="SearchTrack" required autofocus /></td> 
+      </tr>
+    </table>
+    <input type="submit" value="Search" name="raceinfos_to_searchtrack"/>
+  </form>
+  <form action="{{ url_for('raceinfo_page') }}" method="post">
+    <table>
+      <tr>
+        <th> Search Winner </th>
+        <td><input type="text" name="SearchWinner" required autofocus /></td> 
+      </tr>
+    </table>
+    <input type="submit" value="Search" name="raceinfos_to_searchwinner"/>
+  </form> 
+
   <h3> Local Races </h3>
   <form action="{{ url_for('raceinfo_page') }}" method="post">
     <table>

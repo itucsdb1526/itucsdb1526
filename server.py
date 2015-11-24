@@ -91,6 +91,14 @@ def raceinfo_page():
     elif 'raceinfos_to_update' in request.form:
         racs.update_raceinfo(request.form)
         return redirect(url_for('raceinfo_page'))
+    elif 'raceinfos_to_searchwinner' in request.form:
+        now = datetime.datetime.now()
+        racinflist = racs.search_raceinfolist('winner', request.form)
+        return render_template('raceinfos.html', RaceList = racinflist, current_time = now.ctime())
+    elif 'raceinfos_to_searchtrack' in request.form:
+        now = datetime.datetime.now()
+        racinflist = racs.search_raceinfolist('track', request.form)
+        return render_template('raceinfos.html', RaceList = racinflist, current_time = now.ctime())
 
 @app.route('/Tracks', methods=['GET', 'POST'])
 def track_page():
