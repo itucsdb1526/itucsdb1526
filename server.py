@@ -268,7 +268,10 @@ def fd_page():
             fd.delete_driver(driver_id)
     elif 'drivers_to_add' in request.form:
         fd.add_driver(request.form['driver_id'])
-
+    elif 'drivers_to_search' in request.form:
+        now = datetime.datetime.now()
+        search_result = fd.search_byname(request.form['name'])
+        return render_template('finishdistr.html', Fd_list = search_result, current_time = now.ctime())
     return redirect(url_for('fd_page'))
 
 
