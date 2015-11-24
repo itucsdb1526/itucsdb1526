@@ -51,6 +51,9 @@ class Raceinfos:
         nation_id = self.get_id("nations", form.get('Nation'))
         fastestdr_id = self.get_id("drivers", form.get('FastestDr'))
         fastest_time = form['FastestLap']
+        if (dr1_id == dr2_id) or (dr1_id == dr3_id) or (dr2_id == dr3_id):
+            return
+            
         with dbapi2.connect(self.cp) as connection:
             cursor = connection.cursor()
             query = "INSERT INTO raceinfos  VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s' ,'%s')" % (track_id, year_id, dr1_id, dr2_id, dr3_id, nation_id, fastestdr_id, fastest_time)
@@ -68,6 +71,9 @@ class Raceinfos:
         nation_id = self.get_id("nations", form.get('Nation'))
         fastestdr_id = self.get_id("drivers", form.get('FastestDr'))
         fastest_time = form['FastestLap']
+        if (dr1_id == dr2_id) or (dr1_id == dr3_id) or (dr2_id == dr3_id):
+            return
+
         with dbapi2.connect(self.cp) as connection:
             cursor = connection.cursor()
             query = "UPDATE raceinfos SET dr1_id = '{0}', dr2_id = '{1}', dr3_id = '{2}', nation_id = '{3}', fastestdr_id = '{4}', fastest_time = '{5}' WHERE track_id = '{6}' AND year_id = '{7}'".format(dr1_id, dr2_id, dr3_id, nation_id, fastestdr_id, fastest_time, track_id, year_id)
