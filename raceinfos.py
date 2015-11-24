@@ -73,3 +73,28 @@ class Raceinfos:
             cursor.execute(query)
             connection.commit()
             return
+    def search_raceinfolist(self, searchtype, form):
+        with dbapi2.connect(self.cp) as connection:
+            cursor = connection.cursor()
+
+            query = """SELECT tr.title AS Track, yr.title AS Year,
+                    dr1.name AS First, dr2.name AS Second, dr3.name AS Third,
+                    nat.title AS Nation, fdr.name AS FastestDr, rc.fastest_time AS FastestLap FROM 
+                    raceinfos rc
+                    JOIN tracks tr ON tr.id = rc.track_id
+                    JOIN years yr ON yr.id = rc.year_id
+                    JOIN drivers dr1 ON dr1.id = rc.dr1_id
+                    JOIN drivers dr2 ON dr2.id = rc.dr2_id
+                    JOIN drivers dr3 ON dr3.id = rc.dr3_id
+                    JOIN nations nat ON nat.id = rc.nation_id
+                    JOIN drivers fdr ON fdr.id = rc.fastestdr_id
+                    ORDER BY rc.track_id ASC, rc.year_id ASC
+                    """
+            if searchtype == 'winner':
+                query = "SELECT * FROM (" + query + ") AS Derived WHERE Derived.First ILIKE '%%%s%%'" % (form['SearchWinner'])
+            if searchtype == 'track':
+                query = "SELECT * FROM (" + query + ") AS Derived WHERE Derived.Track ILIKE '%%%s%%'" % (form['SearchTrack'])
+            cursor.execute(query)
+            print(query)
+            rows = cursor.fetchall()
+            return rows

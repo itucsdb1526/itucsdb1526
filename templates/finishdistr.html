@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %} Finish Distribution {% endblock %}
+
+{% block content %}
+  <h3> Drivers List </h3>
+  <form action="{{ url_for('fd_page') }}" method="post">
+    <table>
+    	<tr>
+    		<th>Delete</th>
+    		<th>Driver ID</th>
+            <th>Driver Name</th>
+    		<th>#First Rank </th>
+            <th>#Second Rank </th>
+            <th>#Third Rank </th>
+    	</tr>
+
+    	{% for driver_id,name,numberof1,numberof2,numberof3  in Fd_list %}
+    	<tr>
+    		<td><input type="checkbox" name="drivers_to_delete" value="{{ driver_id }}" /></td>
+    		<td>{{ driver_id }}</td>
+            <td>{{ name }}</td>
+    		<td>{{ numberof1 }}</td>
+            <td>{{ numberof2 }}</td>
+            <td>{{ numberof3 }}</td>
+    	</tr>
+    	{% endfor %}
+
+    </table>
+    <input type="submit" value="Delete Checked Values" name="delete" /> 
+  </form>
+  </br>
+  <form action="{{ url_for('fd_page') }}" method="post">
+    <table>
+      <tr> 
+        <th>Id:</th>
+        <td><input type="text" name="driver_id" required autofocus /> </td>
+      </tr> 
+    </table>
+    <input type="submit" value="Add Driver" name="drivers_to_add"/>
+  </form>
+  </br>
+
+
+{% endblock %}

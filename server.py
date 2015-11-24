@@ -9,6 +9,7 @@ from flask import redirect
 from flask import render_template
 from flask.helpers import url_for
 from flask import request
+from finishdistr import Finishdistr
 
 from tires import Tires
 from drivers import Drivers
@@ -93,6 +94,14 @@ def raceinfo_page():
     elif 'raceinfos_to_update' in request.form:
         racs.update_raceinfo(request.form)
         return redirect(url_for('raceinfo_page'))
+    elif 'raceinfos_to_searchwinner' in request.form:
+        now = datetime.datetime.now()
+        racinflist = racs.search_raceinfolist('winner', request.form)
+        return render_template('raceinfos.html', RaceList = racinflist, current_time = now.ctime())
+    elif 'raceinfos_to_searchtrack' in request.form:
+        now = datetime.datetime.now()
+        racinflist = racs.search_raceinfolist('track', request.form)
+        return render_template('raceinfos.html', RaceList = racinflist, current_time = now.ctime())
 
 @app.route('/Tracks', methods=['GET', 'POST'])
 def track_page():
@@ -119,7 +128,9 @@ def track_info_page():
     if request.method == 'GET':
         now = datetime.datetime.now()
         tlist = trainfos.get_trackinfolist('')
-        return render_template('track_info.html', TrackInfoList = tlist, current_time = now.ctime())
+        nations=trainfos.get_nations()
+        tracks=trainfos.get_tracks()
+        return render_template('track_info.html', TrackInfoList = tlist,nations=nations,tracks=tracks, current_time = now.ctime())
     elif 'trackinfo_to_delete' in request.form:
         ids = request.form.getlist('trackinfo_to_delete') 
         for id in ids:
@@ -244,6 +255,21 @@ def driver_page():
         drivers.update_driver(request.form['id'], request.form['name'])
         return redirect(url_for('driver_page'))
 
+@app.route('/Finishdistr', methods=['GET', 'POST'])
+def fd_page():
+    fd = Finishdistr(app.config['dsn'])
+    if request.method == 'GET':
+        now = datetime.datetime.now()
+        fd_list = fd.get_finishdistr()
+        return render_template('finishdistr.html', Fd_list = fd_list, current_time = now.ctime())
+    elif 'drivers_to_delete' in request.form:
+        ids = request.form.getlist('drivers_to_delete')
+        for driver_id in ids:
+            fd.delete_driver(driver_id)
+    elif 'drivers_to_add' in request.form:
+        fd.add_driver(request.form['driver_id'])
+
+    return redirect(url_for('fd_page'))
 
 
 @app.route('/initdb')

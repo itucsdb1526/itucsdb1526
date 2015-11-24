@@ -9,12 +9,34 @@ class Track_info:
         with dbapi2.connect(self.cp) as connection:
             cursor = connection.cursor()
             query = """SELECT tracks.id, tracks.title, nations.title, lenght
-                    FROM track_info FULL OUTER JOIN tracks ON (track_id = tracks.id) 
+                    FROM track_info LEFT JOIN tracks ON (track_id = tracks.id) 
                     LEFT JOIN nations ON (nation_id=nations.id) WHERE (tracks.title ILIKE '%%%s%%' OR nations.title ILIKE '%%%s%%')  
                     ORDER BY tracks.id"""%(name,name)
             cursor.execute(query)
             rows = cursor.fetchall()
             return rows
+
+    def get_nations(self):
+        with dbapi2.connect(self.cp) as connection:
+            cursor = connection.cursor()
+            query = """SELECT title FROM nations ORDER BY title"""
+            cursor.execute(query)
+            rows = cursor.fetchall()
+            nrows=[]
+            for row in rows:
+                nrows.append(row[0])
+            return nrows
+
+    def get_tracks(self):
+        with dbapi2.connect(self.cp) as connection:
+            cursor = connection.cursor()
+            query = """SELECT title FROM tracks ORDER BY id"""
+            cursor.execute(query)
+            rows = cursor.fetchall()
+            nrows=[]
+            for row in rows:
+                nrows.append(row[0])
+            return nrows
 
     def delete_trackinfo(self, id):
         with dbapi2.connect(self.cp) as connection:

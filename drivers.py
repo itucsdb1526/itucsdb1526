@@ -11,7 +11,7 @@ class Drivers:
     def get_driverlist(self):
         with dbapi2.connect(self.cp) as connection:
             cursor = connection.cursor()
-            query = "SELECT * FROM Drivers"
+            query = "SELECT * FROM Drivers ORDER BY ID"
             cursor.execute(query)
             rows = cursor.fetchall()
             return rows

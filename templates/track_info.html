@@ -39,13 +39,18 @@
   </form>
   </br>
 
+  <h4> Add  </h4>
   <form action="{{ url_for('track_info_page') }}" method="post"> 
     <table>
       <tr> 
         <th>Name:</th> 
         <td><input type="text" name="nname" required autofocus /> </td>
         <th>Country:</th> 
-        <td><input type="text" name="coun" required autofocus /> </td>
+        <td> <select name="coun">
+          {% for nation in nations %}
+            <option value="{{ nation }}">{{ nation }}</option>
+          {% endfor %}
+          </select> </td>
         <th>Lenght:</th> 
         <td><input type="text" name="len" required autofocus /> </td>
       </tr> 
@@ -53,17 +58,25 @@
     <input type="submit" value="Add Track Info" name="trackinfo_to_add"/>
   </form>
   </br>
-  </br>
 
+  <h4> Update </h4>
   <form action="{{ url_for('track_info_page') }}" method="post"> 
     <table>
       <tr> 
         <th>Old Name:</th> 
-        <td><input type="text" name="oname" required autofocus /> </td>
+        <td><select name="oname">
+          {% for track in tracks %}
+            <option value="{{ track }}">{{ track }}</option>
+          {% endfor %}
+          </select> </td>
         <th>New Name:</th> 
         <td><input type="text" name="nname" required autofocus /> </td>
         <th>New Country:</th> 
-        <td><input type="text" name="coun" required autofocus /> </td>
+        <td> <select name="coun">
+          {% for nation in nations %}
+            <option value="{{ nation }}">{{ nation }}</option>
+          {% endfor %}
+          </select> </td>
         <th>New Lenght:</th> 
         <td><input type="text" name="len" required autofocus /> </td>
       </tr> 

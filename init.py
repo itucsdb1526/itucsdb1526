@@ -312,7 +312,31 @@ class INIT:
             cursor.execute(query)
             connection.commit()
 
+    def finishdistr(self):
+        with dbapi2.connect(self.cp) as connection:
+            cursor = connection.cursor()
+            query = "DROP TABLE IF EXISTS Finishdistr CASCADE"
+            cursor.execute(query)
 
+            query = """CREATE TABLE Finishdistr (
+                    driver_id INTEGER NOT NULL REFERENCES drivers(id)
+                        ON DELETE CASCADE
+                        ON UPDATE CASCADE,
+                    number_first INTEGER,
+                    number_second INTEGER,
+                    number_third INTEGER
+                )"""
+            cursor.execute(query)
+            query = """INSERT INTO Finishdistr VALUES
+            			(1,2,2,2),
+            			(2,1,2,1),
+            			(3,1,4,1),
+            			(4,2,5,2),
+            			(5,4,1,3)
+                    """
+            cursor.execute(query)
+
+            connection.commit()
 
     def All(self):
         self.years()
@@ -322,7 +346,8 @@ class INIT:
         self.engines()
         self.drivers()
         self.tires()
-        self.raceinfos()
         self.tracks_info()
+        self.raceinfos()
         self.champinfos()
+        self.finishdistr()
 
