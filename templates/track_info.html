@@ -1,0 +1,86 @@
+{% extends "layout.html" %}
+
+{% block title %} Track Informations {% endblock %}
+
+{% block content %}
+  <h3> Track Informations </h3>
+  </br>
+  <form action="{{ url_for('track_info_page') }}" method="post"> 
+    <table>
+      <tr>  
+        <td><input type="text" name="name" required autofocus /> </td>
+      </tr> 
+    </table>
+    <input type="submit" value="Search" name="trackinfo_to_search"/>
+  </form>
+  </br>
+  <form action="{{ url_for('track_info_page') }}" method="post">
+    <table>
+      <tr>
+        <th>Delete</th>
+        <th>Track ID</th>
+        <th>Track Name</th>
+        <th>Country</th>
+        <th>Lenght (km)</th>
+      </tr>
+
+      {% for id, title, nattittle, lenght in TrackInfoList %}
+      <tr>
+        <td><input type="checkbox" name="trackinfo_to_delete" value="{{ id }}" /></td>
+        <td>{{ id }}</td>
+        <td>{{ title }}</td>
+        <td>{{ nattittle }}</td>
+        <td>{{ lenght }}</td>
+      </tr>
+      {% endfor %}
+
+    </table>
+    <input type="submit" value="Delete Checked Values" name="delete" /> 
+  </form>
+  </br>
+
+  <h4> Add  </h4>
+  <form action="{{ url_for('track_info_page') }}" method="post"> 
+    <table>
+      <tr> 
+        <th>Name:</th> 
+        <td><input type="text" name="nname" required autofocus /> </td>
+        <th>Country:</th> 
+        <td> <select name="coun">
+          {% for nation in nations %}
+            <option value="{{ nation }}">{{ nation }}</option>
+          {% endfor %}
+          </select> </td>
+        <th>Lenght:</th> 
+        <td><input type="text" name="len" required autofocus /> </td>
+      </tr> 
+    </table>
+    <input type="submit" value="Add Track Info" name="trackinfo_to_add"/>
+  </form>
+  </br>
+
+  <h4> Update </h4>
+  <form action="{{ url_for('track_info_page') }}" method="post"> 
+    <table>
+      <tr> 
+        <th>Old Name:</th> 
+        <td><select name="oname">
+          {% for track in tracks %}
+            <option value="{{ track }}">{{ track }}</option>
+          {% endfor %}
+          </select> </td>
+        <th>New Name:</th> 
+        <td><input type="text" name="nname" required autofocus /> </td>
+        <th>New Country:</th> 
+        <td> <select name="coun">
+          {% for nation in nations %}
+            <option value="{{ nation }}">{{ nation }}</option>
+          {% endfor %}
+          </select> </td>
+        <th>New Lenght:</th> 
+        <td><input type="text" name="len" required autofocus /> </td>
+      </tr> 
+    </table>
+    <input type="submit" value="Update Track Info" name="trackinfo_to_update"/>
+  </form>  
+{% endblock %}

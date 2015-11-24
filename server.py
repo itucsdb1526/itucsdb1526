@@ -9,15 +9,18 @@ from flask import redirect
 from flask import render_template
 from flask.helpers import url_for
 from flask import request
+from finishdistr import Finishdistr
 
 from tires import Tires
 from drivers import Drivers
 from tracks import Tracks
+from track_info import Track_info
 from nations import Nations
 from years import Years
 from raceinfos import Raceinfos
 from teams import Teams
 from Engines import Engines
+from champinfo import Champinfo
 from init import INIT
 app = Flask(__name__)
 
@@ -119,12 +122,43 @@ def track_page():
         tras.update_track(request.form['id'], request.form['title'])
         return redirect(url_for('track_page'))
 
+@app.route('/Track_info', methods=['GET', 'POST'])
+def track_info_page():
+    trainfos = Track_info(app.config['dsn'])
+    if request.method == 'GET':
+        now = datetime.datetime.now()
+        tlist = trainfos.get_trackinfolist('')
+        nations=trainfos.get_nations()
+        tracks=trainfos.get_tracks()
+        return render_template('track_info.html', TrackInfoList = tlist,nations=nations,tracks=tracks, current_time = now.ctime())
+    elif 'trackinfo_to_delete' in request.form:
+        ids = request.form.getlist('trackinfo_to_delete') 
+        for id in ids:
+            print(id)
+            trainfos.delete_trackinfo(id)
+    elif 'trackinfo_to_update' in request.form:
+        oname=request.form['oname']
+        nname=request.form['nname']
+        coun=request.form['coun']
+        len=request.form['len']
+        trainfos.update_trackinfo(oname,nname,coun,len)
+    elif 'trackinfo_to_add' in request.form:
+        nname=request.form['nname']
+        coun=request.form['coun']
+        len=request.form['len']
+        trainfos.add_trackinfo(nname,coun,len)
+    elif 'trackinfo_to_search' in request.form:
+        now = datetime.datetime.now()
+        tlist = trainfos.get_trackinfolist(request.form['name'])
+        return render_template('track_info.html', TrackInfoList = tlist, current_time = now.ctime())   
+    return redirect(url_for('track_info_page'))
+
 @app.route('/Tires', methods=['GET', 'POST'])
 def tire_page():
     tirs = Tires(app.config['dsn'])
     if request.method == 'GET':
         now = datetime.datetime.now()
-        tilist = tirs.get_tirelist()
+        tilist = tirs.get_tirelist()    
         return render_template('tires.html', TireList = tilist, current_time = now.ctime())
     elif 'tires_to_delete' in request.form:
         ids = request.form.getlist('tires_to_delete') 
@@ -176,6 +210,31 @@ def engine_page():
         engs.update_engine(request.form['id'], request.form['title'])
         return redirect(url_for('engine_page'))
 
+@app.route('/Champinfo', methods=['GET', 'POST'])
+def champinfo_page():
+    cinfos = Champinfo(app.config['dsn'])
+    if request.method == 'GET':
+        now = datetime.datetime.now()
+        clist = cinfos.get_champinfolist()
+        return render_template('champinfo.html', ChampinfoList = clist, current_time = now.ctime())
+    elif 'champinfos_to_delete' in request.form:
+        ids = request.form.getlist('champinfos_to_delete') 
+        for id in ids:
+            cinfos.delete_champinfo(id)
+        return redirect(url_for('champinfo_page'))
+    elif 'champinfos_to_add' in request.form:
+        nyear=request.form['nyear']
+        ndriv=request.form['ndriv']
+        nteam=request.form['nteam']
+        cinfos.add_champinfo(nyear,ndriv,nteam)
+    elif 'champinfos_to_update' in request.form:
+        oyear=request.form['oyear']
+        nyear=request.form['nyear']
+        ndriv=request.form['ndriv']
+        nteam=request.form['nteam']
+        cinfos.update_champinfo(oyear,nyear,ndriv,nteam)  
+    return redirect(url_for('champinfo_page'))
+
 
 @app.route('/Drivers', methods=['GET', 'POST'])
 def driver_page():
@@ -196,6 +255,21 @@ def driver_page():
         drivers.update_driver(request.form['id'], request.form['name'])
         return redirect(url_for('driver_page'))
 
+@app.route('/Finishdistr', methods=['GET', 'POST'])
+def fd_page():
+    fd = Finishdistr(app.config['dsn'])
+    if request.method == 'GET':
+        now = datetime.datetime.now()
+        fd_list = fd.get_finishdistr()
+        return render_template('finishdistr.html', Fd_list = fd_list, current_time = now.ctime())
+    elif 'drivers_to_delete' in request.form:
+        ids = request.form.getlist('drivers_to_delete')
+        for driver_id in ids:
+            fd.delete_driver(driver_id)
+    elif 'drivers_to_add' in request.form:
+        fd.add_driver(request.form['driver_id'])
+
+    return redirect(url_for('fd_page'))
 
 
 @app.route('/initdb')

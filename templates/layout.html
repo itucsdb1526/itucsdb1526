@@ -1,4 +1,4 @@
-
+﻿
 <!DOCTYPE html>
 <html>
   <head>
@@ -20,6 +20,7 @@
           <ul>
             <li><a href="{{ url_for('track_page') }}">Tracks</a></li>
             <li><a href="{{ url_for('tire_page') }}">Tires</a></li>
+            <li><a href="{{ url_for('track_info_page') }}">Track Informations</a></li>
           </ul>
         </div>
         <div id = "window">
@@ -34,10 +35,14 @@
           <span>Mustafa Gökçeoğlu</span>
             <li><a href="{{ url_for('team_page') }}">Teams</a></li>
             <li><a href="{{ url_for('engine_page') }}">Engines</a></li>
+	    <li><a href="{{ url_for('champinfo_page') }}">Champions of Years</a></li>
         </div>
         <div id = "window">
           <span>Hanifi Demirel</span>
             <li><a href="{{ url_for('driver_page') }}">Drivers</a></li>
+            <li><a href="{{ url_for('fd_page') }}">Finish Distributions</a></li>
+
+
         </div>
         <div id="initdb">
           <a href="{{ url_for('init_db') }}"><img src="../static/images/initdb.png" alt="Initialize Database"></a>

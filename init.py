@@ -132,7 +132,7 @@ class INIT:
             cursor.execute(query)
 
             query = """INSERT INTO tracks (title) VALUES 
-            		   ('Rally Jamaica'),
+            		       ('Rally Jamaica'),
                        ('Intercity Istanbul Park'),
                        ('Cochrane Winter Rally'),
                        ('Rally Tasmania'),
@@ -245,6 +245,36 @@ class INIT:
            cursor.execute("INSERT INTO engines (title) VALUES ('Motor10')")
            connection.commit()
 
+    def champinfos(self):
+       with dbapi2.connect(self.cp) as connection:
+           cursor = connection.cursor()
+           query = "DROP TABLE IF EXISTS champinfos"
+           cursor.execute(query)
+       
+           query = """CREATE TABLE champinfos (
+                    year_id INTEGER REFERENCES years(id) ON DELETE CASCADE ON UPDATE CASCADE,
+                    driver_id INTEGER REFERENCES drivers(id) ON DELETE CASCADE ON UPDATE CASCADE,
+                    team_id INTEGER REFERENCES teams(id) ON DELETE CASCADE ON UPDATE CASCADE
+                )"""
+               
+            
+           cursor.execute(query)
+
+           query = """INSERT INTO champinfos VALUES 
+            			(1,1,1),
+            			(2,5,5),
+            			(3,4,2),
+            			(4,2,5),
+            			(5,3,6),
+            			(6,4,3),
+            			(7,4,4),
+            			(8,1,2),
+            			(9,2,1)
+                   """
+           cursor.execute(query)
+           connection.commit()
+
+
 
 
 
@@ -282,16 +312,42 @@ class INIT:
             cursor.execute(query)
             connection.commit()
 
+    def finishdistr(self):
+        with dbapi2.connect(self.cp) as connection:
+            cursor = connection.cursor()
+            query = "DROP TABLE IF EXISTS Finishdistr CASCADE"
+            cursor.execute(query)
 
+            query = """CREATE TABLE Finishdistr (
+                    driver_id INTEGER NOT NULL REFERENCES drivers(id)
+                        ON DELETE CASCADE
+                        ON UPDATE CASCADE,
+                    number_first INTEGER,
+                    number_second INTEGER,
+                    number_third INTEGER
+                )"""
+            cursor.execute(query)
+            query = """INSERT INTO Finishdistr VALUES
+            			(1,2,2,2),
+            			(2,1,2,1),
+            			(3,1,4,1),
+            			(4,2,5,2),
+            			(5,4,1,3)
+                    """
+            cursor.execute(query)
+
+            connection.commit()
 
     def All(self):
         self.years()
-        self.tracks_info()
         self.nations()
         self.tracks()
         self.teams()
         self.engines()
         self.drivers()
         self.tires()
+        self.tracks_info()
         self.raceinfos()
+        self.champinfos()
+        self.finishdistr()
 
