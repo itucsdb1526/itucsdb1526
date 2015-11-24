@@ -9,6 +9,7 @@ from flask import redirect
 from flask import render_template
 from flask.helpers import url_for
 from flask import request
+from finishdistr import Finishdistr
 
 from tires import Tires
 from drivers import Drivers
@@ -246,6 +247,21 @@ def driver_page():
         drivers.update_driver(request.form['id'], request.form['name'])
         return redirect(url_for('driver_page'))
 
+@app.route('/Finishdistr', methods=['GET', 'POST'])
+def fd_page():
+    fd = Finishdistr(app.config['dsn'])
+    if request.method == 'GET':
+        now = datetime.datetime.now()
+        fd_list = fd.get_finishdistr()
+        return render_template('finishdistr.html', Fd_list = fd_list, current_time = now.ctime())
+    elif 'drivers_to_delete' in request.form:
+        ids = request.form.getlist('drivers_to_delete')
+        for driver_id in ids:
+            fd.delete_driver(driver_id)
+    elif 'drivers_to_add' in request.form:
+        fd.add_driver(request.form['driver_id'])
+
+    return redirect(url_for('fd_page'))
 
 
 @app.route('/initdb')
