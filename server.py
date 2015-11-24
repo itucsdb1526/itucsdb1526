@@ -222,7 +222,9 @@ def champinfo_page():
     if request.method == 'GET':
         now = datetime.datetime.now()
         clist = cinfos.get_champinfolist()
-        return render_template('champinfo.html', ChampinfoList = clist, current_time = now.ctime())
+        drivers=cinfos.get_drivers()
+        teams=cinfos.get_teams()
+        return render_template('champinfo.html', ChampinfoList = clist, drivers=drivers,teams=teams, current_time = now.ctime())
     elif 'champinfos_to_delete' in request.form:
         ids = request.form.getlist('champinfos_to_delete') 
         for id in ids:

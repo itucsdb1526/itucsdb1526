@@ -17,6 +17,28 @@ class Champinfo:
             rows = cursor.fetchall()
             return rows
 
+    def get_drivers(self):
+        with dbapi2.connect(self.cp) as connection:
+            cursor = connection.cursor()
+            query = """SELECT name FROM drivers ORDER BY name"""
+            cursor.execute(query)
+            rows = cursor.fetchall()
+            nrows=[]
+            for row in rows:
+                nrows.append(row[0])
+            return nrows
+            
+    def get_teams(self):
+        with dbapi2.connect(self.cp) as connection:
+            cursor = connection.cursor()
+            query = """SELECT title FROM teams ORDER BY title"""
+            cursor.execute(query)
+            rows = cursor.fetchall()
+            nrows=[]
+            for row in rows:
+                nrows.append(row[0])
+            return nrows
+    
     def delete_champinfo(self, id):
         with dbapi2.connect(self.cp) as connection:
             cursor = connection.cursor()
