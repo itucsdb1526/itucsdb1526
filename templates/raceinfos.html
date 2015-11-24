@@ -17,13 +17,55 @@
           <th>Fastest Lap Time</th>
         </tr> 
         <tr>
-          <td><input type="text" name="TrackID" required autofocus /> </td>
-          <td><input type="text" name="YearID" required autofocus /> </td>
-          <td><input type="text" name="FirstID" required autofocus /> </td>
-          <td><input type="text" name="SecondID" required autofocus /> </td>
-          <td><input type="text" name="ThirdID" required autofocus /> </td>
-          <td><input type="text" name="NationID" required autofocus /> </td>
-          <td><input type="text" name="FastestDrID" required autofocus /> </td>
+          <td>
+            <select name = "Track">
+            {% for Track in TrackList %}
+            <option value="{{ Track }}">{{ Track }}</option>
+            {% endfor %}
+            </select>
+          </td>
+          <td>
+            <select name = "Year">
+            {% for Year in YearList %}
+            <option value="{{ Year }}">{{ Year }}</option>
+            {% endfor %}
+            </select>
+          </td>
+          <td>
+            <select name = "First">
+            {% for First in DriverList %}
+            <option value="{{ First }}">{{ First }}</option>
+            {% endfor %}
+            </select>
+          </td>
+          <td>
+            <select name = "Second">
+            {% for Second in DriverList %}
+            <option value="{{ Second }}">{{ Second }}</option>
+            {% endfor %}
+            </select>
+          </td>
+          <td>
+            <select name = "Third">
+            {% for Third in DriverList %}
+            <option value="{{ Third }}">{{ Third }}</option>
+            {% endfor %}
+            </select>
+          </td>
+          <td>
+            <select name = "Nation">
+            {% for Nation in NationList %}
+            <option value="{{ Nation }}">{{ Nation }}</option>
+            {% endfor %}
+            </select>
+          </td>
+          <td>
+            <select name = "FastestDr">
+            {% for FastestDr in DriverList %}
+            <option value="{{ FastestDr }}">{{ FastestDr }}</option>
+            {% endfor %}
+            </select>
+          </td>
           <td><input type="text" name="FastestLap" required autofocus /> </td>
         </tr>
       </table>
@@ -44,16 +86,58 @@
           <th>Fastest Driver#</th>
           <th>Fastest Lap Time</th>
         </tr> 
-        <tr> 
-          <td><input type="text" name="TrackID" required autofocus /> </td>
-          <td><input type="text" name="YearID" required autofocus /> </td>
-          <td><input type="text" name="FirstID" required autofocus /> </td>
-          <td><input type="text" name="SecondID" required autofocus /> </td>
-          <td><input type="text" name="ThirdID" required autofocus /> </td>
-          <td><input type="text" name="NationID" required autofocus /> </td>
-          <td><input type="text" name="FastestDrID" required autofocus /> </td>
+        <tr>
+          <td>
+            <select name = "Track">
+            {% for Track in TrackList %}
+            <option value="{{ Track }}">{{ Track }}</option>
+            {% endfor %}
+            </select>
+          </td>
+          <td>
+            <select name = "Year">
+            {% for Year in YearList %}
+            <option value="{{ Year }}">{{ Year }}</option>
+            {% endfor %}
+            </select>
+          </td>
+          <td>
+            <select name = "First">
+            {% for First in DriverList %}
+            <option value="{{ First }}">{{ First }}</option>
+            {% endfor %}
+            </select>
+          </td>
+          <td>
+            <select name = "Second">
+            {% for Second in DriverList %}
+            <option value="{{ Second }}">{{ Second }}</option>
+            {% endfor %}
+            </select>
+          </td>
+          <td>
+            <select name = "Third">
+            {% for Third in DriverList %}
+            <option value="{{ Third }}">{{ Third }}</option>
+            {% endfor %}
+            </select>
+          </td>
+          <td>
+            <select name = "Nation">
+            {% for Nation in NationList %}
+            <option value="{{ Nation }}">{{ Nation }}</option>
+            {% endfor %}
+            </select>
+          </td>
+          <td>
+            <select name = "FastestDr">
+            {% for FastestDr in DriverList %}
+            <option value="{{ FastestDr }}">{{ FastestDr }}</option>
+            {% endfor %}
+            </select>
+          </td>
           <td><input type="text" name="FastestLap" required autofocus /> </td>
-        </tr> 
+        </tr>
       </table>
       <input type="submit" value="Update" name="raceinfos_to_update"/>
     </form>  

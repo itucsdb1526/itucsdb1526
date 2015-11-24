@@ -22,6 +22,7 @@ from teams import Teams
 from Engines import Engines
 from champinfo import Champinfo
 from init import INIT
+from func import Func
 app = Flask(__name__)
 
 
@@ -79,10 +80,15 @@ def year_page():
 @app.route('/Raceinfos', methods=['GET', 'POST'])
 def raceinfo_page():
     racs = Raceinfos(app.config['dsn'])
+    method = Func(app.config['dsn'])
+    tr_list = method.get_tracks()
+    nat_list = method.get_nations()
+    yr_list = method.get_years()
+    dr_list = method.get_drivers()
     if request.method == 'GET':
         now = datetime.datetime.now()
         racinflist = racs.get_raceinfolist()
-        return render_template('raceinfos.html', RaceList = racinflist, current_time = now.ctime())
+        return render_template('raceinfos.html', RaceList = racinflist, current_time = now.ctime(), TrackList = tr_list, NationList = nat_list, YearList = yr_list, DriverList = dr_list)
     elif 'raceinfos_to_delete' in request.form:
         raceinfos = request.form.getlist('raceinfos_to_delete')
         for raceinfo in raceinfos:
@@ -97,11 +103,11 @@ def raceinfo_page():
     elif 'raceinfos_to_searchwinner' in request.form:
         now = datetime.datetime.now()
         racinflist = racs.search_raceinfolist('winner', request.form)
-        return render_template('raceinfos.html', RaceList = racinflist, current_time = now.ctime())
+        return render_template('raceinfos.html', RaceList = racinflist, current_time = now.ctime(), TrackList = tr_list, NationList = nat_list, YearList = yr_list, DriverList = dr_list)
     elif 'raceinfos_to_searchtrack' in request.form:
         now = datetime.datetime.now()
         racinflist = racs.search_raceinfolist('track', request.form)
-        return render_template('raceinfos.html', RaceList = racinflist, current_time = now.ctime())
+        return render_template('raceinfos.html', RaceList = racinflist, current_time = now.ctime(), TrackList = tr_list, NationList = nat_list, YearList = yr_list, DriverList = dr_list)
 
 @app.route('/Tracks', methods=['GET', 'POST'])
 def track_page():
