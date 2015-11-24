@@ -346,8 +346,8 @@ def finishdistr(self):
         self.engines()
         self.drivers()
         self.tires()
-        self.raceinfos()
         self.tracks_info()
+        self.raceinfos()
         self.champinfos()
         self.finishdistr()
 
