@@ -233,6 +233,10 @@ def champinfo_page():
         ndriv=request.form['ndriv']
         nteam=request.form['nteam']
         cinfos.update_champinfo(oyear,nyear,ndriv,nteam)
+    elif 'champinfos_to_search' in request.form:
+        now = datetime.datetime.now()
+        clist = cinfos.search_champinfolist('')
+        return render_template('champinfo.html', ChampinfoList = clist, current_time = now.ctime())
     return redirect(url_for('champinfo_page'))
 
 

@@ -4,12 +4,46 @@
 
 {% block content %}
   <h3> Champions of Years </h3>
+
+  <form action="{{ url_for('champinfo_page') }}" method="post"> 
+    <table>
+      <tr> 
+        <th>New Year:</th> 
+        <td><input type="text" name="nyear" required autofocus /> </td>
+        <th>Champion:</th> 
+        <td><input type="text" name="ndriv" required autofocus /> </td>
+        <th>Team:</th> 
+        <td><input type="text" name="nteam" required autofocus /> </td>
+      </tr> 
+    </table>
+    <input type="submit" value="Add Champion Info" name="champinfos_to_add"/>
+  </form>
+  </br>
+
+  <form action="{{ url_for('champinfo_page') }}" method="post"> 
+    <table>
+      <tr> 
+        <th>Old Year:</th> 
+        <td><input type="text" name="oyear" required autofocus /> </td>
+        <th>New Year:</th> 
+        <td><input type="text" name="nyear" required autofocus /> </td>
+        <th>New Champion:</th> 
+        <td><input type="text" name="ndriv" required autofocus /> </td>
+        <th>New Team:</th> 
+        <td><input type="text" name="nteam" required autofocus /> </td>
+      </tr> 
+    </table>
+    <input type="submit" value="Update Champ Info" name="champinfos_to_update"/>
+  </form>  
+
+
+
   <form action="{{ url_for('champinfo_page') }}" method="post">
     <table>
     	<tr>
         <th>Delete</th>
         
-        <th>Year Name</th>
+        <th>Year</th>
         <th>Driver</th>
         <th>Team</th>
     	</tr>
@@ -29,34 +63,16 @@
   </form>
   </br>
 
+  
+
+  </br>
   <form action="{{ url_for('champinfo_page') }}" method="post"> 
     <table>
-      <tr> 
-        <th>Year:</th> 
-        <td><input type="text" name="nyear" required autofocus /> </td>
-        <th>Driver:</th> 
-        <td><input type="text" name="ndriv" required autofocus /> </td>
-        <th>Team:</th> 
-        <td><input type="text" name="nteam" required autofocus /> </td>
+      <tr>  
+        <td><input type="text" name="name" required autofocus /> </td>
       </tr> 
     </table>
-    <input type="submit" value="Add Champion Info" name="champinfos_to_add"/>
+    <input type="submit" value="Search Champion" name="champinfos_to_search"/>
   </form>
   </br>
-
-  <form action="{{ url_for('champinfo_page') }}" method="post"> 
-    <table>
-      <tr> 
-        <th>Old Year:</th> 
-        <td><input type="text" name="oyear" required autofocus /> </td>
-        <th>New Year:</th> 
-        <td><input type="text" name="nyear" required autofocus /> </td>
-        <th>New Driver:</th> 
-        <td><input type="text" name="ndriv" required autofocus /> </td>
-        <th>New Team:</th> 
-        <td><input type="text" name="nteam" required autofocus /> </td>
-      </tr> 
-    </table>
-    <input type="submit" value="Update Champ Info" name="champinfos_to_update"/>
-  </form>  
 {% endblock %}

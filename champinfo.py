@@ -29,7 +29,7 @@ class Champinfo:
         with dbapi2.connect(self.cp) as connection:
             cursor = connection.cursor()
             
-            query="""INSERT INTO teams (title) VALUES ('%s')""" %(nteam)
+            query="""INSERT INTO years (title) VALUES ('%s')""" %(nyear)
             cursor.execute(query)            
             
             
@@ -77,3 +77,20 @@ class Champinfo:
             connection.commit()            
             
             return
+            
+    def search_champinfolist(self, name):
+        with dbapi2.connect(self.cp) as connection:
+            cursor = connection.cursor()
+
+            query = """SELECT year_id, years.title AS SYear, drivers.name AS SDriver, teams.title AS STeam
+                    FROM Champinfos LEFT JOIN years ON (year_id = years.id) 
+                    LEFT JOIN drivers ON (driver_id=drivers.id) 
+                    LEFT JOIN teams ON (team_id = teams.id)
+                    ORDER BY years.id"""
+                 
+            query = "SELECT * FROM (" + query + ") AS Derived WHERE (Derived.Syear ILIKE '%%%s%%' OR Derived.SDriver ILIKE '%%%s%%' OR Derived.STeam ILIKE '%%%s%%')" % (name,name,name)
+            
+            cursor.execute(query)
+            print(query)
+            rows = cursor.fetchall()
+            return rows
