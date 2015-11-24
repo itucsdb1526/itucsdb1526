@@ -27,7 +27,15 @@ class INIT:
               ('Canada'),
               ('Austria'),
               ('Barbados'),
-              ('Bulgaria');
+              ('Bulgaria'),
+              ('Finland'),
+              ('Qatar'),
+              ('Uruguay'),
+              ('Spain'),
+              ('Japan'),
+              ('Italy'),
+              ('Hungary'),
+              ('France');
             """)
             connection.commit()
 
