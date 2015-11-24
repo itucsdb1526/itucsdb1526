@@ -221,7 +221,7 @@ def champinfo_page():
         nyear=request.form['nyear']
         ndriv=request.form['ndriv']
         nteam=request.form['nteam']
-        cinfos.update_champinfo(oyear,nyear,ndriv,nteam)  
+        cinfos.update_champinfo(oyear,nyear,ndriv,nteam)
     return redirect(url_for('champinfo_page'))
 
 
