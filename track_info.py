@@ -16,6 +16,28 @@ class Track_info:
             rows = cursor.fetchall()
             return rows
 
+    def get_nations(self):
+        with dbapi2.connect(self.cp) as connection:
+            cursor = connection.cursor()
+            query = """SELECT title FROM nations ORDER BY title"""
+            cursor.execute(query)
+            rows = cursor.fetchall()
+            nrows=[]
+            for row in rows:
+                nrows.append(row[0])
+            return nrows
+
+    def get_tracks(self):
+        with dbapi2.connect(self.cp) as connection:
+            cursor = connection.cursor()
+            query = """SELECT title FROM tracks ORDER BY id"""
+            cursor.execute(query)
+            rows = cursor.fetchall()
+            nrows=[]
+            for row in rows:
+                nrows.append(row[0])
+            return nrows
+
     def delete_trackinfo(self, id):
         with dbapi2.connect(self.cp) as connection:
             cursor = connection.cursor()

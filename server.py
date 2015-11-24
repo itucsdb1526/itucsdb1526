@@ -119,7 +119,9 @@ def track_info_page():
     if request.method == 'GET':
         now = datetime.datetime.now()
         tlist = trainfos.get_trackinfolist('')
-        return render_template('track_info.html', TrackInfoList = tlist, current_time = now.ctime())
+        nations=trainfos.get_nations()
+        tracks=trainfos.get_tracks()
+        return render_template('track_info.html', TrackInfoList = tlist,nations=nations,tracks=tracks, current_time = now.ctime())
     elif 'trackinfo_to_delete' in request.form:
         ids = request.form.getlist('trackinfo_to_delete') 
         for id in ids:
