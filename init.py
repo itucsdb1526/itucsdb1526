@@ -39,6 +39,48 @@ class INIT:
             """)
             connection.commit()
 
+    def nations_info(self):
+      with dbapi2.connect(self.cp) as connection:
+            cursor = connection.cursor()
+            query = "DROP TABLE IF EXISTS nations_info CASCADE"
+            cursor.execute(query)
+        
+            query = """CREATE TABLE nations_info (
+                    nation_id INTEGER NOT NULL REFERENCES nations
+                        ON DELETE RESTRICT
+                        ON UPDATE CASCADE,
+                    capital VARCHAR(40) NOT NULL,
+                    area_size NUMERIC(10),
+                    population NUMERIC(10),
+                    tld VARCHAR(10),
+                    UNIQUE (nation_id)
+                )"""
+            cursor.execute(query)
+            query = """INSERT INTO nations_info VALUES 
+              (1, 'Ankara', 783562, 77695904, '.tr'), 
+              (2, 'Berlin', 357168, 81083600, '.de/.eu'),
+              (3, 'London', 242495, 64511000, '.uk'),
+              (4, 'Prague', 78866, 10541466, '.cz'),
+              (5, 'Buenos Aires', 2780400, 43417000, '.ar'),
+              (6, 'Brussels', 30528, 11239755, '.be'),
+              (7, 'Kingston', 10991, 2950210, '.jm'),
+              (8, 'Canberra', 7692024, 23972100, '.au'),
+              (9, 'Ottawa', 9984670, 35851774, '.ca'),
+              (10, 'Vienna', 83879, 8623073, '.at'),
+              (11, 'Baku', 86600, 9624900, '.az'),
+              (12, 'Sofia', 110994, 7364570, '.bg'),
+              (13, 'Helsinki', 338424, 5489097, '.fi'),
+              (14, 'Doha', 11586, 2155446, '.qa'),
+              (15, 'Montevideo', 176215, 3324460, '.uy'),
+              (16, 'Madrid', 505990, 46439864, '.es'),
+              (17, 'Tokyo', 377944, 126919659, '.jp'),
+              (18, 'Rome', 301338, 60795612, '.it'),
+              (19, 'Budapest', 93030, 9877365, '.hu'),
+              (20, 'Bridgetown', 439, 277821, '.bb');
+            """
+            cursor.execute(query)
+            connection.commit()
+
     def years(self):
         with dbapi2.connect(self.cp) as connection:
             cursor = connection.cursor()
@@ -405,6 +447,7 @@ class INIT:
     def All(self):
         self.years()
         self.nations()
+        self.nations_info()
         self.tracks()
         self.teams()
         self.engines()

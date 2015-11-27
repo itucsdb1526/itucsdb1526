@@ -1,4 +1,5 @@
 import psycopg2 as dbapi2
+from nation import Nation
 
 class Nations:
     def __init__(self, cp):
@@ -36,3 +37,18 @@ class Nations:
             cursor.execute(query)
             connection.commit()
             return
+
+    def get_a_nation(self, id):
+        with dbapi2.connect(self.cp) as connection:
+            cursor = connection.cursor()
+            query = """SELECT nat.title AS Title, ninf.capital AS Capital, ninf.area_size AS Area, 
+                    ninf.population AS Population, ninf.tld AS TLD
+                    FROM 
+                    nations_info ninf
+                    JOIN (SELECT * FROM Nations WHERE id = '%s') nat ON ninf.nation_id = nat.id
+                    """ % (id)
+            cursor.execute(query)
+            row = cursor.fetchone()
+            nat = Nation(row[0], row[1], row[2], row[3], row[4])
+            print(nat)
+            return nat
