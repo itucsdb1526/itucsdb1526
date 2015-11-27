@@ -11,9 +11,17 @@
         <th>New Year:</th> 
         <td><input type="text" name="nyear" required autofocus /> </td>
         <th>Champion:</th> 
-        <td><input type="text" name="ndriv" required autofocus /> </td>
+        <td> <select name="ndriv">
+          {% for driver in drivers %}
+            <option value="{{ driver }}">{{ driver }}</option>
+          {% endfor %}
+          </select> </td>
         <th>Team:</th> 
-        <td><input type="text" name="nteam" required autofocus /> </td>
+        <td> <select name="nteam">
+          {% for team in teams %}
+            <option value="{{ team }}">{{ team }}</option>
+          {% endfor %}
+          </select> </td>
       </tr> 
     </table>
     <input type="submit" value="Add Champion Info" name="champinfos_to_add"/>
@@ -28,9 +36,17 @@
         <th>New Year:</th> 
         <td><input type="text" name="nyear" required autofocus /> </td>
         <th>New Champion:</th> 
-        <td><input type="text" name="ndriv" required autofocus /> </td>
+        <td> <select name="ndriv">
+          {% for driver in drivers %}
+            <option value="{{ driver }}">{{ driver }}</option>
+          {% endfor %}
+          </select> </td>
         <th>New Team:</th> 
-        <td><input type="text" name="nteam" required autofocus /> </td>
+        <td> <select name="nteam">
+          {% for team in teams %}
+            <option value="{{ team }}">{{ team }}</option>
+          {% endfor %}
+          </select> </td>
       </tr> 
     </table>
     <input type="submit" value="Update Champ Info" name="champinfos_to_update"/>
