@@ -39,6 +39,8 @@ class Nations:
             return
 
     def get_a_nation(self, id):
+        if id is None:
+            return None
         with dbapi2.connect(self.cp) as connection:
             cursor = connection.cursor()
             query = """SELECT nat.title AS Title, ninf.capital AS Capital, ninf.area_size AS Area, 
@@ -49,6 +51,7 @@ class Nations:
                     """ % (id)
             cursor.execute(query)
             row = cursor.fetchone()
+            if row is None:
+                return None
             nat = Nation(row[0], row[1], row[2], row[3], row[4])
-            print(nat)
             return nat

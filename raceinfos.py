@@ -59,7 +59,6 @@ class Raceinfos:
         with dbapi2.connect(self.cp) as connection:
             cursor = connection.cursor()
             query = "INSERT INTO raceinfos  VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s' ,'%s')" % (track_id, year_id, dr1_id, dr2_id, dr3_id, nation_id, fastestdr_id, fastest_time)
-            print(query)
             cursor.execute(query)
             connection.commit()
             return

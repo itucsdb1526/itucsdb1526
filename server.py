@@ -65,8 +65,11 @@ def a_nation_page(nat_title):
     now = datetime.datetime.now()
     fn = Func(app.config['dsn'])
     nt = Nations(app.config['dsn'])
-    nat_id = fn.get_id("nations", nat_title)
-    return render_template('a_nation.html', Nation = nt.get_a_nation(nat_id), current_time = now.ctime())
+    nat_id = fn.get_id("nations", nat_title) #will be null if unknown title entered
+    nat = nt.get_a_nation(nat_id)
+    if nat is None:
+        return render_template('home.html')
+    return render_template('a_nation.html', Nation = nat, current_time = now.ctime())
 
 
 

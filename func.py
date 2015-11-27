@@ -58,7 +58,10 @@ class Func:
             else:
                 query += "title = '{0}'".format(value)
             cursor.execute(query)
-            ret_id = cursor.fetchone()[0]
+            row = cursor.fetchone()
+            if row is None:
+                return None
+            ret_id = row[0]
             return ret_id
 
     def get_title(self, tablename, id):
@@ -66,5 +69,8 @@ class Func:
             cursor = connection.cursor()
             query = "SELECT * FROM {0} WHERE id = '{1}'".format(tablename, id)
             cursor.execute(query)
-            ret_title = cursor.fetchone()[1]
+            row = cursor.fetchone()
+            if row is None:
+                return None
+            ret_title = row[1]
             return ret_title
