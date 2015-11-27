@@ -60,6 +60,15 @@ def nation_page():
         nats.update_nation(request.form['id'], request.form['title'])
         return redirect(url_for('nation_page'))
 
+@app.route('/Nations/<nat_title>', methods=['GET', 'POST'])
+def a_nation_page(nat_title):
+    now = datetime.datetime.now()
+    fn = Func(app.config['dsn'])
+    nat_id = fn.get_id("nations", nat_title)
+    return render_template('a_nation.html', NationTitle = nat_title, current_time = now.ctime())
+
+
+
 @app.route('/Years', methods=['GET', 'POST'])
 def year_page():
     yrs = Years(app.config['dsn'])
