@@ -68,7 +68,7 @@ def a_nation_page(nat_title):
     nat_id = fn.get_id("nations", nat_title) #will be null if unknown title entered
     nat = nt.get_a_nation(nat_id)
     if nat is None:
-        return render_template('home.html')
+        return render_template('404.html', current_time = now.ctime())
     return render_template('a_nation.html', Nation = nat, current_time = now.ctime())
 
 
