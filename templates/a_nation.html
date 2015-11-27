@@ -1,7 +1,18 @@
 {% extends "layout.html" %}
 
-{% block title %} {{ NationTitle }} {% endblock %}
+{% block title %} {{ Nation.Title }} {% endblock %}
 
 {% block content %}
-<h3> Properties of {{ NationTitle }} Country </h3>
+
+<h1> Country: {{ Nation.Title }} </h1>
+<div id = "NatInfo">
+  <p> 
+    <a>{{ Nation.Title }}</a> is a country with <a>{{ Nation.Area }}</a> km<sup>2</sup> area size in our World. 
+    <a>{{ Nation.Title }}'s</a> capital is <a>{{ Nation.Capital }}</a>.
+  </p>
+  <p>
+    Also, <a>{{ Nation.Title }}</a> has <a>{{ Nation.Population }}</a> humans inside.
+    Finally, Top-Level domain of <a>{{ Nation.Title }}</a> is <a>{{ Nation.TLD }}</a> 
+  </p>
+</div>
 {% endblock %}

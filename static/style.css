@@ -189,6 +189,13 @@ nav #window span{
   max-width: 100px;
 }
 
+/*For Particular Nation Pages*/
+#NatInfo > p{
+  font-size: 2em;
+}
+#NatInfo > a{
+  background-color: #FFF;
+}
 
 
 #track_info{background-color: green;}

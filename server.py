@@ -64,8 +64,9 @@ def nation_page():
 def a_nation_page(nat_title):
     now = datetime.datetime.now()
     fn = Func(app.config['dsn'])
+    nt = Nations(app.config['dsn'])
     nat_id = fn.get_id("nations", nat_title)
-    return render_template('a_nation.html', NationTitle = nat_title, current_time = now.ctime())
+    return render_template('a_nation.html', Nation = nt.get_a_nation(nat_id), current_time = now.ctime())
 
 
 
