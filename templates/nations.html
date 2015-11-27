@@ -46,7 +46,7 @@
     	<tr>
     		<td><input type="checkbox" name="nations_to_delete" value="{{ id }}" /></td>
     		<td>{{ id }}</td>
-    		<td>{{ title }}</td>
+    		<td><a href="{{ url_for('a_nation_page', nat_title = title) }}">{{ title }} </a></td>
     	</tr>
     	{% endfor %}
 

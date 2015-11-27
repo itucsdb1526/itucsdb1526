@@ -18,6 +18,19 @@ div img{
   max-height: 100%;
 }
 
+a{
+  text-decoration: none;
+  color: #4A9484;
+}
+
+a:hover{
+  background-color: #ACFCAD;
+}
+
+tr:hover{
+  background-color: #CCC;
+}
+
 #initdb{
   float:right;
 }
@@ -104,7 +117,7 @@ table, th, td {
 }
 
 td{
-  padding: 2px 0px 2px 0px;
+  padding: 2px;
 }
 
 th{

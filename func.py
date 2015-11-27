@@ -48,3 +48,23 @@ class Func:
             for row in rows:
                 nrows.append(row[0])
             return nrows
+
+    def get_id(self, tablename, value):
+        with dbapi2.connect(self.cp) as connection:
+            cursor = connection.cursor()
+            query = "SELECT * FROM {0} WHERE ".format(tablename)
+            if tablename == 'drivers':
+                query += "name = '{0}'".format(value)
+            else:
+                query += "title = '{0}'".format(value)
+            cursor.execute(query)
+            ret_id = cursor.fetchone()[0]
+            return ret_id
+
+    def get_title(self, tablename, id):
+        with dbapi2.connect(self.cp) as connection:
+            cursor = connection.cursor()
+            query = "SELECT * FROM {0} WHERE id = '{1}'".format(tablename, id)
+            cursor.execute(query)
+            ret_title = cursor.fetchone()[1]
+            return ret_title

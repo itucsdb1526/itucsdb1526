@@ -1,8 +1,10 @@
 import psycopg2 as dbapi2
+from func import Func
 
 class Raceinfos:
     def __init__(self, cp):
         self.cp = cp
+        self.fn = Func(cp)
         return
 
     def get_raceinfolist(self):
@@ -43,13 +45,13 @@ class Raceinfos:
             return
 
     def add_raceinfo(self, form):
-        track_id = self.get_id("tracks", form.get('Track'))
-        year_id = self.get_id("years", form.get('Year'))
-        dr1_id = self.get_id("drivers", form.get('First'))
-        dr2_id = self.get_id("drivers", form.get('Second'))
-        dr3_id = self.get_id("drivers", form.get('Third'))
-        nation_id = self.get_id("nations", form.get('Nation'))
-        fastestdr_id = self.get_id("drivers", form.get('FastestDr'))
+        track_id = self.fn.get_id("tracks", form.get('Track'))
+        year_id = self.fn.get_id("years", form.get('Year'))
+        dr1_id = self.fn.get_id("drivers", form.get('First'))
+        dr2_id = self.fn.get_id("drivers", form.get('Second'))
+        dr3_id = self.fn.get_id("drivers", form.get('Third'))
+        nation_id = self.fn.get_id("nations", form.get('Nation'))
+        fastestdr_id = self.fn.get_id("drivers", form.get('FastestDr'))
         fastest_time = form['FastestLap']
         if (dr1_id == dr2_id) or (dr1_id == dr3_id) or (dr2_id == dr3_id):
             return
@@ -102,23 +104,5 @@ class Raceinfos:
             if searchtype == 'track':
                 query = "SELECT * FROM (" + query + ") AS Derived WHERE Derived.Track ILIKE '%%%s%%'" % (form['SearchTrack'])
             cursor.execute(query)
-            print(query)
             rows = cursor.fetchall()
             return rows
-
-    def get_id(self, tablename, value):
-        with dbapi2.connect(self.cp) as connection:
-            cursor = connection.cursor()
-            query = "SELECT * FROM {0} WHERE ".format(tablename)
-            if tablename == 'drivers':
-                query += "name = '{0}'".format(value)
-            else:
-                query += "title = '{0}'".format(value)
-            cursor.execute(query)
-            ret_id = cursor.fetchone()[0]
-            print("id is = " + str(ret_id))
-            return ret_id
-
-
-
-
