@@ -15,4 +15,36 @@
     Finally, Top-Level domain of <a>{{ Nation.Title }}</a> is <a>{{ Nation.TLD }}</a> 
   </p>
 </div>
+
+<br>
+
+<div id = "NatInfo">
+	<h3>{{ Nation.Title }}</a> has the highest audience in number at local races shown in table</h3>
+	<table>
+    	<tr>
+	        <th>Track</th>
+	        <th>Year</th>
+	        <th>First</th>
+	        <th>Second</th>
+	        <th>Third</th>
+	        <th>Most Audience Nation</th>
+	        <th>Fastest Driver</th>
+	        <th>Fastest Lap Time</th>
+    	</tr>
+
+    	{% for Track, Year, First, Second, Third, Nation, FastestDr, FastestLap in RaceList %}
+    	<tr>
+	        <td>{{Track}}</td>
+	        <td>{{Year}}</td>
+	        <td>{{First}}</td>
+	        <td>{{Second}}</td>
+	        <td>{{Third}}</td>
+	        <td><a href="{{ url_for('a_nation_page', nat_title = Nation) }}"> {{Nation}}</a></td>
+	        <td>{{FastestDr}}</td>
+	        <td>{{FastestLap}}</td>
+    	</tr>
+    	{% endfor %}
+
+    </table>
+</div>
 {% endblock %}

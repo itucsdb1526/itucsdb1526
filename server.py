@@ -65,11 +65,14 @@ def a_nation_page(nat_title):
     now = datetime.datetime.now()
     fn = Func(app.config['dsn'])
     nt = Nations(app.config['dsn'])
+    rc = Raceinfos(app.config['dsn'])
+
     nat_id = fn.get_id("nations", nat_title) #will be null if unknown title entered
     nat = nt.get_a_nation(nat_id)
     if nat is None:
         return render_template('404.html', current_time = now.ctime())
-    return render_template('a_nation.html', Nation = nat, current_time = now.ctime())
+    rclist = rc.get_raceinfolist(nat_id = nat_id)
+    return render_template('a_nation.html', Nation = nat, RaceList = rclist, current_time = now.ctime())
 
 
 

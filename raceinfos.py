@@ -7,13 +7,19 @@ class Raceinfos:
         self.fn = Func(cp)
         return
 
-    def get_raceinfolist(self):
+    def get_raceinfolist(self, nat_id = None):
         with dbapi2.connect(self.cp) as connection:
             cursor = connection.cursor()
             query = """ SELECT tr.title AS Track, yr.title AS Year,
                     dr1.name AS First, dr2.name AS Second, dr3.name AS Third,
-                    nat.title AS Nation, fdr.name AS FastestDr, rc.fastest_time AS FastestLap FROM 
-                    raceinfos rc
+                    nat.title AS Nation, fdr.name AS FastestDr, rc.fastest_time AS FastestLap FROM
+                    """ 
+                    
+            if nat_id is None:
+                query += "raceinfos rc"
+            else:
+                query += "(SELECT * FROM raceinfos WHERE nation_id = '%s') rc" %(str(nat_id))
+            query +="""
                     JOIN tracks tr ON tr.id = rc.track_id
                     JOIN years yr ON yr.id = rc.year_id
                     JOIN drivers dr1 ON dr1.id = rc.dr1_id
