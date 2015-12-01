@@ -75,8 +75,6 @@ def a_nation_page(nat_title):
     trlist = nt.get_trackfornation(nat_id)
     return render_template('a_nation.html', Nation = nat, RaceList = rclist, TrackInfoList = trlist, current_time = now.ctime())
 
-
-
 @app.route('/Years', methods=['GET', 'POST'])
 def year_page():
     yrs = Years(app.config['dsn'])
@@ -93,6 +91,19 @@ def year_page():
     elif 'years_to_update' in request.form:
         yrs.update_year(request.form['id'], request.form['title'])
     return redirect(url_for('year_page'))
+
+@app.route('/Years/<year_title>', methods=['GET', 'POST'])
+def a_year_page(year_title):
+    now = datetime.datetime.now()
+    fn = Func(app.config['dsn'])
+    rc = Raceinfos(app.config['dsn'])
+    year_id = fn.get_id("years", year_title)
+    if year_id is None:
+        return render_template('404.html', current_time = now.ctime())
+    rclist = rc.get_raceinfolist(year_title = year_title)
+    return render_template('a_year.html', YearTitle = year_title, RaceList = rclist, current_time = now.ctime())
+
+
 
 @app.route('/Raceinfos', methods=['GET', 'POST'])
 def raceinfo_page():

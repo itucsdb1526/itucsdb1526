@@ -48,7 +48,7 @@
     	<tr>
     		<td><input type="checkbox" name="years_to_delete" value="{{ id }}" /></td>
     		<td>{{ id }}</td>
-    		<td>{{ title }}</td>
+    		<td><a href="{{ url_for('a_year_page', year_title = title) }}">{{ title }}</a></td>
     	</tr>
     	{% endfor %}
 

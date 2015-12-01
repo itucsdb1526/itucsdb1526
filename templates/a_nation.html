@@ -35,7 +35,7 @@
     	{% for Track, Year, First, Second, Third, Nation, FastestDr, FastestLap in RaceList %}
     	<tr>
 	        <td>{{Track}}</td>
-	        <td>{{Year}}</td>
+	        <td><a href="{{ url_for('a_year_page', year_title = Year) }}"> {{Year}}</a></td>
 	        <td>{{First}}</td>
 	        <td>{{Second}}</td>
 	        <td>{{Third}}</td>
@@ -61,7 +61,7 @@
       <tr>
         <td>{{ ID }}</td>
         <td>{{ Track_Title }}</td>
-        <td>{{ Nat_Title }}</td>
+        <td><a href="{{ url_for('a_nation_page', nat_title = Nat_Title) }}">{{ Nat_Title }}</a></td>
         <td>{{ Length }}</td>
       </tr>
       {% endfor %}

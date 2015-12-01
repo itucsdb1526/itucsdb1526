@@ -183,7 +183,7 @@
     	<tr>
     		<td><input type="checkbox" name="raceinfos_to_delete" value="{{ Track }}:{{ Year }}" /></td>
         <td>{{Track}}</td>
-        <td>{{Year}}</td>
+        <td><a href="{{ url_for('a_year_page', year_title = Year) }}"> {{Year}}</a></td>
         <td>{{First}}</td>
         <td>{{Second}}</td>
         <td>{{Third}}</td>

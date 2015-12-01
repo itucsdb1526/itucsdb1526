@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block title %} Year - {{ Year }} {% endblock %}
+
+{% block content %}
+
+<h1> Year: {{ YearTitle }} </h1>
+<div id = "NatInfo">
+  <p> 
+    <a>{{ YearTitle }}</a> is just a year.
+  </p>
+</div>
+
+<br>
+
+<div id = "NatInfo">
+	<h3>In {{ YearTitle }}, some local races are performed shown in table</h3>
+	<table>
+    	<tr>
+	        <th>Track</th>
+	        <th>Year</th>
+	        <th>First</th>
+	        <th>Second</th>
+	        <th>Third</th>
+	        <th>Most Audience Nation</th>
+	        <th>Fastest Driver</th>
+	        <th>Fastest Lap Time</th>
+    	</tr>
+
+    	{% for Track, Year, First, Second, Third, Nation, FastestDr, FastestLap in RaceList %}
+    	<tr>
+	        <td>{{Track}}</td>
+	        <td><a href="{{ url_for('a_year_page', year_title = Year) }}"> {{Year}}</a></td>
+	        <td>{{First}}</td>
+	        <td>{{Second}}</td>
+	        <td>{{Third}}</td>
+	        <td><a href="{{ url_for('a_nation_page', nat_title = Nation) }}"> {{Nation}}</a></td>
+	        <td>{{FastestDr}}</td>
+	        <td>{{FastestLap}}</td>
+    	</tr>
+    	{% endfor %}
+
+    </table>
+
+</div>
+{% endblock %}
