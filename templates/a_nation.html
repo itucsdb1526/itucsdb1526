@@ -19,7 +19,7 @@
 <br>
 
 <div id = "NatInfo">
-	<h3>{{ Nation.Title }}</a> has the highest audience in number at local races shown in table</h3>
+	<h3>{{ Nation.Title }} has the highest audience in number at local races shown in table</h3>
 	<table>
     	<tr>
 	        <th>Track</th>
@@ -46,5 +46,28 @@
     	{% endfor %}
 
     </table>
+
+<br>
+	<h3> Tracks of {{ Nation.Title }} are shown in table </h3>
+    <table>
+      <tr>
+        <th>Track ID</th>
+        <th>Track Name</th>
+        <th>Country</th>
+        <th>Length (km)</th>
+      </tr>
+
+      {% for ID, Track_Title, Nat_Title, Length in TrackInfoList %}
+      <tr>
+        <td>{{ ID }}</td>
+        <td>{{ Track_Title }}</td>
+        <td>{{ Nat_Title }}</td>
+        <td>{{ Length }}</td>
+      </tr>
+      {% endfor %}
+
+    </table>
+
+
 </div>
 {% endblock %}

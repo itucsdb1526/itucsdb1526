@@ -55,3 +55,14 @@ class Nations:
                 return None
             nat = Nation(row[0], row[1], row[2], row[3], row[4])
             return nat
+    def get_trackfornation(self,nat_id):
+        with dbapi2.connect(self.cp) as connection:
+            cursor = connection.cursor()
+            query = """SELECT tracks.id, tracks.title, nat.title, lenght
+                    FROM track_info INNER JOIN tracks ON (track_id = tracks.id) 
+                    INNER JOIN (SELECT * FROM nations WHERE id = '%s') AS nat
+                    ON (nation_id=nat.id)
+                    ORDER BY tracks.id"""%(nat_id)
+            cursor.execute(query)
+            rows = cursor.fetchall()
+            return rows

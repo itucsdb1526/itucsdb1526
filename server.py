@@ -72,7 +72,8 @@ def a_nation_page(nat_title):
     if nat is None:
         return render_template('404.html', current_time = now.ctime())
     rclist = rc.get_raceinfolist(nat_id = nat_id)
-    return render_template('a_nation.html', Nation = nat, RaceList = rclist, current_time = now.ctime())
+    trlist = nt.get_trackfornation(nat_id)
+    return render_template('a_nation.html', Nation = nat, RaceList = rclist, TrackInfoList = trlist, current_time = now.ctime())
 
 
 
