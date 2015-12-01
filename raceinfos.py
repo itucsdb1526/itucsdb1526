@@ -33,8 +33,7 @@ class Raceinfos:
                     JOIN nations nat ON nat.id = rc.nation_id
                     JOIN drivers fdr ON fdr.id = rc.fastestdr_id
                     ORDER BY rc.track_id ASC, rc.year_id ASC;
-                    """    
-            print(query)     
+                    """        
             cursor.execute(query)
             rows = cursor.fetchall()
             return rows

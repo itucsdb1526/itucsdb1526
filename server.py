@@ -18,6 +18,7 @@ from track_info import Track_info
 from nations import Nations
 from years import Years
 from raceinfos import Raceinfos
+from successfulnats import SuccessfulNats
 from teams import Teams
 from Engines import Engines
 from champinfo import Champinfo
@@ -136,6 +137,13 @@ def raceinfo_page():
         now = datetime.datetime.now()
         racinflist = racs.search_raceinfolist('track', request.form)
         return render_template('raceinfos.html', RaceList = racinflist, current_time = now.ctime(), TrackList = tr_list, NationList = nat_list, YearList = yr_list, DriverList = dr_list)
+
+@app.route('/SuccessfulNations', methods=['GET', 'POST'])
+def sucnat_page():
+    sn = SuccessfulNats(app.config['dsn'])
+    now = datetime.datetime.now()
+    if request.method == 'GET':
+        return render_template('successfulnats.html', List = sn.get_sucnatlist(), current_time = now.ctime())
 
 @app.route('/Tracks', methods=['GET', 'POST'])
 def track_page():

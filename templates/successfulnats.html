@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %} Successful Nations {% endblock %}
+
+{% block content %}
+  <div class="dbops">
+
+  <h3> Most successful nations which have most audience in local races </h3>
+  <form action="{{ url_for('sucnat_page') }}" method="post">
+    <table>
+    	<tr>
+    		<th>Nation</th>
+    		<th>Count of Most Audience</th>
+    	</tr>
+
+    	{% for Nation, NationCount in List %}
+    	<tr>
+    		<td><a href="{{ url_for('a_nation_page', nat_title = Nation) }}">{{ Nation }} </a></td>
+        <td> {{ NationCount }} </td>
+    	</tr>
+    	{% endfor %}
+    </table>
+  </form>
+  <br>
+{% endblock %}
