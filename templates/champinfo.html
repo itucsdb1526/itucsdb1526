@@ -52,8 +52,19 @@
     <input type="submit" value="Update Champ Info" name="champinfos_to_update"/>
   </form>  
 
+  </br>
+  <form action="{{ url_for('champinfo_page') }}" method="post"> 
+    <table>
+      <tr>  
+        <td><input type="text" name="name" required autofocus /> </td>
+      </tr> 
+    </table>
+    <input type="submit" value="Search Champion (Name or Team)" name="champinfos_to_search"/>
+  </form>
+  </br>
 
 
+  </br>
   <form action="{{ url_for('champinfo_page') }}" method="post">
     <table>
     	<tr>
@@ -81,14 +92,5 @@
 
   
 
-  </br>
-  <form action="{{ url_for('champinfo_page') }}" method="post"> 
-    <table>
-      <tr>  
-        <td><input type="text" name="name" required autofocus /> </td>
-      </tr> 
-    </table>
-    <input type="submit" value="Search Champion" name="champinfos_to_search"/>
-  </form>
-  </br>
+  
 {% endblock %}

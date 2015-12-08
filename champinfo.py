@@ -104,15 +104,14 @@ class Champinfo:
         with dbapi2.connect(self.cp) as connection:
             cursor = connection.cursor()
 
-            query = """SELECT year_id, years.title AS SYear, drivers.name AS SDriver, teams.title AS STeam
+            query = """SELECT year_id, years.title, drivers.name ,teams.title
                     FROM Champinfos LEFT JOIN years ON (year_id = years.id) 
                     LEFT JOIN drivers ON (driver_id=drivers.id) 
-                    LEFT JOIN teams ON (team_id = teams.id)
-                    ORDER BY years.id"""
+                    LEFT JOIN teams ON (team_id = teams.id) WHERE (drivers.name ILIKE '%%%s%%' OR teams.title ILIKE '%%%s%%' )
+                    ORDER BY year_id"""%(name,name)
                  
-            query = "SELECT * FROM (" + query + ") AS Derived WHERE (Derived.Syear ILIKE '%%%s%%' OR Derived.SDriver ILIKE '%%%s%%' OR Derived.STeam ILIKE '%%%s%%')" % (name,name,name)
+            
             
             cursor.execute(query)
-            print(query)
             rows = cursor.fetchall()
             return rows
