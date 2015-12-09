@@ -22,6 +22,7 @@ from successfulnats import SuccessfulNats
 from teams import Teams
 from Engines import Engines
 from champinfo import Champinfo
+from winrate import Winrate
 from init import INIT
 from func import Func
 app = Flask(__name__)
@@ -282,6 +283,38 @@ def champinfo_page():
         clist = cinfos.search_champinfolist(request.form['name'])
         return render_template('champinfo.html', ChampinfoList = clist, current_time = now.ctime())
     return redirect(url_for('champinfo_page'))
+
+
+@app.route('/Winrate', methods=['GET', 'POST'])
+def winrate_page():
+    winfos = Winrate(app.config['dsn'])
+    if request.method == 'GET':
+        now = datetime.datetime.now()
+        wlist = winfos.get_winratelist()
+        drivers=winfos.get_drivers()
+        teams=winfos.get_teams()
+        return render_template('winrate.html', WinrateList = wlist, drivers=drivers,teams=teams, current_time = now.ctime())
+    elif 'winrates_to_delete' in request.form:
+        ids = request.form.getlist('winrates_to_delete') 
+        for id in ids:
+            winfos.delete_winrate(id)
+        return redirect(url_for('winrate_page'))
+    elif 'winrates_to_add' in request.form:
+        nyear=request.form['nyear']
+        ndriv=request.form['ndriv']
+        nteam=request.form['nteam']
+        winfos.add_winrate(nyear,ndriv,nteam)
+    elif 'winrates_to_update' in request.form:
+        oyear=request.form['oyear']
+        nyear=request.form['nyear']
+        ndriv=request.form['ndriv']
+        nteam=request.form['nteam']
+        winfos.update_winrate(oyear,nyear,ndriv,nteam)
+    elif 'winrates_to_search' in request.form:
+        now = datetime.datetime.now()
+        wlist = winfos.search_winratelist(request.form['name'])
+        return render_template('winrate.html', WinrateList = wlist, current_time = now.ctime())
+    return redirect(url_for('winrate_page'))
 
 
 @app.route('/Drivers', methods=['GET', 'POST'])

@@ -381,6 +381,36 @@ class INIT:
            connection.commit()
 
 
+    def winrates(self):
+       with dbapi2.connect(self.cp) as connection:
+           cursor = connection.cursor()
+           query = "DROP TABLE IF EXISTS winrates"
+           cursor.execute(query)
+       
+           query = """CREATE TABLE winrates (
+                    year_id INTEGER REFERENCES years(id) ON DELETE CASCADE ON UPDATE CASCADE,
+                    driver_id INTEGER REFERENCES drivers(id) ON DELETE CASCADE ON UPDATE CASCADE,
+                    team_id INTEGER REFERENCES teams(id) ON DELETE CASCADE ON UPDATE CASCADE
+                )"""
+               
+            
+           cursor.execute(query)
+
+           query = """INSERT INTO winrates VALUES 
+            			(1,1,1),
+            			(2,5,5),
+            			(3,4,2),
+            			(4,2,5),
+            			(5,3,6),
+            			(6,4,3),
+            			(7,4,4),
+            			(8,1,2),
+            			(9,2,1)
+                             
+                   """
+           cursor.execute(query)
+           connection.commit()
+
 
 
 
@@ -457,4 +487,5 @@ class INIT:
         self.raceinfos()
         self.champinfos()
         self.finishdistr()
+        self.winrates()
 
