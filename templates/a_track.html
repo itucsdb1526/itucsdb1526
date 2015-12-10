@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block title %} {{ rally }} {% endblock %}
+
+{% block content %}
+
+<h1> {{ rally }} </h1>
+<div id = "NatInfo">
+  <p>
+  The <a>{{ rally }}</a> held in <a>{{ nat_name }}</a>. It organized first in <a>{{yr}}</a>.
+    
+  </p>
+</div>
+
+<br>
+
+<div id = "NatInfo">
+	<h3>Winner of {{ rally }} shown in table</h3>
+	<table>
+    	<tr>
+	        <th>Track</th>
+	        <th>Year</th>
+	        <th>First</th>
+	        <th>Second</th>
+	        <th>Third</th>
+	        <th>Fastest Driver</th>
+	        <th>Fastest Lap Time</th>
+    	</tr>
+
+    	{% for Track, Year, First, Second, Third, FastestDr, FastestLap in RaceList %}
+    	<tr>
+	        <td>{{Track}}</td>
+	        <td><a href="{{ url_for('a_year_page', year_title = Year) }}"> {{Year}}</a></td>
+	        <td>{{First}}</td>
+	        <td>{{Second}}</td>
+	        <td>{{Third}}</td>
+	        <td>{{FastestDr}}</td>
+	        <td>{{FastestLap}}</td>
+    	</tr>
+    	{% endfor %}
+
+    </table>
+</div>
+{% endblock %}

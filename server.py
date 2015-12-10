@@ -77,6 +77,28 @@ def a_nation_page(nat_title):
     trlist = nt.get_trackfornation(nat_id)
     return render_template('a_nation.html', Nation = nat, RaceList = rclist, TrackInfoList = trlist, current_time = now.ctime())
 
+
+@app.route('/Track_info/<track_title>', methods=['GET', 'POST'])
+def a_track_page(track_title):
+    now = datetime.datetime.now()
+    fn = Func(app.config['dsn'])
+    nt = Nations(app.config['dsn'])
+    rc = Raceinfos(app.config['dsn'])
+    
+    nat_id = fn.get_country(track_title)
+    tid=fn.get_trackid(track_title)
+    yr=fn.get_firstrace(track_title)
+    nat_name=fn.get_countryname(nat_id)
+
+    nat = nt.get_a_nation(nat_id)
+    if nat is None:
+        return render_template('404.html', current_time = now.ctime())
+
+    rclist = fn.get_trackinfo(tid)
+
+    return render_template('a_track.html', yr=yr,rally=track_title,Nation = nat,nat_name=nat_name, RaceList = rclist, current_time = now.ctime())
+
+
 @app.route('/Years', methods=['GET', 'POST'])
 def year_page():
     yrs = Years(app.config['dsn'])

@@ -55,6 +55,7 @@ class Nations:
                 return None
             nat = Nation(row[0], row[1], row[2], row[3], row[4])
             return nat
+            
     def get_trackfornation(self,nat_id):
         with dbapi2.connect(self.cp) as connection:
             cursor = connection.cursor()

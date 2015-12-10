@@ -28,8 +28,8 @@
       <tr>
         <td><input type="checkbox" name="trackinfo_to_delete" value="{{ id }}" /></td>
         <td>{{ id }}</td>
-        <td>{{ title }}</td>
-        <td>{{ nattittle }}</td>
+        <td><a href="{{ url_for('a_track_page', track_title = title) }}">{{ title }} </a></td>
+        <td><a href="{{ url_for('a_nation_page', nat_title = nattittle) }}">{{ nattittle }} </a></td>
         <td>{{ lenght }}</td>
       </tr>
       {% endfor %}

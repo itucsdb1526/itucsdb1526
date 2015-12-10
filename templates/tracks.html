@@ -16,7 +16,7 @@
       <tr>
         <td><input type="checkbox" name="tracks_to_delete" value="{{ id }}" /></td>
         <td>{{ id }}</td>
-        <td>{{ title }}</td>
+        <td><a href="{{ url_for('a_track_page', track_title = title) }}">{{ title }} </a></td>
       </tr>
       {% endfor %}
 
