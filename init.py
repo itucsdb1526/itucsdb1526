@@ -16,7 +16,8 @@ class INIT:
                 )"""
             cursor.execute(query)
 
-            cursor.execute("""INSERT INTO nations (title) VALUES ('Turkiye'), 
+            cursor.execute("""INSERT INTO nations (title) VALUES 
+              ('Turkey'), 
               ('Germany'),
               ('United Kingdom'),
               ('Czech Republic'),
@@ -185,16 +186,31 @@ class INIT:
             cursor.execute(query)
 
             query = """INSERT INTO tracks (title) VALUES 
-            		       ('Rally Jamaica'),
+            		       ('Bosphorus Rally'),
                        ('Intercity Istanbul Park'),
-                       ('Cochrane Winter Rally'),
-                       ('Rally Tasmania'),
+                       ('Auf nach Melsungen'),
+                       ('Cambrian Rally'),
+                       ('Jim Clark Rally'),
+                       ('Barum Czech Rally Zlín'),
+                       ('Rally Krkonoše'),
                        ('Rally Argentina'),
-                       ('Schneebergland Rallye'),
-                       ('Bushy Park Circuit'),
-                       ('Rally Van Haspengouw'),
+                       ('Circuit des Ardennes'),
+                       ('Rally Jamaica'),
+                       ('Rally Australia'),
+                       ('Cochrane Winter Rally'),
+                       ('Judenburg-Pölstal Rallye'),
+                       ('Rally Barbados'),
                        ('Rally Hebros'),
-                       ('Pražský Rallysprint');
+                       ('Arctic Lapland Rally'),
+                       ('Neste Oil Rally Finland'),
+                       ('Qatar International Rally'),
+                       ('Rally del Atlántico'),
+                       ('Rally Islas Canarias'),
+                       ('Rally Hokkaido'),
+                       ('Rally 1000 Miglia'),
+                       ('Rally Alpi Orientali'),
+                       ('Allianz Rallye'),
+                       ('Rallye Antibes Côte d’Azur');
                     """
             cursor.execute(query)
             connection.commit()
@@ -214,15 +230,30 @@ class INIT:
 
             query = """INSERT INTO track_info VALUES 
             			(1,1,4532.51),
-            			(2,5,4211.98),
-            			(3,4,4981.1),
-            			(4,2,4104.98),
+            			(2,1,4211.98),
+            			(3,2,4981.1),
+            			(4,3,4104.98),
             			(5,3,4696.51),
             			(6,4,3457.98),
             			(7,4,4771.51),
-            			(8,1,3987.98),
-            			(9,2,4532.51),
-            			(10,5,4211.98)
+            			(8,5,3987.98),
+            			(9,6,4532.51),
+            			(10,7,4211.98),
+                  (11,8,6234.1),
+                  (12,9,8754.8),
+                  (13,10,4498.6),
+                  (14,11,3741.6),
+                  (15,12,6628.0),
+                  (16,13,5387.4),
+                  (17,13,2981.4),
+                  (18,14,3641.52),
+                  (19,15,7534.45),
+                  (20,16,6842.4),
+                  (21,17,4918.7),
+                  (22,18,6479.85),
+                  (23,18,4718.62),
+                  (24,19,7485.69),
+                  (25,20,4483.7);
                     """
             cursor.execute(query)
             connection.commit()
