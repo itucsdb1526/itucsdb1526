@@ -1,5 +1,7 @@
 body {
-  background-color: white;
+ 
+
+  background-color:#fff7e5;
   color: #3F3F3F;
   font-family: Arial, Helvetica, sans-serif; 
   font-size: 11pt;
@@ -51,6 +53,12 @@ tr:hover{
 }
 
 html{
+  background-attachment: fixed;
+  background-position: center; 
+  background-image:url('../static/images/background.jpg');
+  opacity: 0.80;
+  background-size:auto ;
+  background-repeat: no-repeat;
   margin-right: 15%;
   margin-left:15%;
   width: 70%
