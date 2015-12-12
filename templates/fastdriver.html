@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %} Fastest Lap Numbers {% endblock %}
+
+{% block content %}
+  <div class="dbops">
+
+  <h3> This table shows number of races that drivers finish with fastest lap time.</h3>
+  <form action="{{ url_for('fastest_page') }}" method="post">
+    <table>
+      <tr>
+        <th>Driver Name</th>
+        <th>Fastest Lap Number</th>
+      </tr>
+
+      {% for driver, number in List %}
+      <tr>
+        <td>{{ driver }} </a></td>
+        <td> {{ number }} </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </form>
+  <br>
+{% endblock %}
