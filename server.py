@@ -10,7 +10,7 @@ from flask import render_template
 from flask.helpers import url_for
 from flask import request
 from finishdistr import Finishdistr
-
+from fastestdrivers import FastestDriver
 from tires import Tires
 from drivers import Drivers
 from tracks import Tracks
@@ -236,6 +236,14 @@ def tire_page():
     elif 'tires_to_update' in request.form:
         tirs.update_tire(request.form['id'], request.form['title'])
         return redirect(url_for('tire_page'))
+
+
+@app.route('/FastestDrivers', methods=['GET', 'POST'])
+def fastest_page():
+    fd = FastestDriver(app.config['dsn'])
+    now = datetime.datetime.now()
+    if request.method == 'GET':
+        return render_template('fastdriver.html', List = fd.get_fastestlist(), current_time = now.ctime())
 
 @app.route('/Teams', methods=['GET', 'POST'])
 def team_page():
