@@ -5,88 +5,30 @@
 {% block content %}
   <h3> Champions Winrate </h3>
 
-  <form action="{{ url_for('winrate_page') }}" method="post"> 
-    <table>
-      <tr> 
-        <th>New Year:</th> 
-        <td><input type="text" name="nyear" required autofocus /> </td>
-        <th>Champion:</th> 
-        <td> <select name="ndriv">
-          {% for driver in drivers %}
-            <option value="{{ driver }}">{{ driver }}</option>
-          {% endfor %}
-          </select> </td>
-        <th>Team:</th> 
-        <td> <select name="nteam">
-          {% for team in teams %}
-            <option value="{{ team }}">{{ team }}</option>
-          {% endfor %}
-          </select> </td>
-      </tr> 
-    </table>
-    <input type="submit" value="Add Champion Info" name="winrates_to_add"/>
-  </form>
-  </br>
-
-  <form action="{{ url_for('winrate_page') }}" method="post"> 
-    <table>
-      <tr> 
-        <th>Old Year:</th> 
-        <td><input type="text" name="oyear" required autofocus /> </td>
-        <th>New Year:</th> 
-        <td><input type="text" name="nyear" required autofocus /> </td>
-        <th>New Champion:</th> 
-        <td> <select name="ndriv">
-          {% for driver in drivers %}
-            <option value="{{ driver }}">{{ driver }}</option>
-          {% endfor %}
-          </select> </td>
-        <th>New Team:</th> 
-        <td> <select name="nteam">
-          {% for team in teams %}
-            <option value="{{ team }}">{{ team }}</option>
-          {% endfor %}
-          </select> </td>
-      </tr> 
-    </table>
-    <input type="submit" value="Update Champ Info" name="winrates_to_update"/>
-  </form>  
-
-  </br>
-  <form action="{{ url_for('winrate_page') }}" method="post"> 
-    <table>
-      <tr>  
-        <td><input type="text" name="name" required autofocus /> </td>
-      </tr> 
-    </table>
-    <input type="submit" value="Search Champion (Name or Team)" name="winrates_to_search"/>
-  </form>
-  </br>
-
-
   </br>
   <form action="{{ url_for('winrate_page') }}" method="post">
     <table>
     	<tr>
-        <th>Delete</th>
-        
-        <th>Year</th>
+        <th>Id</th>
         <th>Driver</th>
-        <th>Team</th>
+        <th>Number of Attanded Races</th>
+        <th>Number of First Place</th>
+        <th>Winning Rate(%)</th>
     	</tr>
 
-    	{% for id, title, drivtitle, teamtitle in WinrateList %}
+    	{% for id, title, topyaris, firstyaris, yuzde in WinrateList %}
     	<tr>
-    		<td><input type="checkbox" name="winrates_to_delete" value="{{ id }}" /></td>
     		
+    		<td>{{ id }}</td>
     		<td>{{ title }}</td>
-            <td>{{ drivtitle }}</td>
-            <td>{{ teamtitle }}</td>
+            <td>{{ topyaris }}</td>
+            <td>{{ firstyaris }}</td>
+            <td>{{ yuzde }}</td>
     	</tr>
     	{% endfor %}
 
     </table>
-    <input type="submit" value="Delete Checked Values" name="delete" /> 
+    
   </form>
   </br>
 
