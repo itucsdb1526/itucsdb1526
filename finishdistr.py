@@ -37,8 +37,8 @@ class Finishdistr:
             query = "SELECT COUNT(dr3_id) FROM RACEINFOS WHERE dr3_id = '%s'" % (id)
             cursor.execute(query)
             numberof3 = cursor.fetchall()[0][0]
-
-            query = "INSERT INTO FINISHDISTR VALUES ('%s','%s','%s','%s')" % (id,numberof1,numberof2,numberof3)
+            point= 25*numberof1 + 18*numberof2 + 15*numberof3
+            query = "INSERT INTO FINISHDISTR VALUES ('%s','%s','%s','%s','%s')" % (id,numberof1,numberof2,numberof3,point)
             cursor.execute(query)
             connection.commit()
             return
