@@ -443,19 +443,19 @@ class INIT:
                        ('Robert Woodside'),
                        ('Miguel Vazquez'),
                        ('Wilhelm Stengg'),
-                       ('Wilhelm Stengg1'),
+                       ('Marius Aasen'),
+                       ('Kevin Abbring'),
+                       ('Daniel Adamo'),
+                       ('Andrea Aghini'),
+                       ('Subhan Aksa'),
+                       ('Nasser Al-Attiyah'),
+                       ('Khalid Al-Qassimi'),
+                       ('Francisco Alcuaz'),
+                       ('Robert Woodside2'),
+                       ('Miguel Vazquez2'),
                        ('Wilhelm Stengg2'),
-                       ('Wilhelm Stengg3'),
-                       ('Wilhelm Stengg4'),
-                       ('Wilhelm Stengg5'),
-                       ('Wilhelm Stengg6'),
-                       ('Wilhelm Stengg7'),
-                       ('Wilhelm Stengg8'),
-                       ('Wilhelm Stengg9'),
-                       ('Wilhelm Stengg10'),
-                       ('Wilhelm Stengg11'),
-                       ('Wilhelm Stengg12'),
-                       ('Wilhelm Stengg13');
+                       ('Marius Aasen2'),
+                       ('Juan Carlos Alonso');
                     """
             cursor.execute(query)
             connection.commit()
@@ -472,18 +472,70 @@ class INIT:
                         ON UPDATE CASCADE,
                     number_first INTEGER,
                     number_second INTEGER,
-                    number_third INTEGER
+                    number_third INTEGER,
+                    point INTEGER
                 )"""
             cursor.execute(query)
             query = """INSERT INTO Finishdistr VALUES
-            			(1,2,2,2),
-            			(2,1,2,1),
-            			(3,1,4,1),
-            			(4,2,5,2),
-            			(5,4,1,3)
+            			(1,2,2,2,116),
+            			(2,1,2,1,76),
+            			(3,1,4,1,112),
+            			(4,2,5,2,170),
+            			(5,4,1,3,163)
                     """
             cursor.execute(query)
 
+            connection.commit()
+            
+    def sponsors(self):
+        with dbapi2.connect(self.cp) as connection:
+            cursor = connection.cursor()
+            query = "DROP TABLE IF EXISTS Sponsors CASCADE"
+            cursor.execute(query)
+
+            query = """CREATE TABLE Sponsors(
+                    id SERIAL PRIMARY KEY,
+                    name VARCHAR(40) UNIQUE NOT NULL
+                )"""
+            cursor.execute(query)
+
+            query = """INSERT INTO Sponsors (name) VALUES ('Erik Aaby'),
+                       ('Ferrari'),
+                       ('Force India'),
+                       ('Lotus'),
+                       ('Marussia'),
+                       ('McLaren'),
+                       ('Mercedes'),
+                       ('Red Bull'),
+                       ('Sauber'),
+                       ('Toro Rosso	'),
+                       ('Williams');
+                    """
+            cursor.execute(query)
+            connection.commit()
+    
+    def driverinfo(self):
+        with dbapi2.connect(self.cp) as connection:
+            cursor = connection.cursor()
+            query = "DROP TABLE IF EXISTS DriverInfo CASCADE"
+            cursor.execute(query)
+            query = """CREATE TABLE DriverInfo (
+                    driver_id INTEGER NOT NULL REFERENCES drivers(id)
+                        ON DELETE CASCADE
+                        ON UPDATE CASCADE,
+                    nationid INTEGER REFERENCES nations(id),
+                    age INTEGER,
+                    winning_number INTEGER
+                )"""
+            cursor.execute(query)
+            query = """INSERT INTO DriverInfo VALUES
+            			(1,1,21,2),
+            			(2,2,25,1),
+            			(3,3,40,1),
+            			(4,4,34,2),
+            			(5,5,27,4);
+                    """
+            cursor.execute(query)
             connection.commit()
 
     def All(self):
@@ -500,4 +552,6 @@ class INIT:
         self.champinfos()
         self.finishdistr()
         self.winrates()
+        self.sponsors()
+        self.driverinfo()
 
