@@ -8,10 +8,10 @@ class Winrate:
     def get_winratelist(self):
         with dbapi2.connect(self.cp) as connection:
             cursor = connection.cursor()
-            query = """SELECT driver1_id, drivers.name, (FINISHDISTR.number_first+FINISHDISTR.number_second+FINISHDISTR.number_third), FINISHDISTR.number_first, (FINISHDISTR.number_first*100/(FINISHDISTR.number_first+FINISHDISTR.number_second+FINISHDISTR.number_third))
+            query = """SELECT driver1_id, drivers.name, (FINISHDISTR.number_first+FINISHDISTR.number_second+FINISHDISTR.number_third), FINISHDISTR.number_first, (FINISHDISTR.number_first*100/(FINISHDISTR.number_first+FINISHDISTR.number_second+FINISHDISTR.number_third)) AS WINNRATE
                     FROM Winrates RIGHT JOIN drivers ON (driver1_id = drivers.id) 
                     LEFT JOIN FINISHDISTR ON (driver1_id = FINISHDISTR.DRIVER_ID) WHERE (FINISHDISTR.number_first != 0)
-                    ORDER BY driver1_id
+                    ORDER BY WINNRATE DESC
                     """
             cursor.execute(query)
             rows = cursor.fetchall()
