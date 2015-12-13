@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block title %} Driver Informations {% endblock %}
+
+{% block content %}
+  <h3> Drivers List </h3>
+  <form action="{{ url_for('drinfo_page') }}" method="post">
+    <table>
+    	<tr>
+    		<th>Delete</th>
+    		<th>Driver ID</th>
+            <th>Nation</th>
+    		<th>Age </th>
+            <th>Points </th>
+            <th>Number of Winnings </th>
+    	</tr>
+
+    	{% for driver_id,title , age,winning_number,point  in dr_list %}
+    	<tr>
+    		<td><input type="checkbox" name="drivers_to_delete" value="{{ driver_id }}" /></td>
+    		<td>{{ driver_id }}</td>
+            <td>{{ title }}</td>
+    		<td>{{ age }}</td>
+            <td>{{ point }}</td>
+            <td>{{ winning_number }}</td>
+    	</tr>
+    	{% endfor %}
+
+    </table>
+    <input type="submit" value="Delete Checked Values" name="delete" /> 
+  </form>
+  </br>
+  <form action="{{ url_for('drinfo_page') }}" method="post">
+    <table>
+      <tr> 
+        <th>Id:</th>
+        <td><input type="text" name="driver_id" required autofocus /> </td>
+        <th>Nation Id:</th>
+        <td><input type="text" name="nation_id" required autofocus /> </td>
+        <th>Age:</th>
+        <td><input type="text" name="age" required autofocus /> </td>
+      </tr> 
+    </table>
+    <input type="submit" value="Add Driver" name="drivers_to_add"/>
+  </form>
+  </br>
+
+
+
+<form action="{{ url_for('drinfo_page') }}" method="post">
+    <table>
+      <tr>
+        <th>ID to Search:</th>
+        <td><input type="text" name="id" required autofocus /> </td>
+      </tr>
+    </table>
+    <input type="submit" value="Search Driver" name="drivers_to_search"/>
+  </form>
+  </br>
+
+
+
+{% endblock %}
