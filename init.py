@@ -317,16 +317,16 @@ class INIT:
                )"""
            cursor.execute(query)
 
-           cursor.execute("INSERT INTO engines (title) VALUES ('Motor1')")
-           cursor.execute("INSERT INTO engines (title) VALUES ('Motor2')")
-           cursor.execute("INSERT INTO engines (title) VALUES ('Motor3')")
-           cursor.execute("INSERT INTO engines (title) VALUES ('Motor4')")
-           cursor.execute("INSERT INTO engines (title) VALUES ('Motor5')")
-           cursor.execute("INSERT INTO engines (title) VALUES ('Motor6')")
-           cursor.execute("INSERT INTO engines (title) VALUES ('Motor7')")
-           cursor.execute("INSERT INTO engines (title) VALUES ('Motor8')")
-           cursor.execute("INSERT INTO engines (title) VALUES ('Motor9')")
-           cursor.execute("INSERT INTO engines (title) VALUES ('Motor10')")
+           cursor.execute("INSERT INTO engines (title) VALUES ('Ford')")
+           cursor.execute("INSERT INTO engines (title) VALUES ('Honda')")
+           cursor.execute("INSERT INTO engines (title) VALUES ('Toyota')")
+           cursor.execute("INSERT INTO engines (title) VALUES ('Mazda')")
+           cursor.execute("INSERT INTO engines (title) VALUES ('Isuzu')")
+           cursor.execute("INSERT INTO engines (title) VALUES ('Mercedes')")
+           cursor.execute("INSERT INTO engines (title) VALUES ('Volkswagen')")
+           cursor.execute("INSERT INTO engines (title) VALUES ('BMW')")
+           cursor.execute("INSERT INTO engines (title) VALUES ('Fiat')")
+           cursor.execute("INSERT INTO engines (title) VALUES ('Volvo')")
            connection.commit()
 
     def champinfos(self):
