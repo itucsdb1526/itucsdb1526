@@ -4,6 +4,8 @@ import os
 import psycopg2 as dbapi2
 import re
 
+from driverinfo import DriverInfo
+from sponsors import Sponsors
 from flask import Flask
 from flask import redirect
 from flask import render_template
@@ -363,8 +365,43 @@ def fd_page():
         search_result = fd.search_byname(request.form['name'])
         return render_template('finishdistr.html', Fd_list = search_result, current_time = now.ctime())
     return redirect(url_for('fd_page'))
+@app.route('/Sponsors', methods=['GET', 'POST'])
+def sponsors_page():
+    sponsors = Sponsors(app.config['dsn'])
+    if request.method == 'GET':
+        now = datetime.datetime.now()
+        sponsors_list = sponsors.get_sponsorlist()
+        return render_template('sponsors.html', SponsorsList = sponsors_list, current_time = now.ctime())
+    elif 'sponsors_to_delete' in request.form:
+        ids = request.form.getlist('sponsors_to_delete')
+        for id in ids:
+            sponsors.delete_sponsor(id)
+        return redirect(url_for('sponsors_page'))
+    elif 'sponsors_to_add' in request.form:
+        sponsors.add_sponsor(request.form['name'])
+        return redirect(url_for('sponsors_page'))
+    elif 'sponsors_to_update' in request.form:
+        sponsors.update_sponsor(request.form['id'], request.form['name'])
+        return redirect(url_for('sponsors_page'))
 
-
+@app.route('/DriverInfo', methods=['GET', 'POST'])
+def drinfo_page():
+    dr = DriverInfo(app.config['dsn'])
+    if request.method == 'GET':
+        now = datetime.datetime.now()
+        dr_list=dr.get_driverinfo()
+        return render_template('driverinfo.html', dr_list = dr_list, current_time = now.ctime())
+    elif 'drivers_to_delete' in request.form:
+        ids = request.form.getlist('drivers_to_delete')
+        for driver_id in ids:
+            dr.delete_driver(driver_id)
+    elif 'drivers_to_add' in request.form:
+        dr.add_driver(request.form['driver_id'],request.form['nation_id'],request.form['age'])
+    elif 'drivers_to_search' in request.form:
+        now = datetime.datetime.now()
+        search_result = dr.search_byname(request.form['id'])
+        return render_template('driverinfo.html', dr_list = search_result, current_time = now.ctime())
+    return redirect(url_for('drinfo_page'))
 @app.route('/initdb')
 def init_db():
     initialize = INIT(app.config['dsn'])
