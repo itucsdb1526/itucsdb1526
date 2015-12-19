@@ -1,22 +1,34 @@
 User Guide
-==========
+=============
 
-**explain how your application works from the user perspective, use
-screenshots whereever appropriate**
+| This site designed for every user inlude inexperienced ones. Because of that usage is very simple.
 
-**to add a picture, use the following example**::
+Home Page
+------------
 
-   .. figure:: picture.png
-      :scale: 50 %
-      :alt: map to buried treasure
+| Home page is opening page of site. When user came this page shown. Home page contains navigation bar and main informations about rally.
 
-      This is the caption of the figure (a simple paragraph).
+
+.. figure:: images/homepage.png
+   :figclass: align-center
+
+   Home page
+
+Navigation Bar
+----------------
+
+| Navigation bar is useful for finding the wanted page. This bar contains links of homepage, tables accordence to developers and database initialization.
+
+.. figure:: images/navigation.png
+   :figclass: align-center
+
+   Navigation bar
+
 
 .. toctree::
-
-   member1
-   member2
-   member3
-   member4
-   member5
+   
+   alper
+   enes
+   mustafa
+   hanifi
    

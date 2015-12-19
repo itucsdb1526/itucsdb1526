@@ -74,7 +74,6 @@ class Track_info:
             cursor.execute(query)
             oid = cursor.fetchall()[0][0]
 
-
             query = "UPDATE tracks SET title='%s' WHERE title = '%s'" % (nname,oname)
             cursor.execute(query)
 
@@ -82,7 +81,6 @@ class Track_info:
             cursor.execute(query)
             cid = cursor.fetchall()[0][0]
 
-            
             query = "UPDATE track_info SET nation_id='%s',lenght='%s' WHERE track_id = '%s'" %(cid,len,oid)
             cursor.execute(query)
             connection.commit()

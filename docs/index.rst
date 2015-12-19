@@ -1,22 +1,24 @@
 Welcome to itucsdb's documentation!
-===================================
+=====================================
 
-:Team: Team Name
+:Team: Rally
 
 :Members:
 
-   * Member 1
-   * Member 2
-   * Member 3
-   * Member 4
-   * Member 5
+   * Alper Akyıldız
+   * Bilal Enes Fedar
+   * Mustafa Gökçeoğlu
+   * Hanifi Demirel
 
-**project description goes here (a few paragraphs)**
+|
+| This site contains information about rally races that held after 1980's.
+
 
 Contents:
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
+   installation/index
    user/index
    developer/index
