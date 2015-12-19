@@ -23,7 +23,7 @@ Navigation Bar
    :figclass: align-center
 
    Navigation bar
-
+   
 
 .. toctree::
    
