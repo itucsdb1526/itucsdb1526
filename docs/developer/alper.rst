@@ -357,7 +357,7 @@ Both of them cascade on update and delete. Length is numeric, contain length of 
             connection.commit()
             return
 
-| Track information updating
+| Track information searching
 +++++++++++++++++++++++++++++++
 
 | Search operation seek on track names and country names. There isn't additional search function. To search something get_trackinfolist function is used.
