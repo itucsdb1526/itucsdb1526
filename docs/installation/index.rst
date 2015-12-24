@@ -1,24 +1,47 @@
-Installation Guide
-======================
+Development Tools
+================================
 
-Database Design
----------------
 
-**explain the database design of your project**
 
-**include the E/R diagram(s)**
 
-Code
-----
 
-**explain the technical structure of your code**
 
-**to include a code listing, use the following example**::
 
-   .. code-block:: python
 
-      class Foo:
+.. image:: images/github.png
+   :height: 300px
+   :width: 400 px
+   :scale: 50 %
+   :target: https://github.com/
 
-         def __init__(self, x):
-            self.x = x
+.. image:: images/flask.png
+   :height: 300px
+   :width: 400 px
+   :scale: 50 %
+   :target: http://flask.pocoo.org/
 
+.. image:: images/bluemix.jpg
+   :height: 300px
+   :width: 400 px
+   :scale: 50 %
+   :target: https://console.ng.bluemix.net/
+
+.. image:: images/postgresql.png
+   :height: 300px
+   :width: 400 px
+   :scale: 50 %
+   :target: http://www.postgresql.org/
+
+.. image:: images/python.png
+   :height: 300px
+   :width: 400 px
+   :scale: 50 %
+   :target: https://www.python.org/
+
+.. image:: images/sphinx.png
+   :height: 300px
+   :width: 400 px
+   :scale: 50 %
+   :target: http://sphinx-doc.org/
+|
+|
