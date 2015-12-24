@@ -4,7 +4,7 @@ Parts Implemented by Alper Akyıldız
 | In this part you can find tables of tracks, tires, track information and fastest lap numbers of drivers.
 
 Track List Page
-----------------
+------------------
 
 | This table contains track names and their id's.
 
@@ -14,7 +14,7 @@ Track List Page
    Track list table
 
 Track adding
-+++++++++++++++
++++++++++++++++++
 
 | For adding new track you should write the new track name in the box of add track part and click the Add Track button.
 
@@ -48,7 +48,7 @@ Track updating
 
 
 Detailed Track Page
-----------------
+---------------------- 
 
 | Track names are clickable links. If you click them, detailed information about that track will be shown. Detailed track page contains races held in every year, first three ranking of them and fastest driver of that race informations. 
 

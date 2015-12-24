@@ -1,7 +1,7 @@
 Parts Implemented by Alper Akyıldız
 ======================================
 
-| Tracks List
+Tracks List
 ----------------
 
 | This table contains two attributes tracks and their id's. Id is primary key and serial. Title is string that length to 40 character. There are add, delete and update functions of this table.
@@ -37,7 +37,7 @@ Parts Implemented by Alper Akyıldız
             tras.update_track(request.form['id'], request.form['title'])
             return redirect(url_for('track_page'))
 
-| Track listing
+Track listing
 ++++++++++++++++++
 
 | Prints all of tracks.
@@ -53,7 +53,7 @@ Parts Implemented by Alper Akyıldız
             return rows
 
 
-| Track adding
+Track adding
 +++++++++++++++++++
 
 | Add track according to title. Id increment automatically.
@@ -67,7 +67,7 @@ Parts Implemented by Alper Akyıldız
             connection.commit()
             return
 
-| Track deleting
+Track deleting
 +++++++++++++++++++
 
 | Delete track according to id.
@@ -81,7 +81,7 @@ Parts Implemented by Alper Akyıldız
             connection.commit()
             return
 
-| Track updating
+Track updating
 +++++++++++++++++++
 
 | Select track according to id and rename it.
@@ -95,7 +95,7 @@ Parts Implemented by Alper Akyıldız
             connection.commit()
             return
 
-| Tires List
+Tires List
 ----------------
 
 | This table contains two attributes: tire names and their id's. Id is primary key and serial. Title is string that length to 40 character. There are add, delete and update functions of  table.
@@ -133,7 +133,7 @@ Parts Implemented by Alper Akyıldız
             return redirect(url_for('tire_page'))
 
 
-| Tire listing
+Tire listing
 ++++++++++++++++++
 
 | Prints all of tires.
@@ -149,7 +149,7 @@ Parts Implemented by Alper Akyıldız
             return rows
 
 
-| Tire adding
+Tire adding
 +++++++++++++++++++
 
 | Add track according to title. Id increment automatically.
@@ -165,7 +165,7 @@ Parts Implemented by Alper Akyıldız
             return
 
 
-| Tire deleting
+Tire deleting
 +++++++++++++++++++
 
 | Delete tire according to id.
@@ -181,7 +181,7 @@ Parts Implemented by Alper Akyıldız
             return
 
 
-| Track Information List
+Track Information List
 -----------------------------
 
 | This table contains three attributes track id nation id and length of pists. Track id referenced from tracks table and nation id referenced from nations table.
@@ -232,7 +232,7 @@ Both of them cascade on update and delete. Length is numeric, contain length of 
             return render_template('track_info.html', TrackInfoList = tlist, current_time = now.ctime())   
         return redirect(url_for('track_info_page'))
 
-| Track information listing
+Track information listing
 +++++++++++++++++++++++++++++
 
 | Prints all of tracks informations.
@@ -284,7 +284,7 @@ Both of them cascade on update and delete. Length is numeric, contain length of 
             return rows
 
 
-| Track information adding
+Track information adding
 +++++++++++++++++++++++++++++
 
 | add_trackinfo function crates new track on tracks table and take its id, find country id using given country name and insert new track information on track_info table using id's with length. 
@@ -314,7 +314,7 @@ Both of them cascade on update and delete. Length is numeric, contain length of 
 
 
 
-| Track information deleting
+Track information deleting
 +++++++++++++++++++++++++++++++
 
 | delete_tire function removes track information using track id on track_info table. 
@@ -330,7 +330,7 @@ Both of them cascade on update and delete. Length is numeric, contain length of 
             return 
 
 
-| Track information updating
+Track information updating
 +++++++++++++++++++++++++++++++
 
 |  update_trackinfo function takes old name of track, new name of track, new country and new length. It finds track id with old name, updates that tracks name. After that updates former track information with the new one.
@@ -357,7 +357,7 @@ Both of them cascade on update and delete. Length is numeric, contain length of 
             connection.commit()
             return
 
-| Track information searching
+Track information searching
 +++++++++++++++++++++++++++++++
 
 | Search operation seek on track names and country names. There isn't additional search function. To search something get_trackinfolist function is used.
@@ -379,7 +379,7 @@ Both of them cascade on update and delete. Length is numeric, contain length of 
 It is not necessary to write all of the name. Also this function is case insensitive.
 
 
-| Fastest Driver List
+Fastest Driver List
 -----------------------------
 
 | There isnt a table for this page. There is get_fastestlist function on fastestdrivers.py .
