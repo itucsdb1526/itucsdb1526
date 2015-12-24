@@ -1,8 +1,8 @@
 Developer Guide
-===============
+=================
 
 Database Design
----------------
+------------------
 
 **explain the database design of your project**
 
@@ -23,9 +23,9 @@ Code
             self.x = x
 
 .. toctree::
-
-   member1
-   member2
-   member3
-   member4
-   member5
+   :maxdepth: 1
+   
+   alper
+   enes
+   mustafa
+   hanifi

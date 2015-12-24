@@ -26,6 +26,7 @@ Navigation Bar
    
 
 .. toctree::
+   :maxdepth: 1
    
    alper
    enes

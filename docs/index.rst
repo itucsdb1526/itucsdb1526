@@ -1,14 +1,14 @@
 Welcome to itucsdb1526's documentation!
-=====================================
+=========================================
 
 :Team: Rally
 
 :Members:
 
-   * Alper Akyıldız
-   * Bilal Enes Fedar
-   * Mustafa Gökçeoğlu
-   * Hanifi Demirel
+   * Alper Akyıldız	   150120034
+   * Bilal Enes Fedar  150120031
+   * Mustafa Gökçeoğlu 150120018
+   * Hanifi Demirel    150120039
 
 |
 | This site contains information about rally races that held after 1980's.
@@ -17,7 +17,7 @@ Welcome to itucsdb1526's documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    installation/index
    user/index
