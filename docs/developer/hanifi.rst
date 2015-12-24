@@ -6,10 +6,10 @@ Parts Implemented by Hanifi Demirel
 
 
 .. Note::     
-            | **cursor()** allows python code to execute PostgreSQL command in database session. 
-            | **execute()** allows to execute database operation( query or command) 
-            | **commit()** commits pending transaction to the database. 
-            | **fetchall()** fetches all rows of query result and return them as list of tuples. 
+            | **cursor()** Allows Python code to execute PostgreSQL command in a database session. 
+            | **execute()** Prepare and execute a database operation 
+            | **commit()** Commit any pending transaction to the database. 
+            | **fetchall()** Fetch all (remaining) rows of a query result, returning them as a list of tuples.
 
 
 
