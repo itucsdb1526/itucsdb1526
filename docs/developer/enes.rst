@@ -1,8 +1,8 @@
 Parts Implemented by Bilal Enes Fedar
-=========================================
+=====================================
 
-| Nations List
--------------------
+Nations List
+--------------
 
 | Nations table is simple table that consists of nation id and nation title attributes. It's functions for operations are defined in nations.py file. There are codes below to create table or recover it if user clicks "initialize database" button.
 
@@ -40,8 +40,8 @@ Parts Implemented by Bilal Enes Fedar
 	        nats.update_nation(request.form['id'], request.form['title'])
 	        return redirect(url_for('nation_page'))
 
-| Nation Class default constructor
-+++++++++++++++++++++++++++++++++++
+Nation Class default constructor
+++++++++++++++++++++++++++++++++++
 
 | Gets cp parameter which will be app.config['dsn'] variable. This variable will be used as parameter in dbapi2.connect function. All implementations have a default constructor which wants dsn configuration as parameter like Nation class.
 
@@ -51,8 +51,8 @@ Parts Implemented by Bilal Enes Fedar
 	    self.cp = cp
 	    return
 
-| Print Nations
-+++++++++++++++++
+Print Nations
++++++++++++++++
 
 | Prints all nations ordered by id.
 
@@ -66,8 +66,8 @@ Parts Implemented by Bilal Enes Fedar
             rows = cursor.fetchall()
             return rows
 
-| Add Nation
-++++++++++++++++++
+Add Nation
+++++++++++++
 
 | Adds new nation to nations table.
 
@@ -81,7 +81,7 @@ Parts Implemented by Bilal Enes Fedar
             connection.commit()
             return
 
-| Delete Nation
+Delete Nation
 +++++++++++++++++++++
 
 | Deletes nation from nations table with given id. Deleting is performed with using checkboxes in page and there is a loop in server.py which calls this delete function for all selected checkboxes.
@@ -96,7 +96,7 @@ Parts Implemented by Bilal Enes Fedar
             connection.commit()
             return
 
-| Update Nation
+Update Nation
 +++++++++++++++++++++
 
 | Updates title of nation with given id.
@@ -112,7 +112,7 @@ Parts Implemented by Bilal Enes Fedar
             return
 
 
-| Years List
+Years List
 -------------------
 
 | Years table is basic table  consists of year id and year attributes. It's functions for operations are defined in years.py file. There are codes called from init.py file below to create table or recover it if user clicks "initialize database" button.
@@ -150,7 +150,7 @@ Parts Implemented by Bilal Enes Fedar
 	    return redirect(url_for('year_page'))
 
 
-| Print Years
+Print Years
 +++++++++++++++++
 
 | Prints all years ordered by id.
@@ -165,7 +165,7 @@ Parts Implemented by Bilal Enes Fedar
             rows = cursor.fetchall()
             return rows
 
-| Add Year
+Add Year
 ++++++++++++++++++
 
 | Adds new nation to nations table. User cannot add a year which is lower than 1952 or higher than 2999. Also there is a control checks whether user entered an integer or not.
@@ -187,7 +187,7 @@ Parts Implemented by Bilal Enes Fedar
                 connection.commit()
                 return
 
-| Delete Year
+Delete Year
 +++++++++++++++++++++
 
 | Deletes year from years table with given id. Deleting is performed with using checkboxes in page and there is a loop in server.py which calls this delete function for all selected checkboxes.
@@ -202,7 +202,7 @@ Parts Implemented by Bilal Enes Fedar
             connection.commit()
             return
 
-| Update Year
+Update Year
 +++++++++++++++++++++
 
 | Updates value of record with given id.
@@ -218,7 +218,7 @@ Parts Implemented by Bilal Enes Fedar
             return
 
 
-| Local Races
+Local Races
 -------------------
 
 | Local Races page uses raceinfos table which has many references to other tables. raceinfos table consists of 8 attributes which are track_id, year_id, dr1_id, dr2_id, dr3_id, nation_id, fastestdr_id, and fastest_time.
@@ -292,7 +292,7 @@ This table has add, delete, update, and search operations. It's functions for op
 	        return render_template('raceinfos.html', RaceList = racinflist, current_time = now.ctime(), TrackList = tr_list, NationList = nat_list, YearList = yr_list, DriverList = dr_list)
 
 
-| Print Local Races
+Print Local Races
 +++++++++++++++++
 
 | Prints all local races ordered by track and year attributes. nat_id parameter is used for specific nation page. year_title parameter is used for specific year page.
@@ -330,7 +330,7 @@ This table has add, delete, update, and search operations. It's functions for op
             rows = cursor.fetchall()
             return rows
 
-| Add Local Race
+Add Local Race
 ++++++++++++++++++
 
 | Adds new local race to raceinfos table. There is a restriction: First, Second and Third drivers of a race must be different than each other. If not, add operation is skipped. 
@@ -356,7 +356,7 @@ This table has add, delete, update, and search operations. It's functions for op
             connection.commit()
             return
 
-| Delete Local Race
+Delete Local Race
 +++++++++++++++++++++
 
 | Deletes a local race from raceinfos table with given track_id and year_id. Deleting is performed with using checkboxes in page and there is a loop in server.py which calls this delete function for all selected checkboxes. n_raceinfo parameter contains information like Turkey:2003. This information is parsed, ID's of track and year is found in this function. Finally, deleting operation is performed with track and year ids.
@@ -380,7 +380,7 @@ This table has add, delete, update, and search operations. It's functions for op
             connection.commit()
             return
 
-| Update Local Race
+Update Local Race
 +++++++++++++++++++++
 
 | Updates all attributes of local races except track and year. Form contains names of attributes and this function finds id's of these values. get_id function is used from Func class to find ids. There is a restriction same like add operation: First, Second, Third drivers must be different than each other.
@@ -406,7 +406,7 @@ This table has add, delete, update, and search operations. It's functions for op
             connection.commit()
             return
 
-| Search Local Race
+Search Local Race
 ++++++++++++++++++++
 
 | Search a local race in raceinfos table either by winner driver name or track title. Two search options is done in one function which is below:
@@ -434,6 +434,68 @@ This table has add, delete, update, and search operations. It's functions for op
                 query = "SELECT * FROM (" + query + ") AS Derived WHERE Derived.First ILIKE '%%%s%%'" % (form['SearchWinner'])
             if searchtype == 'track':
                 query = "SELECT * FROM (" + query + ") AS Derived WHERE Derived.Track ILIKE '%%%s%%'" % (form['SearchTrack'])
+            cursor.execute(query)
+            rows = cursor.fetchall()
+            return rows
+
+Most Successful Nations
+-------------------------------
+
+| Most successful nations page uses raceinfos table and perform group by & count operations on it. This page is a result of query which hasnot any table in database. Most Audience Nation column of Local Races table is used to calculate most successful nations. Most Audience Nation attribute is that there is a local race which has audience from different nations, but there is one nation which has biggest percent of audiences in count for local race.
+
+Print Most Successful Nations
++++++++++++++++++++++++++++++++++++
+
+Prints all rows of a result query.
+
+.. code-block:: python
+
+	def get_sucnatlist(self):
+        with dbapi2.connect(self.cp) as connection:
+
+            cursor = connection.cursor()
+            query = """SELECT nat.title AS Nation, COUNT(nat.title) AS NationCount FROM 
+                    raceinfos rc
+                    JOIN tracks tr ON tr.id = rc.track_id
+                    JOIN years yr ON yr.id = rc.year_id
+                    JOIN drivers dr1 ON dr1.id = rc.dr1_id
+                    JOIN drivers dr2 ON dr2.id = rc.dr2_id
+                    JOIN drivers dr3 ON dr3.id = rc.dr3_id
+                    JOIN nations nat ON nat.id = rc.nation_id
+                    JOIN drivers fdr ON fdr.id = rc.fastestdr_id
+                    GROUP BY nat.title
+                    ORDER BY NationCount DESC
+                    """
+
+            cursor.execute(query)
+            rows = cursor.fetchall()
+            return rows
+
+Search Most Successful Nations
++++++++++++++++++++++++++++++++++++++
+
+Searches for specific nation in a result query.
+
+.. code-block:: python
+
+	def search_sucnatlist(self, form):
+        with dbapi2.connect(self.cp) as connection:
+            cursor = connection.cursor()
+
+            query = """SELECT nat.title AS Nation, COUNT(nat.title) AS NationCount FROM 
+                    raceinfos rc
+                    JOIN tracks tr ON tr.id = rc.track_id
+                    JOIN years yr ON yr.id = rc.year_id
+                    JOIN drivers dr1 ON dr1.id = rc.dr1_id
+                    JOIN drivers dr2 ON dr2.id = rc.dr2_id
+                    JOIN drivers dr3 ON dr3.id = rc.dr3_id
+                    JOIN nations nat ON nat.id = rc.nation_id
+                    JOIN drivers fdr ON fdr.id = rc.fastestdr_id
+                    GROUP BY nat.title
+                    ORDER BY NationCount DESC
+                    """
+
+            query = "SELECT * FROM (" + query + ") AS Derived WHERE Derived.First ILIKE '%%%s%%'" % (form['SearchNation'])
             cursor.execute(query)
             rows = cursor.fetchall()
             return rows
