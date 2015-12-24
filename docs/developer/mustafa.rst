@@ -1,7 +1,7 @@
 Parts Implemented by Mustafa Gökçeoğlu
 ======================================
 
-| Note ;
+Note ;
 ++++++++++
     
 | cursor() Allows Python code to execute PostgreSQL command in a database session.
@@ -12,7 +12,7 @@ Parts Implemented by Mustafa Gökçeoğlu
 
 
 
-| Teams List
+Teams List
 ----------------
 
 | Teams table has got a id and title. Id is serial key and title which is unique in table. Title is team name in table.
@@ -50,7 +50,7 @@ Parts Implemented by Mustafa Gökçeoğlu
 
 
 
-| Teams listing
+Teams listing
 ++++++++++++++++++
 
 | Select all team in team table and show the all teams.
@@ -66,7 +66,7 @@ Parts Implemented by Mustafa Gökçeoğlu
             return rows
 
 
-| Teams adding
+Teams adding
 +++++++++++++++++++
 
 | This code is adding operation according to team name. Team id is calculated automatically.
@@ -81,7 +81,7 @@ Parts Implemented by Mustafa Gökçeoğlu
             return
 
 
-| Team deleting
+Team deleting
 +++++++++++++++++++
 
 | Team deleting operation work on team id. When we want to delete any team, this code is deleting from team table according to id.
@@ -96,7 +96,7 @@ Parts Implemented by Mustafa Gökçeoğlu
             return
 
 
-| Team updating
+Team updating
 +++++++++++++++++++
 
 | Team updating code works according to id, and code update the team name.
@@ -110,7 +110,7 @@ Parts Implemented by Mustafa Gökçeoğlu
             connection.commit()
             return
 
-| Engines List
+Engines List
 ----------------
 
 | Engines table has got a id and title. Id is serial key and title which is unique in table. Tittle is engine name in table.
@@ -148,7 +148,7 @@ Parts Implemented by Mustafa Gökçeoğlu
 
 
 
-| Engines listing
+Engines listing
 ++++++++++++++++++
 
 | Select all engine in engine table and show the all engines.
@@ -164,7 +164,7 @@ Parts Implemented by Mustafa Gökçeoğlu
             return rows
 
 
-| Engines adding
+Engines adding
 +++++++++++++++++++
 
 | This code is adding operation according to engine name. Engine id is calculated automatically.
@@ -179,7 +179,7 @@ Parts Implemented by Mustafa Gökçeoğlu
             return
 
 
-| Engine deleting
+Engine deleting
 +++++++++++++++++++
 
 | Engine deleting operation work on engine id. When we want to delete any engine, this code is deleting from engine table according to id.
@@ -194,7 +194,7 @@ Parts Implemented by Mustafa Gökçeoğlu
             return
 
 
-| Engine updating
+Engine updating
 +++++++++++++++++++
 
 | Engine updating code works according to id, and code update the engine name.
@@ -209,7 +209,7 @@ Parts Implemented by Mustafa Gökçeoğlu
             return
 
 
-| Champions of Years List
+Champions of Years List
 -----------------------------
 
 | This table contains three attributes year id driver id and team id. Year id referenced from years table for years, driver id referenced from drivers table for driver name and team id referenced from teams table for team name. These references have cascade operation for delete and update.
@@ -263,7 +263,7 @@ Parts Implemented by Mustafa Gökçeoğlu
         return redirect(url_for('champinfo_page'))
 
 
-| Champions of Years listing
+Champions of Years listing
 +++++++++++++++++++++++++++++
 
 
@@ -315,7 +315,7 @@ Parts Implemented by Mustafa Gökçeoğlu
             return rows
 
 
-| Champions of Years adding
+Champions of Years adding
 +++++++++++++++++++++++++++++
 
 | Add the new year for championship year. We cannot add same year since year is unique. When the champions year adding  we select the champion names and their team according to driver id and team id.
@@ -350,7 +350,7 @@ Parts Implemented by Mustafa Gökçeoğlu
 
 
 
-| Champions of Years deleting
+Champions of Years deleting
 +++++++++++++++++++++++++++++++
 
 | Champions deleting operation work on champions of year id. When we want to delete any champion, this code is deleting from champions of years table according to id. 
@@ -366,7 +366,7 @@ Parts Implemented by Mustafa Gökçeoğlu
             return 
 
 
-| Champions of Years updating
+Champions of Years updating
 +++++++++++++++++++++++++++++++
 
 |  This code updating the year, championship year and champions team. Firstly we find a old year which is updated. After that we can update year, champions name and champions team. We can also only updated champions year if we select new year and old year is same and champions name doesn't change. Finally, updates the champions of years information with using the new informations.
@@ -400,7 +400,7 @@ Parts Implemented by Mustafa Gökçeoğlu
             
             return
 
-| Champions of Years searching
+Champions of Years searching
 +++++++++++++++++++++++++++++++
 
 | Search operation is work on driver name and team name. We don't need write all team name or driver name.  This code finds the team name in team table or driver name in driver table.
@@ -426,7 +426,7 @@ Parts Implemented by Mustafa Gökçeoğlu
 
 
 
-| Winning Rate List
+Winning Rate List
 -----------------------------
 
 | This table contains only one attributes driver1 id for driver name. Driver1 id referenced from drivers table for driver name. These references have cascede operation for delete and update.
