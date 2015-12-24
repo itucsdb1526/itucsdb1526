@@ -232,3 +232,181 @@ Both of them cascade on update and delete. Length is numeric, contain length of 
             return render_template('track_info.html', TrackInfoList = tlist, current_time = now.ctime())   
         return redirect(url_for('track_info_page'))
 
+| Track information listing
++++++++++++++++++++++++++++++
+
+| Prints all of tracks informations.
+
+| get_nations function returns nation names. In server.py these nation names stored in nation tuple.
+
+.. code-block:: python
+
+    def get_nations(self):
+        with dbapi2.connect(self.cp) as connection:
+            cursor = connection.cursor()
+            query = """SELECT title FROM nations ORDER BY title"""
+            cursor.execute(query)
+            rows = cursor.fetchall()
+            nrows=[]
+            for row in rows:
+                nrows.append(row[0])
+            return nrows
+
+
+| get_tracks function returns track names. In server.py these tracks names stored in tracks tuple.
+
+.. code-block:: python
+
+    def get_tracks(self):
+        with dbapi2.connect(self.cp) as connection:
+            cursor = connection.cursor()
+            query = """SELECT title FROM tracks ORDER BY id"""
+            cursor.execute(query)
+            rows = cursor.fetchall()
+            nrows=[]
+            for row in rows:
+                nrows.append(row[0])
+            return nrows
+
+| get_trackinfolist function returns tracks id track titles nations of ttracks and length of them.
+
+.. code-block:: python
+
+    def get_trackinfolist(self,name):
+        with dbapi2.connect(self.cp) as connection:
+            cursor = connection.cursor()
+            query = """SELECT tracks.id, tracks.title, nations.title, lenght
+                    FROM track_info LEFT JOIN tracks ON (track_id = tracks.id) 
+                    LEFT JOIN nations ON (nation_id=nations.id) WHERE (tracks.title ILIKE '%%%s%%' OR nations.title ILIKE '%%%s%%')  
+                    ORDER BY tracks.id"""%(name,name)
+            cursor.execute(query)
+            rows = cursor.fetchall()
+            return rows
+
+
+| Track information adding
++++++++++++++++++++++++++++++
+
+| add_trackinfo function crates new track on tracks table and take its id, find country id using given country name and insert new track information on track_info table using id's with length. 
+
+.. code-block:: python
+
+    def add_trackinfo(self, nname,coun,len):
+        with dbapi2.connect(self.cp) as connection:
+            cursor = connection.cursor()
+            
+            query="""INSERT INTO tracks (title) VALUES ('%s')""" %(nname)
+            cursor.execute(query)
+
+            query = "SELECT id FROM tracks WHERE title = '%s'" % (nname)
+            cursor.execute(query)
+            nid = cursor.fetchall()[0][0]
+
+            query = "SELECT id FROM nations WHERE title = '%s'" % (coun)
+            cursor.execute(query)
+            cid = cursor.fetchall()[0][0]
+
+            query = """INSERT INTO track_info VALUES ('%s','%s','%s')""" %(nid,cid,len)
+            cursor.execute(query)
+
+            connection.commit()
+            return
+
+
+
+| Track information deleting
++++++++++++++++++++++++++++++++
+
+| delete_tire function removes track information using track id on track_info table. 
+
+.. code-block:: python
+
+    def delete_trackinfo(self, id):
+        with dbapi2.connect(self.cp) as connection:
+            cursor = connection.cursor()
+            query = "DELETE FROM track_info WHERE track_id = '%s'" %(id)
+            cursor.execute(query)
+            connection.commit()
+            return 
+
+
+| Track information updating
++++++++++++++++++++++++++++++++
+
+|  update_trackinfo function takes old name of track, new name of track, new country and new length. It finds track id with old name, updates that tracks name. After that updates former track information with the new one.
+
+.. code-block:: python
+
+    def update_trackinfo(self, oname,nname,coun,len):
+        with dbapi2.connect(self.cp) as connection:
+            cursor = connection.cursor()
+
+            query = "SELECT id FROM tracks WHERE title = '%s'" % (oname)
+            cursor.execute(query)
+            oid = cursor.fetchall()[0][0]
+
+            query = "UPDATE tracks SET title='%s' WHERE title = '%s'" % (nname,oname)
+            cursor.execute(query)
+
+            query = "SELECT id FROM nations WHERE title = '%s'" % (coun)
+            cursor.execute(query)
+            cid = cursor.fetchall()[0][0]
+
+            query = "UPDATE track_info SET nation_id='%s',lenght='%s' WHERE track_id = '%s'" %(cid,len,oid)
+            cursor.execute(query)
+            connection.commit()
+            return
+
+| Track information updating
++++++++++++++++++++++++++++++++
+
+| Search operation seek on track names and country names. There isn't additional search function. To search something get_trackinfolist function is used.
+
+.. code-block:: python
+
+    def get_trackinfolist(self,name):
+        with dbapi2.connect(self.cp) as connection:
+            cursor = connection.cursor()
+            query = """SELECT tracks.id, tracks.title, nations.title, lenght
+                    FROM track_info LEFT JOIN tracks ON (track_id = tracks.id) 
+                    LEFT JOIN nations ON (nation_id=nations.id) WHERE (tracks.title ILIKE '%%%s%%' OR nations.title ILIKE '%%%s%%')  
+                    ORDER BY tracks.id"""%(name,name)
+            cursor.execute(query)
+            rows = cursor.fetchall()
+            return rows
+
+| As mentioned at listing track information part, this function takes name of country or track that wanted to search and return information lines that related with this names.
+It is not necessary to write all of the name. Also this function is case insensitive.
+
+
+| Fastest Driver List
+-----------------------------
+
+| There isnt a table for this page. There is get_fastestlist function on fastestdrivers.py .
+
+.. code-block:: python
+
+    @app.route('/FastestDrivers', methods=['GET', 'POST'])
+    def fastest_page():
+        fd = FastestDriver(app.config['dsn'])
+        now = datetime.datetime.now()
+        if request.method == 'GET':
+            return render_template('fastdriver.html', List = fd.get_fastestlist(), current_time = now.ctime())
+
+| get_fastestlist function takes fastest drivers id and name, then group them according to name and order in descending.
+
+
+.. code-block:: python
+
+    def get_fastestlist(self):
+        with dbapi2.connect(self.cp) as connection:
+
+            cursor = connection.cursor()
+            query = """SELECT dr.name AS Driver, COUNT(rc.fastestdr_id) AS FastestCount FROM 
+                    raceinfos rc JOIN drivers dr ON dr.id = rc.fastestdr_id GROUP BY dr.name
+                    ORDER BY COUNT(rc.fastestdr_id) DESC
+                    """
+            cursor.execute(query)
+            rows = cursor.fetchall()
+            return rows
+
