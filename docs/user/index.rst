@@ -9,7 +9,7 @@ Home Page
 | Home page is opening page of site. When user came this page shown. Home page contains navigation bar and main informations about rally.
 
 
-.. figure:: images/homepage.png
+.. figure:: images/homepage.jpg
    :figclass: align-center
 
    Home page
@@ -45,6 +45,8 @@ Initialize Database Button
    Initialize Database Button
 
 
+Implemented Parts
+--------------------
 
 .. toctree::
    :maxdepth: 1

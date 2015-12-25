@@ -4,23 +4,48 @@ Developer Guide
 Database Design
 ------------------
 
-**explain the database design of your project**
+Alper Akyıldız
++++++++++++++++
 
-**include the E/R diagram(s)**
+* Track list (Track Name, Track ID)
+* Tire list (Tire Name, Tire ID)
+* Track information (Track ID, Nation ID, Length, Type)
+* Fastest lap distribution of drivers (# of Fastest Lap, Driver ID)
 
-Code
-----
+Bilal Enes Fedar
++++++++++++++++++++
 
-**explain the technical structure of your code**
+* Nation list (Nation ID, Nation Name)
+* Year list (Year ID, Year Number)
+* Local race information (Track ID, Year ID, Dr. ID’s of 1st 2nd 3rd , Nation ID, Fastest Lap Driver)
+* Most successful nations in local races
 
-**to include a code listing, use the following example**::
+Mustafa Gökçeoğlu
++++++++++++++++++++++
 
-   .. code-block:: python
+* Team list (Team ID, Team Name)
+* Engine list (Engine ID, Engine Name)
+* Champions of years (Year ID, Dr. ID, Team ID)
+* Driver winning rate (Win rate, Dr. ID)
 
-      class Foo:
+Hanifi Demirel
++++++++++++++++++++
 
-         def __init__(self, x):
-            self.x = x
+* Drivers List (Driver ID, Name)
+* Sponsor List (Sponsor ID, Sponsor Name)
+* Driver Info (Dr. ID, Nation ID, Age, World Rank, # of Wins)
+* Finish Distribution (Dr. ID, # of 1st 2nd 3rd finishes)
+
+ER Diagram
+++++++++++++
+
+.. figure:: images/erdiagram.png
+   :figclass: align-center
+
+   ER Diagram of Database
+
+Implemented Parts
++++++++++++++++++++
 
 .. toctree::
    :maxdepth: 1
