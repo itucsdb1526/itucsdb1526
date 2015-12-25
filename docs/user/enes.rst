@@ -5,7 +5,7 @@ Parts Implemented by Bilal Enes Fedar
 | In this part you can find tables of nations, years, races and most succesfull nations.
 
 Nations List Page
-----------------
+-------------------
 
 | This table contains nation names and their id's.
 
@@ -108,6 +108,16 @@ Year updating
 
    Year updating example
 
+Detailed Year Page
+++++++++++++++++++++++
+
+| Years is clickable like nations. When you click a specific year, you will be redirected that year's page which contain information about that year and local races is done in that year.
+
+.. figure:: images/detailedyear.png
+   :figclass: align-center
+
+   Detailed year page for 2005 year
+
 
 
 Local Races Page
@@ -155,7 +165,7 @@ Race updating
    Race updating example
 
 Race searching according to track name
-++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++
 
 | For search a race according to track name you should write a part of searched name of track in search box, then click Search button. This search operation is case-insensitive and searched characters can be any where of track names.
 
@@ -199,7 +209,7 @@ Race searching according to winner name
 
 
 Most Successful Nations Page
----------------------------
+-------------------------------
 
 | This table contains number of having most audience race of nations. There is not add, delete or update functions of this table because it automatcally update according to audience number of races.
 
