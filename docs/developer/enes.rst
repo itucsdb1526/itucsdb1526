@@ -221,8 +221,7 @@ Update Year
 Local Races
 -------------------
 
-| Local Races page uses raceinfos table which has many references to other tables. raceinfos table consists of 8 attributes which are track_id, year_id, dr1_id, dr2_id, dr3_id, nation_id, fastestdr_id, and fastest_time.
-This table has add, delete, update, and search operations. It's functions for operations are defined in raceinfos.py file. Primary key is (track_id, year_id). There are codes below to create table.
+| Local Races page uses raceinfos table which has many references to other tables. raceinfos table consists of 8 attributes which are track_id, year_id, dr1_id, dr2_id, dr3_id, nation_id, fastestdr_id, and fastest_time.This table has add, delete, update, and search operations. It's functions for operations are defined in raceinfos.py file. Primary key is (track_id, year_id). There are codes below to create table.
 
 .. code-block:: python
 
@@ -446,7 +445,7 @@ Most Successful Nations
 Print Most Successful Nations
 +++++++++++++++++++++++++++++++++++
 
-Prints all rows of a result query.
+| Prints all rows of a result query.
 
 .. code-block:: python
 
@@ -474,7 +473,7 @@ Prints all rows of a result query.
 Search Most Successful Nations
 +++++++++++++++++++++++++++++++++++++
 
-Searches for specific nation in a result query.
+| Searches for specific nation in a result query.
 
 .. code-block:: python
 
@@ -499,3 +498,103 @@ Searches for specific nation in a result query.
             cursor.execute(query)
             rows = cursor.fetchall()
             return rows
+
+Extras
+------------
+
+Specific Nation Page
+++++++++++++++++++++++
+
+| When nation title is clicked, user will be directed to specific nation page which contains detailed information about that nation. If there is no nation, user will be directed to 404 page. In server.py, some functions are called both from func.py and nations.py to implement specific nation page.
+
+.. code-block::python
+
+	@app.route('/Nations/<nat_title>', methods=['GET', 'POST'])
+	def a_nation_page(nat_title):
+	    now = datetime.datetime.now()
+	    fn = Func(app.config['dsn'])
+	    nt = Nations(app.config['dsn'])
+	    rc = Raceinfos(app.config['dsn'])
+
+	    nat_id = fn.get_id("nations", nat_title) #will be null if unknown title entered
+	    nat = nt.get_a_nation(nat_id)
+	    if nat is None:
+	        return render_template('404.html', current_time = now.ctime())
+	    rclist = rc.get_raceinfolist(nat_id = nat_id)
+	    trlist = nt.get_trackfornation(nat_id)
+	    return render_template('a_nation.html', Nation = nat, RaceList = rclist, TrackInfoList = trlist, current_time = now.ctime())
+
+| In nations.py, there are two functions are called from server.py:
+
+.. code-block:: python
+
+    def get_a_nation(self, id):
+        if id is None:
+            return None
+        with dbapi2.connect(self.cp) as connection:
+            cursor = connection.cursor()
+            query = """SELECT nat.title AS Title, ninf.capital AS Capital, ninf.area_size AS Area, 
+                    ninf.population AS Population, ninf.tld AS TLD
+                    FROM 
+                    nations_info ninf
+                    JOIN (SELECT * FROM Nations WHERE id = '%s') nat ON ninf.nation_id = nat.id
+                    """ % (id)
+            cursor.execute(query)
+            row = cursor.fetchone()
+            if row is None:
+                return None
+            nat = Nation(row[0], row[1], row[2], row[3], row[4])
+            return nat
+            
+    def get_trackfornation(self,nat_id):
+        with dbapi2.connect(self.cp) as connection:
+            cursor = connection.cursor()
+            query = """SELECT tracks.id, tracks.title, nat.title, lenght
+                    FROM track_info INNER JOIN tracks ON (track_id = tracks.id) 
+                    INNER JOIN (SELECT * FROM nations WHERE id = '%s') AS nat
+                    ON (nation_id=nat.id)
+                    ORDER BY tracks.id"""%(nat_id)
+            cursor.execute(query)
+            rows = cursor.fetchall()
+            return rows
+
+
+Specific Year Page
+++++++++++++++++++++
+
+| When a year is clicked on tables, user will be redirected to specific year page which contains information about only for that year. Implementation is done in server.py as shown below:
+
+.. code-block:: python
+
+	@app.route('/Years/<year_title>', methods=['GET', 'POST'])
+	def a_year_page(year_title):
+	    now = datetime.datetime.now()
+	    fn = Func(app.config['dsn'])
+	    rc = Raceinfos(app.config['dsn'])
+	    year_id = fn.get_id("years", year_title)
+	    if year_id is None:
+	        return render_template('404.html', current_time = now.ctime())
+	    rclist = rc.get_raceinfolist(year_title = year_title)
+	    return render_template('a_year.html', YearTitle = year_title, RaceList = rclist, current_time = now.ctime())
+
+404 Page
++++++++++++
+
+| If user tries to open page about unknown/invalid specific nation or year page, instead of internal server error page user will see 404 page. Implementation is done in server.py file.
+
+| For Nations:
+
+.. code-block:: python
+
+	nat = nt.get_a_nation(nat_id)
+	    if nat is None:
+	        return render_template('404.html', current_time = now.ctime())
+
+| For Years:
+
+.. code-block:: python
+
+    year_id = fn.get_id("years", year_title)
+    if year_id is None:
+        return render_template('404.html', current_time = now.ctime())
+
