@@ -269,7 +269,9 @@ Local Races
 	    if request.method == 'GET':
 	        now = datetime.datetime.now()
 	        racinflist = racs.get_raceinfolist()
-	        return render_template('raceinfos.html', RaceList = racinflist, current_time = now.ctime(), TrackList = tr_list, NationList = nat_list, YearList = yr_list, DriverList = dr_list)
+	        return render_template('raceinfos.html', RaceList = racinflist, 
+            current_time = now.ctime(), TrackList = tr_list, NationList = nat_list, 
+            YearList = yr_list, DriverList = dr_list)
 	    elif 'raceinfos_to_delete' in request.form:
 	        raceinfos = request.form.getlist('raceinfos_to_delete')
 	        for raceinfo in raceinfos:
@@ -284,11 +286,15 @@ Local Races
 	    elif 'raceinfos_to_searchwinner' in request.form:
 	        now = datetime.datetime.now()
 	        racinflist = racs.search_raceinfolist('winner', request.form)
-	        return render_template('raceinfos.html', RaceList = racinflist, current_time = now.ctime(), TrackList = tr_list, NationList = nat_list, YearList = yr_list, DriverList = dr_list)
+	        return render_template('raceinfos.html', RaceList = racinflist,
+            current_time = now.ctime(), TrackList = tr_list, NationList = nat_list,
+            YearList = yr_list, DriverList = dr_list)
 	    elif 'raceinfos_to_searchtrack' in request.form:
 	        now = datetime.datetime.now()
 	        racinflist = racs.search_raceinfolist('track', request.form)
-	        return render_template('raceinfos.html', RaceList = racinflist, current_time = now.ctime(), TrackList = tr_list, NationList = nat_list, YearList = yr_list, DriverList = dr_list)
+	        return render_template('raceinfos.html', RaceList = racinflist,
+            current_time = now.ctime(), TrackList = tr_list, NationList = nat_list, 
+            YearList = yr_list, DriverList = dr_list)
 
 
 Print Local Races
@@ -303,7 +309,8 @@ Print Local Races
             cursor = connection.cursor()
             query = """ SELECT tr.title AS Track, yr.title AS Year,
                     dr1.name AS First, dr2.name AS Second, dr3.name AS Third,
-                    nat.title AS Nation, fdr.name AS FastestDr, rc.fastest_time AS FastestLap FROM
+                    nat.title AS Nation, fdr.name AS FastestDr, 
+                    rc.fastest_time AS FastestLap FROM
                     """ 
                     
             if nat_id is None:
@@ -316,7 +323,8 @@ Print Local Races
             if year_title is None:
                 query += "JOIN years yr ON yr.id = rc.year_id"
             else:
-                query += "JOIN (SELECT * FROM years WHERE title = '%s') yr ON yr.id = rc.year_id" %(year_title)
+                query += "JOIN (SELECT * FROM years WHERE title = '%s') yr ON 
+                yr.id = rc.year_id" %(year_title)
             query +="""
                     JOIN drivers dr1 ON dr1.id = rc.dr1_id
                     JOIN drivers dr2 ON dr2.id = rc.dr2_id
@@ -350,7 +358,9 @@ Add Local Race
             
         with dbapi2.connect(self.cp) as connection:
             cursor = connection.cursor()
-            query = "INSERT INTO raceinfos  VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s' ,'%s')" % (track_id, year_id, dr1_id, dr2_id, dr3_id, nation_id, fastestdr_id, fastest_time)
+            query = """INSERT INTO raceinfos  
+            VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s' ,'%s')"""
+            % (track_id, year_id, dr1_id, dr2_id, dr3_id, nation_id, fastestdr_id, fastest_time)
             cursor.execute(query)
             connection.commit()
             return
@@ -374,7 +384,8 @@ Delete Local Race
             cursor.execute(query)
             year_id = cursor.fetchone()[0]
 
-            query = "DELETE FROM raceinfos WHERE (track_id = '%s' AND year_id = '%s')" % (str(track_id), str(year_id))
+            query = """DELETE FROM raceinfos WHERE (track_id = '%s' 
+            AND year_id = '%s')""" % (str(track_id), str(year_id))
             cursor.execute(query)
             connection.commit()
             return
@@ -400,7 +411,10 @@ Update Local Race
 
         with dbapi2.connect(self.cp) as connection:
             cursor = connection.cursor()
-            query = "UPDATE raceinfos SET dr1_id = '{0}', dr2_id = '{1}', dr3_id = '{2}', nation_id = '{3}', fastestdr_id = '{4}', fastest_time = '{5}' WHERE track_id = '{6}' AND year_id = '{7}'".format(dr1_id, dr2_id, dr3_id, nation_id, fastestdr_id, fastest_time, track_id, year_id)
+            query = "UPDATE raceinfos SET dr1_id = '{0}', dr2_id = '{1}', dr3_id = '{2}', 
+            nation_id = '{3}', fastestdr_id = '{4}', fastest_time = '{5}' 
+            WHERE track_id = '{6}' AND year_id = '{7}'".format(dr1_id, dr2_id, dr3_id, 
+            nation_id, fastestdr_id, fastest_time, track_id, year_id)
             cursor.execute(query)
             connection.commit()
             return
@@ -430,9 +444,11 @@ Search Local Race
                     ORDER BY rc.track_id ASC, rc.year_id ASC
                     """
             if searchtype == 'winner':
-                query = "SELECT * FROM (" + query + ") AS Derived WHERE Derived.First ILIKE '%%%s%%'" % (form['SearchWinner'])
+                query = "SELECT * FROM (" + query + ") AS Derived WHERE Derived.First ILIKE 
+                '%%%s%%'" % (form['SearchWinner'])
             if searchtype == 'track':
-                query = "SELECT * FROM (" + query + ") AS Derived WHERE Derived.Track ILIKE '%%%s%%'" % (form['SearchTrack'])
+                query = "SELECT * FROM (" + query + ") AS Derived WHERE Derived.Track ILIKE 
+                '%%%s%%'" % (form['SearchTrack'])
             cursor.execute(query)
             rows = cursor.fetchall()
             return rows
@@ -494,7 +510,8 @@ Search Most Successful Nations
                     ORDER BY NationCount DESC
                     """
 
-            query = "SELECT * FROM (" + query + ") AS Derived WHERE Derived.First ILIKE '%%%s%%'" % (form['SearchNation'])
+            query = "SELECT * FROM (" + query + ") AS Derived WHERE Derived.First ILIKE 
+            '%%%s%%'" % (form['SearchNation'])
             cursor.execute(query)
             rows = cursor.fetchall()
             return rows
@@ -533,11 +550,13 @@ Specific Nation Page
             return None
         with dbapi2.connect(self.cp) as connection:
             cursor = connection.cursor()
-            query = """SELECT nat.title AS Title, ninf.capital AS Capital, ninf.area_size AS Area, 
+            query = """SELECT nat.title AS Title, ninf.capital AS Capital, 
+                    ninf.area_size AS Area, 
                     ninf.population AS Population, ninf.tld AS TLD
                     FROM 
                     nations_info ninf
-                    JOIN (SELECT * FROM Nations WHERE id = '%s') nat ON ninf.nation_id = nat.id
+                    JOIN (SELECT * FROM Nations WHERE id = '%s') nat 
+                    ON ninf.nation_id = nat.id
                     """ % (id)
             cursor.execute(query)
             row = cursor.fetchone()
@@ -575,7 +594,8 @@ Specific Year Page
 	    if year_id is None:
 	        return render_template('404.html', current_time = now.ctime())
 	    rclist = rc.get_raceinfolist(year_title = year_title)
-	    return render_template('a_year.html', YearTitle = year_title, RaceList = rclist, current_time = now.ctime())
+	    return render_template('a_year.html', YearTitle = year_title, RaceList = rclist, 
+        current_time = now.ctime())
 
 404 Page
 +++++++++++
