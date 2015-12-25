@@ -70,6 +70,7 @@ Teams adding
 +++++++++++++++++++
 
 | This code is adding operation according to team name. Team id is calculated automatically.
+
 .. code-block:: python
 	
     def add_team(self, title):
@@ -85,6 +86,7 @@ Team deleting
 +++++++++++++++++++
 
 | Team deleting operation work on team id. When we want to delete any team, this code is deleting from team table according to id.
+
 .. code-block:: python
 	
     def delete_team(self, id):
@@ -100,6 +102,7 @@ Team updating
 +++++++++++++++++++
 
 | Team updating code works according to id, and code update the team name.
+
 .. code-block:: python
 	
     def update_team(self, id, title):
@@ -168,6 +171,7 @@ Engines adding
 +++++++++++++++++++
 
 | This code is adding operation according to engine name. Engine id is calculated automatically.
+
 .. code-block:: python
     
     def add_engine(self, title):
@@ -183,6 +187,7 @@ Engine deleting
 +++++++++++++++++++
 
 | Engine deleting operation work on engine id. When we want to delete any engine, this code is deleting from engine table according to id.
+
 .. code-block:: python
     
     def delete_engine(self, id):
@@ -198,6 +203,7 @@ Engine updating
 +++++++++++++++++++
 
 | Engine updating code works according to id, and code update the engine name.
+
 .. code-block:: python
     
     def update_engine(self, id, title):
